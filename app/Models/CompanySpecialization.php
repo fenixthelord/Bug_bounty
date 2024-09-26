@@ -9,12 +9,15 @@ class CompanySpecialization extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'company_id','specialization_id'
+        'company_id',
+        'specialization_id'
     ];
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo(Company::class);
     }
-    public function specilazation(){
+    public function specilazation()
+    {
         return $this->belongsTo(Specialization::class);
     }
 }
