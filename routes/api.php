@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Researcher\Auth\ChangePasswordController as ResearcherChangePasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+    ****************************************
+ ************* Researcher Route *****************
+    ****************************************
+ */
+
+Route::group(['prefix' => 'researcher', 'middleware' => ['auth:researcher']], function () {
+   # Change Password 
+   Route::post('/change-password', [ResearcherChangePasswordController::class, 'changePassword']);
 });

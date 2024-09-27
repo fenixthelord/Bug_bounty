@@ -9,11 +9,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Researcher extends Model
 {
-    use HasFactory,SoftDeletes,Uuid;
+    use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-        'uuid','name','email','password','phone','code','image','points','facebook','linkedin','github'
+        'uuid',
+        'name',
+        'email',
+        'password',
+        'phone',
+        'code',
+        'image',
+        'points',
+        'facebook',
+        'linkedin',
+        'github'
     ];
-    public function reports(){
+    public function reports()
+    {
         return $this->hasMany(Report::class);
     }
 }
