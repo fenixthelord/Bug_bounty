@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Researcher\Auth\ChangePasswordController as ResearcherChangePasswordController;
+use App\Http\Controllers\Api\Researcher\Auth\ForgetPasswordController as ResearcherForgetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,15 @@ use Illuminate\Support\Facades\Route;
     ****************************************
  */
 
-Route::group(['prefix' => 'researcher', 'middleware' => ['auth:researcher']], function () {
-   # Change Password 
-   Route::post('/change-password', [ResearcherChangePasswordController::class, 'changePassword']);
+Route::prefix('researcher')->group(function () {
+
+    # forget Password 
+    Route::post('/forgetPassword', [ResearcherForgetPasswordController::class, 'GenerateOTP']);
+    Route::post('/validateOtp', [ResearcherForgetPasswordController::class, 'ValidateOtp']);
+    Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
+
+    Route::middleware('auth:researcher')->group(function () {
+        # Change Password 
+        Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
+    });
 });
