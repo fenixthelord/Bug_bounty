@@ -13,22 +13,6 @@
             <!-- login page start -->
             <section id="auth-login" class="row flexbox-container">
                 <div class="col-xl-8 col-11">
-                    <style>
-
-                        .bg-dark-gray {
-                            background-color: #4a4a4a;
-                        }
-                        .bg-gray{
-                            background-color: #a7a7a7;
-                        }
- 
-
-.card-image {
-    width: 100%;
-    height: auto; 
-    border-radius: 8px 8px 8px 8px; 
-}
-                    </style>
                     <div class="card bg-dark-gray text-white  ">
                         <div class="row m-1">
                             <!-- left section-login -->
@@ -49,7 +33,7 @@
                                                 </div>--}}
                                             <div class="divider">
                                                 <div class="divider-text text-uppercase text-muted">
-                                                    <small>دائماً نسعد بكونك معنا واستخدام خدماتنا</small>
+                                                    <small>تسجيل الدخول الى لوحة الت</small>
                                                 </div>
                                             </div>
                                             <form method="post" action="{{ route('login') }}">
@@ -99,6 +83,21 @@
     </div>
 </div>
 <!-- END: Content-->
+                    <style>
+                        .bg-dark-gray {
+                            background-color: #4a4a4a;
+                            border-radius: 50px; 
+                        }
+                        .bg-gray{
+                            background-color: #a7a7a7;
+                            border-radius: 50px; 
 
+                        }
+                        .card-image {
+                            width: 100%;
+                            height: auto; 
+                            border-radius: 50px; 
+                        }
+                    </style>
 
 @include('panel.static.Auth.AuthFooter')

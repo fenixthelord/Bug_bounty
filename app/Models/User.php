@@ -21,8 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'type',
     ];
+
+    public function isSuperAdmin() {
+        return $this->type === 'super admin';
+    }
+
+    public function isAdmin() {
+        return $this->type === 'admin';
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,7 +52,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function reports(){
+
+    public function reports() {
         return $this->hasMany(Report::class);
     }
+
 }

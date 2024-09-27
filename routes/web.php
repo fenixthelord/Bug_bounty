@@ -3,6 +3,8 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +35,17 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 
 Route::get('/test', [DashboardController::class, 'index'])->name('Admin-Panel');
 Route::get('/404', [DashboardController::class, 'notFound'])->name('404');
-Route::get('/500', [DashboardController::class, 'serverError'])->name('404');
+Route::get('/500', [DashboardController::class, 'serverError'])->name('500');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 });
