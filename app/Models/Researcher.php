@@ -6,10 +6,12 @@ use App\Http\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class Researcher extends Model
 {
-    use HasFactory,SoftDeletes,Uuid;
+    use HasApiTokens,HasFactory,SoftDeletes,Uuid;
     protected $fillable = [
         'uuid','name','email','password','phone','code','image','points','facebook','linkedin','github'
     ];
