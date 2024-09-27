@@ -41,11 +41,11 @@ return [
             'provider' => 'users',
         ],
         'researcher'=> [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'researchers'
         ],
         'company'=> [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'companies'
         ],
     ],

@@ -140,7 +140,7 @@ class ResearcherRegisterController extends Controller
         $messages = [
             'code.required' => 'رمز التحقق مطلوب.',
             'code.integer' => 'رمز التحقق يجب أن يكون رقماً صحيحاً.',
-            'code.in' => 'رمز التحقق يجب ألا يزيد عن 8 أرقام',
+            'code.size' => 'رمز التحقق يجب ألا يزيد عن 8 أرقام',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
