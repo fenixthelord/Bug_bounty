@@ -3,7 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,3 +39,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');  
+Route::get('/researcher/{researcherUuid}/reports', [ReportController::class, 'showResearcherReports'])->name('researcher.reports');  
+Route::get('/reports/pending', [ReportController::class, 'showPendingReports'])->name('reports.pending');  
+Route::post('/reports/{reportUuid}/update-status', [ReportController::class, 'updateStatus'])->name('reports.update-status');  
+Route::get('/researchers', [ResearcherController::class, 'index'])->name('researchers.index');  

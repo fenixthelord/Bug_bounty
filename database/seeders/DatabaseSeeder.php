@@ -18,5 +18,18 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+          // Create 10 researchers  
+          \App\Models\Researcher::factory(10)->create();  
+        
+          // Create 5 companies  
+          \App\Models\Company::factory(5)->create()  
+              ->each(function ($company) {  
+                  // For each company, create 3 products  
+                  $company->products()->saveMany(\App\Models\Product::factory(3)->make())  
+                      ->each(function ($product) {  
+                          // For each product, create 2 reports  
+                          $product->reports()->saveMany(\App\Models\Report::factory(2)->make());  
+                      });  
+              });  
     }
 }

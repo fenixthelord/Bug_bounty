@@ -16,10 +16,11 @@
             </li>
             <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">2</span></a>
                 <ul class="menu-content">
-                    <li class="active"><a href="dashboard-ecommerce.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">eCommerce</span></a>
-                    </li>
-                    <li><a href="dashboard-analytics.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="Analytics">Analytics</span></a>
-                    </li>
+                <li><a href="{{ route('reports.index') }}">كل التقارير </a></li>  
+
+                        <li><a href="{{ route('reports.pending') }}">التقارير المعلقة</a></li> 
+                        <li><a href="{{ route('reports.researchers') }}">التقارير لباحث واحد</a></li>  
+ 
                 </ul>
             </li>
 
