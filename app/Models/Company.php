@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
+
     use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
         'uuid',
@@ -35,3 +36,4 @@ class Company extends Model
         return $this->hasMany(Product::class);
     }
 }
+
