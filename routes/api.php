@@ -3,7 +3,8 @@
 use App\Http\Controllers\Api\Researcher\Auth\ChangePasswordController as ResearcherChangePasswordController;
 use App\Http\Controllers\Api\Researcher\Auth\ForgetPasswordController as ResearcherForgetPasswordController;
 use Illuminate\Support\Facades\Route;
-
+use App\Model\Company;
+use App\Http\Controllers\Api\CompanyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+
+
+ 
+Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (){
+    Route::get('/show' , [CompanyController::class , 'index']);
+    Route::get('/show/{id}', [CompanyController::class , 'show']);
+    Route::post('/update/{id}' ,[CompanyController::class , 'update']);
+});
+
+
 
 /*
     ****************************************

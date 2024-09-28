@@ -27,4 +27,18 @@ class Product extends Model
     {
         return $this->hasMany(Report::class);
     }
+    
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->uuid = (string) Str::uuid(); // توليد UUID عند الإنشاء
+        });
+    }
 }
