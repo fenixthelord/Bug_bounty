@@ -10,9 +10,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Researcher extends Model
 {
     use HasFactory,SoftDeletes,Uuid;
+
     protected $fillable = [
         'uuid','name','email','password','phone','code','image','points','facebook','linkedin','github'
     ];
+ 
+    protected $dates = ['deleted_at'] ;
+  
+
+   
+
+
     public function reports(){
         return $this->hasMany(Report::class);
     }

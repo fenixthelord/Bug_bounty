@@ -78,6 +78,8 @@ class LoginController extends Controller
         }else{
             return redirect()->back()->withErrors(['email', 'Invalid credentials'])->withInput()->with('message', 'خطأ في البيانات');
         }
+
+    
     }
 
 
