@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Company extends Model
 {
     use HasFactory,SoftDeletes,Uuid;
+    public $timestamps = true;
+
     protected $fillable = [
         'uuid','name','phone','email','password','logo','type','description','domain','employess_count'
         ];
@@ -22,4 +24,5 @@ class Company extends Model
         public function products(){
             return $this->hasMany(Product::class);
         }
+
 }
