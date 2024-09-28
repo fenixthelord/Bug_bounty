@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SpecializationController;
+use App\Http\Controllers\FilterController;
 use App\Models\Company;
 use App\Models\Specialization;
 use App\Models\Researcher;
@@ -24,13 +25,13 @@ use App\Models\Researcher;
 
 
 // Custom Auth
-Route::get('/login',[LoginController::class,'show_login_form'])->name('login');
-Route::post('/login',[LoginController::class,'login']);
+Route::get('/login', [LoginController::class, 'show_login_form'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/register',[LoginController::class,'show_signup_form'])->name('register');
-Route::post('/register',[LoginController::class,'process_signup']);
+Route::get('/register', [LoginController::class, 'show_signup_form'])->name('register');
+Route::post('/register', [LoginController::class, 'process_signup']);
 
-Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
@@ -58,6 +59,7 @@ Route::get('/trashed', function () {
     $specializations = Specialization::onlyTrashed()->get();
     $researchers = Researcher::onlyTrashed()->get();
 
-    return view('layouts.trashed', compact('companies', 'specializations', 'researchers')); })->name('trashed.index');
+    return view('layouts.trashed', compact('companies', 'specializations', 'researchers'));
+})->name('trashed.index');
 
-
+Route::get('/researcher', [FilterController::class, 'index']);
