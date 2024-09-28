@@ -23,7 +23,7 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $id=Auth::user()->id;
+        $id=auth('company')->user()->id;
         $product=product::where('id',$id)->get();
         if(!$product){
             return $this->apiResponse(null,false,'not found',404);
@@ -50,7 +50,7 @@ class ProductController extends Controller
        $error = $validator->errors()->first();
       return $this->apiResponse(null, false, $error, 400);
         }
-        $id=Auth::user()->id;
+        $id=Auth('company')->user()->id;
         try {
             $product = Product::create([
                 'title' =>$request->title,
