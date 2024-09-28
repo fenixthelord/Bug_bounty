@@ -9,17 +9,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use HasFactory,SoftDeletes,Uuid;
+    use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-        'uuid','name','phone','email','password','logo','type','description','domain','employess_count'
-        ];
-        public function companySpecialization(){
-            return $this->hasMany(CompanySpecialization::class);
-        }
-        public function specializations(){
-            return $this->belongsToMany(Specialization::class);
-        }
-        public function products(){
-            return $this->hasMany(Product::class);
-        }
+        'uuid',
+        'name',
+        'phone',
+        'email',
+        'password',
+        'logo',
+        'type',
+        'description',
+        'domain',
+        'employess_count'
+    ];
+    public function companySpecialization()
+    {
+        return $this->hasMany(CompanySpecialization::class);
+    }
+    public function specializations()
+    {
+        return $this->belongsToMany(Specialization::class);
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
