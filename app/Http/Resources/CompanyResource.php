@@ -4,12 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Traits\GeneralTrait;
 
-class ResearcherResource extends JsonResource
+class CompanyResource extends JsonResource
 {
-    use GeneralTrait;
-
     /**
      * Transform the resource into an array.
      *
@@ -21,25 +18,28 @@ class ResearcherResource extends JsonResource
 
             'uuid' => $this->uuid ,
             'name'=> $this->name ,
-            'email' => $this->email,
             'phone' => $this->phone,
-            'code' => $this->code,
-            'image'=>$this->image,
-            'points'=>$this->points,
-            'facebook' => $this->facebook,
-            'linkedin' => $this->linkedin,
-            'github' => $this->github,
+            'email' => $this->email,
+            'logo' => $this->logo,
+            'type' => $this->type,
+            'description' => $this->description,
+            'domain' => $this->domain,
+            'employess_count' => $this->employess_count,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }
     public function successResponse()
     {
-        return $this->apiResponse(['researcher' => $this], true, null, 200);
+        return $this->apiResponse(['company' => $this], true, null, 200);
     }
     public function successResponseWithToken($token)
     {
-        return $this->apiResponse(['researcher' => $this,'token' => $token], true, null, 200);
+        return $this->apiResponse(['company' => $this,'token' => $token], true, null, 200);
     }
 }
+
+
+
+
 
 
