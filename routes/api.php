@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Model\Company;
+use App\Http\Controllers\Api\CompanyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+ 
+Route::group(['prefix' => 'company' ], function (){
+    Route::get('/show' , [CompanyController::class , 'index']);
+    Route::get('/show/{id}', [CompanyController::class , 'show']);
+    Route::post('/update/{id}' ,[CompanyController::class , 'update']);
 });
