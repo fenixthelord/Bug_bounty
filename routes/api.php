@@ -2,10 +2,7 @@
 
 use App\Http\Controllers\Api\Researcher\Auth\ChangePasswordController as ResearcherChangePasswordController;
 use App\Http\Controllers\Api\Researcher\Auth\ForgetPasswordController as ResearcherForgetPasswordController;
-use App\Model\Company;
 use App\Http\Controllers\Api\CompanyController;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\api\company\CompanyLoginController;
 use App\Http\Controllers\api\company\CompanyRegisterController;
 use App\Http\Controllers\api\researcher\ResearcherLoginController;
