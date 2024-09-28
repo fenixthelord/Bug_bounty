@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory,SoftDeletes,Uuid;
     protected $fillable = [
-        'uuid','title','description','company_id','status','terms'
+        'uuid','title','description','company_id','status','terms','url'
     ];
     public function company(){
         return $this->belongsTo(Company::class);
