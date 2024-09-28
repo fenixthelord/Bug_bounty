@@ -10,6 +10,10 @@ use App\Http\Controllers\api\researcher\ResearcherRegisterController;
 use Illuminate\Support\Facades\Route;
 
 
+
+
+use App\Http\Controllers\api\product\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,10 +24,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::prefix('')->middleware('auth::company')->
+group(function(){
+    Route::get('/all_product', [ProductController::class, 'index']);
+    Route::post('/add_product', [ProductController::class, 'store']);
+    Route::get('/delete_product', [ProductController::class, 'deletepackage']);
+});
 
 
 
- 
+
 Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (){
     Route::get('/show' , [CompanyController::class , 'index']);
     Route::get('/show/{id}', [CompanyController::class , 'show']);
@@ -40,13 +50,13 @@ Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (
 
 Route::prefix('researcher')->group(function () {
 
-    # forget Password 
+    # forget Password
     Route::post('/forgetPassword', [ResearcherForgetPasswordController::class, 'GenerateOTP']);
     Route::post('/validateOtp', [ResearcherForgetPasswordController::class, 'ValidateOtp']);
     Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
 
     Route::middleware('auth:researcher')->group(function () {
-        # Change Password 
+        # Change Password
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
     });
 
