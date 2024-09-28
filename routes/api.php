@@ -14,10 +14,10 @@ use App\Http\Controllers\Api\ReportController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-// Route::prefix('')->middleware('auth::company')->group(function() {
+Route::prefix('')->middleware('auth::company')->group(function() {
     Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
 
-// });
+});
 
 // بدنا نضيف  Middleware  على ال  Route
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

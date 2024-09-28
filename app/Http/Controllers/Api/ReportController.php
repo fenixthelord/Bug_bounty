@@ -15,8 +15,8 @@ class ReportController extends Controller
     use GeneralTrait;
     public function ReportByCompany(Request $request)
     {
-        // $company_id = auth('company')->user();
-        $company_id = $request->id;
+        $company_id = auth('company')->user();
+        // $company_id = $request->id;
         $company=Company::find($company_id);
         $report = $company->reports()->get();
 
