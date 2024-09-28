@@ -65,7 +65,7 @@ Route::post('/companyregister', [CompanyRegisterController::class, 'store']);
 Route::post('/companylogin',[CompanyLoginController::class,'login']);
 Route::post('/companylogout',[CompanyLoginController::class,'logout'])->middleware('auth:sanctum');
 
-Route::prefix('admin')->middleware([ 'auth:researcher'])->group(function () {
+Route::middleware([ 'auth:researcher'])->group(function () {
 
     Route::get('/Reports-Researcher', [ReportController::class, 'ReportByResearcher']);
     Route::post('/add-Reports-Researcher', [ReportController::class, 'addreport']);
