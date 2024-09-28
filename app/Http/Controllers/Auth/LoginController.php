@@ -23,30 +23,31 @@ class LoginController extends Controller {
     }
 
     public function login(Request $request) {
-    $request->validate([
-        'UserMail' => 'required',
-        'password' => 'required',
-    ]);
+        $request->validate([
+            'UserMail' => 'required',
+            'password' => 'required',
+        ]);
 
-    $login = $request->input('UserMail');
+        $login = $request->input('UserMail');
 
-    if (is_numeric($login)) {
-        $credentials = ['phone' => $login, 'password' => $request->password];
-    } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-        $credentials = ['email' => $login, 'password' => $request->password];
-    } else {
-        return redirect()->back()->withErrors(['UserMail' => 'البريد الإلكتروني أو رقم الهاتف غير صحيح'])->withInput();
-    }
-
-    if (auth()->attempt($credentials)) {
-        $user = auth()->user();
-        if ($user) {
-            return redirect()->route('Admin-Panel');
+        if (is_numeric($login)) {
+          $credentials = ['phone' => $login, 'password' => $request->password];
+        } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+          $credentials = ['email' => $login, 'password' => $request->password];
+        } else {
+          return redirect()->back()
+          ->withErrors(['UserMail' => 'البريد الإلكتروني أو رقم الهاتف غير صحيح'])->withInput();
         }
-    } else {
-        return redirect()->back()->withErrors(['UserMail' => 'خطأ في بيانات تسجيل الدخول'])->withInput();
+        // dd($credentials);
+        if (auth()->attempt($credentials)) {
+          $user = auth()->user();
+          if ($user) {
+            return redirect()->route('Admin-Panel');
+          }
+        } else {
+          return redirect()->back()->withErrors(['UserMail' => 'خطأ في بيانات تسجيل الدخول'])->withInput();
+          }
     }
-}
 
     public function logout() {
         \Auth::logout();

@@ -12,15 +12,16 @@ class AdminController extends Controller {
     }
 
     public function create(Request $request) {
+        // dd($user);
         $user = auth()->user();
         if (!$user || !$user->isSuperAdmin()) {
             return redirect()->route('home')->with('error', 'غير مصرح لك بإضافة مشرفين.');
         }
-
         return view('admin.create');
     }
 
     public function store(Request $request) {
+        // dd($request->all());
         $user = auth()->user();
         if (!$user || !$user->isSuperAdmin()) {
             return redirect()->route('home')->with('error', 'غير مصرح لك بإضافة مشرفين.');
@@ -29,18 +30,23 @@ class AdminController extends Controller {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'phone' => 'nullable|string|max:10',
         ]);
+  //dd($request->file('profile_picture'));
+        $profile_picture = $request->file('profile_picture') ? $request->file('profile_picture')
+        ->store('picture_profile') : null;
+      // dd($profile_picture);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'phone' => $request->phone,
+            'profile_picture' => $profile_picture,
             'type' => 'admin',
         ]);
-
+        // dd($request->all());
         return redirect()->route('admin.index')->with('success', 'تم إضافة المشرف بنجاح.');
     }
 

@@ -16,9 +16,10 @@ class SuperAdminSeeder extends Seeder {
         User::create([
             'name'=>'Qusai',
                 'email'=>'qusai@gmail.com',
-                'password'=>Hash::make('12345678'),
+                'password'=>'12345678',
                 'phone'=>'0962457472',
                 'type' => 'super admin',
+                'profile_picture' => 'app-assets/images/portrait/small/qusai.jpg'
         ]);
     }
 }

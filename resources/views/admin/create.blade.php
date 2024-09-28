@@ -8,7 +8,7 @@
                 <div class="card-header bg-danger text-white">إضافة مشرف جديد</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.store') }}">
+                    <form method="POST" action="{{ route('admin.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">الاسم</label>
@@ -26,8 +26,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password_confirmation">تأكيد كلمة المرور</label>
-                            <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
+                            <label for="phone">موبايل</label>
+                            <input id="phone" type="phone" class="form-control" name="phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile_picture">صورة شخصية</label>
+                            <input type="file" id="profile_picture" class="form-control"
+                             name="profile_picture">
                         </div>
 
                         <button type="submit" class="btn btn-danger">إضافة مشرف</button>

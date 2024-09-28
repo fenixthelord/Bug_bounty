@@ -20,7 +20,7 @@
 <!-- demo chat-->
 <div class="widget-chat-demo">
     <!-- widget chat demo footer button start -->
-    <button class="btn btn-primary chat-demo-button glow px-1"><i class="livicon-evo" data-options="name: comments.svg; style: lines; size: 24px; strokeColor: #fff; autoPlay: true; repeat: loop;"></i></button>
+    <button class="btn btn-danger chat-demo-button glow px-1"><i class="livicon-evo" data-options="name: comments.svg; style: lines; size: 24px; strokeColor: #fff; autoPlay: true; repeat: loop;"></i></button>
     <!-- widget chat demo footer button ends -->
     <!-- widget chat demo start -->
     <div class="widget-chat widget-chat-demo d-none">
@@ -73,7 +73,7 @@
             <div class="card-footer border-top p-1">
                 <form class="d-flex" onsubmit="widgetChatMessageDemo();" action="javascript:void(0);">
                     <input type="text" class="form-control chat-message-demo mr-75" placeholder="Type here...">
-                    <button type="submit" class="btn btn-primary glow px-1"><i class="bx bx-paper-plane"></i></button>
+                    <button type="submit" class="btn btn-danger glow px-1"><i class="bx bx-paper-plane"></i></button>
                 </form>
             </div>
         </div>
