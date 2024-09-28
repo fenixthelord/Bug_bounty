@@ -22,4 +22,8 @@ class Company extends Model
         public function products(){
             return $this->hasMany(Product::class);
         }
+        public function reports()
+    {
+        return $this->hasManyThrough(Report::class, Product::class);
+    }
 }
