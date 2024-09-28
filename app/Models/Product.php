@@ -11,13 +11,7 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-        'uuid',
-        'title',
-        'description',
-        'company_id',
-        'status',
-        'terms',
-        'url'
+        'uuid','title','description','company_id','status','terms','url'
     ];
     public function company()
     {
@@ -41,4 +35,5 @@ class Product extends Model
             $user->uuid = (string) Str::uuid(); // توليد UUID عند الإنشاء
         });
     }
+
 }

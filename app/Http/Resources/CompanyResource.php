@@ -4,11 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Traits\GeneralTrait;
 
 class CompanyResource extends JsonResource
 {
-    use GeneralTrait;
     /**
      * Transform the resource into an array.
      *
@@ -17,6 +15,7 @@ class CompanyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+
             'uuid' => $this->uuid ,
             'name'=> $this->name ,
             'phone' => $this->phone,
@@ -38,5 +37,9 @@ class CompanyResource extends JsonResource
         return $this->apiResponse(['company' => $this,'token' => $token], true, null, 200);
     }
 }
+
+
+
+
 
 
