@@ -24,7 +24,7 @@ class ReportController extends Controller
         try {
             //code...
             // $id = $request->researcher;
-            $idreseacher = Auth::user()->id;
+            $idreseacher = auth('researcher')->user()->id;
             $reports = Report::where('researcher_id', $idreseacher)->get();
             // dd($reports);
             if ($reports) {
@@ -42,7 +42,7 @@ class ReportController extends Controller
         try {
             //code...
 
-            $idreseacher = Auth::user()->id;
+            $idreseacher =auth('researcher')->user()->id;
             $validator = Validator::make($request->all(), [
                 'product_id' => 'required|exists:products,id',
                 'title' => 'required|string',
