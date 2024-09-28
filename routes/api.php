@@ -17,7 +17,7 @@ use App\Http\Controllers\Api\CompanyController;
 
 
  
-Route::group(['prefix' => 'company' ], function (){
+Route::group(['prefix' => 'company' , 'middleware'=>'auth:company'], function (){
     Route::get('/show' , [CompanyController::class , 'index']);
     Route::get('/show/{id}', [CompanyController::class , 'show']);
     Route::post('/update/{id}' ,[CompanyController::class , 'update']);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -64,9 +64,7 @@ public function update($id , Request $request){
         'employess_count' => 'required|integer|min:1',
     ]);
     
-  //   if (!Storage::exists('public/logos')) {
-  //     Storage::makeDirectory('public/logos');
-  // }
+
     if($request->hasFile('logo')) {
         $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد 
         $validateData['logo'] =$path ; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
