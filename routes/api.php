@@ -1,4 +1,4 @@
-<?php
+;<?php
 
 use App\Http\Controllers\Api\Researcher\Auth\ChangePasswordController as ResearcherChangePasswordController;
 use App\Http\Controllers\Api\Researcher\Auth\ForgetPasswordController as ResearcherForgetPasswordController;
@@ -8,6 +8,11 @@ use App\Model\Company;
 use App\Http\Controllers\Api\CompanyController;
 use  App\Http\Controllers\ReportController;
 use App\Http\Controllers\researcher\ResearcherController;
+use App\Http\Controllers\api\company\CompanyLoginController;
+use App\Http\Controllers\api\company\CompanyRegisterController;
+use App\Http\Controllers\api\researcher\ResearcherLoginController;
+use App\Http\Controllers\api\researcher\ResearcherRegisterController;
+use App\Http\Controllers\api\product\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +24,12 @@ use App\Http\Controllers\researcher\ResearcherController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-
+Route::prefix('')->middleware('auth::company')->
+group(function(){
+    Route::get('/all_product', [ProductController::class, 'index']);
+    Route::post('/add_product', [ProductController::class, 'store']);
+    Route::get('/delete_product', [ProductController::class, 'deletepackage']);
+});
 
 
 
@@ -50,15 +59,15 @@ Route::prefix('researcher')->group(function () {
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
         Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
     });
+
 });
 
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
+Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class,'registerCode']);
+Route::post('/researcherlogin',[ResearcherLoginController::class,'login']);
+Route::post('/researcherlogout',[ResearcherLoginController::class,'logout'])->middleware('auth:sanctum');
 
-
-
-///////edit data researsher////
-
-Route::post('/editreshearsher/{id}', [ResearcherController::class, 'editresearsher']);
+Route::post('/companyregister', [CompanyRegisterController::class, 'store']);
+Route::post('/companylogin',[CompanyLoginController::class,'login']);
+Route::post('/companylogout',[CompanyLoginController::class,'logout'])->middleware('auth:sanctum');
