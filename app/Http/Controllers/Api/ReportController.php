@@ -16,7 +16,7 @@ class ReportController extends Controller
     use GeneralTrait;
     public function __construct()
     {
-        $this->middleware('auth::researcher');
+        $this->middleware('auth:researcher');
 
     }
     public function ReportByResearcher(Request $request)
