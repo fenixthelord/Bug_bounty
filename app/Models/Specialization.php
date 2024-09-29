@@ -11,7 +11,7 @@ use App\Models\Company;
 
 class Specialization extends Model
 {
-    use HasFactory,SoftDeletes,Uuid;
+    use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
         'uuid','title'
         ];

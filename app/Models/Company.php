@@ -11,7 +11,9 @@ use App\Models\Product;
 use App\Models\Specialization;
 class Company extends Model
 {
+
     use HasFactory,SoftDeletes,Uuid;
+
     protected $fillable = [
         'uuid','name','phone','email','password','logo','type','description','domain','employess_count'
         ];

@@ -49,6 +49,25 @@ class AdminCompanyController extends Controller
         }
     }
 
+    public function search(Request $request)
+    {
+        $company=Company::where('name',$request->company)->first();
+        if($company){
+        return view('company.show',['company'=>$company]);
+        }else{
+            return view('error.404');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * Show the form for editing the specified resource.
      */

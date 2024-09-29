@@ -42,7 +42,7 @@ Route::get('/', function () {
 Route::prefix('/admin')->middleware('auth')->group(function(){
 Route::get('/company',[AdminCompanyController::class,'index'])->name('admin.company');
 Route::get('/company/show/{company}',[AdminCompanyController::class,'show'])->name('admin.company.show');
-
+Route::get('/company/search',[AdminCompanyController::class,'search'])->name('admin.company.search');
 });
 
 

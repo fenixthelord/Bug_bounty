@@ -11,17 +11,28 @@ use App\Models\Researcher;
 use App\Models\User;
 class Report extends Model
 {
-    use HasFactory,SoftDeletes,Uuid;
+    use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-        'uuid','product_id','researcher_id','title','file','status','review_status','user_id','canceled_note'
+        'uuid',
+        'product_id',
+        'researcher_id',
+        'title',
+        'file',
+        'status',
+        'review_status',
+        'user_id',
+        'canceled_note'
     ];
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
-    public function researcher(){
+    public function researcher()
+    {
         return $this->belongsTo(Researcher::class);
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

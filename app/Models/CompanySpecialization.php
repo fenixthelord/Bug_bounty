@@ -10,7 +10,8 @@ class CompanySpecialization extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'company_id','specialization_id'
+        'company_id',
+        'specialization_id'
     ];
     protected $table="company_specializations";
     public function company(){
