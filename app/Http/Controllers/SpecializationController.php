@@ -48,7 +48,7 @@ class SpecializationController extends Controller
     {
         //
         $specialization=Specialization::findOrFail($id);
-        $companies=$specialization->company;
+        $companies=$specialization->companies;
         return view('layouts.Specialization.company',compact('specialization','companies'));
     }
 

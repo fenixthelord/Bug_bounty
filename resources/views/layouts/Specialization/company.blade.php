@@ -18,8 +18,8 @@
         </thead>
         <tbody>
 
-            @if ($companies && $companies->count() > 0)
-            @foreach ($companies as $company)
+            
+            @foreach ($specialization->company as $company)
                 <tr>
                     <td>
                         @if ($company->image)
@@ -37,11 +37,7 @@
                     
                    
             @endforeach
-            @else
-    <tr>
-        <td colspan="6">No companies found.</td>
-    </tr>
-@endif
+  
         </tbody>
     </table>
 @endsection
