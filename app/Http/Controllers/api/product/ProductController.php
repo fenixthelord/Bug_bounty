@@ -18,20 +18,6 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-<<<<<<< HEAD
-        $this->middleware('auth::company');
-
-    }
-    public function index()
-    {
-        $id=Auth::user()->id;
-        $product=product::where('id',$id)->get();
-        if(!$product){
-            return $this->apiResponse(null,false,'not found',404);
-        }
-        $data['product']=productResource::collection($product);
-        return $this->apiResponse($data,true,null,200);
-=======
         $this->middleware('auth:company');
     }
     public function index()
@@ -43,7 +29,6 @@ class ProductController extends Controller
         }
         $data['product'] = productResource::collection($product);
         return $this->apiResponse($data, true, null, 200);
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
     }
 
     /**
@@ -51,35 +36,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        $validator = Validator::make($request->all(), [
-
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'company_id' => 'required|integer',
-            'url' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-
-       $error = $validator->errors()->first();
-      return $this->apiResponse(null, false, $error, 400);
-        }
-        $id=Auth::user()->id;
-        try {
-            $product = Product::create([
-                'title' =>$request->title,
-                'description' =>$request->description,
-                'company_id' =>$id,
-                'terms'=>'',
-                'url' =>$request->url,
-
-            ]);
-            $data['product']=$product;
-            return $this->apiResponse($data, true, null, 200);
-        }
-        catch (\Exception $ex) {
-=======
         $validator = Validator::make(
             $request->all(),
             [
@@ -105,7 +61,6 @@ class ProductController extends Controller
             $data['product'] = ProductResource::make($product);
             return $this->apiResponse($data, true, null, 200);
         } catch (\Exception $ex) {
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
@@ -134,16 +89,6 @@ class ProductController extends Controller
         //
     }
 
-<<<<<<< HEAD
-public function deletepackage(Request $request)
-{
-
-    $Product = Product::find($request->uuid);
-
-    $Product->delete();
-    return $this->apiResponse('تم الحذف بنجاح',true,null,200);
-}
-=======
     public function deletepackage(Request $request)
     {
 
@@ -152,5 +97,4 @@ public function deletepackage(Request $request)
         $Product->delete();
         return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
     }
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 }
