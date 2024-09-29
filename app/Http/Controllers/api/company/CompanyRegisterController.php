@@ -37,7 +37,7 @@ class CompanyRegisterController extends Controller
             'name' => [
                 'required',
                 'string',
-                'regex:/^[\p{Arabic}\s]+$/u',
+                'regex:/^[\p{Arabic}a-zA-Z0-9\s]+$/u',
                 'max:255',
             ],
             'domain' => [
@@ -73,7 +73,7 @@ class CompanyRegisterController extends Controller
         $messages = [
             'name.required' => 'اسم الشركة مطلوب. يرجى إدخال اسم الشخص.',
             'name.string' => 'اسم الشركة يجب أن يكون نصاً صحيحاً.',
-            'name.regex' => 'اسم الشركة يجب أن يحتوي فقط على حروف عربية ومسافات.',
+            'name.regex' => 'اسم الشركة يجب أن يحتوي فقط على حروف عربية أو انكليزية و مسافات و يمكن أن تحتوي على أرقام .',
             'name.max' => 'اسم الشركة يجب ألا يزيد عن 255 حرفاً.',
             
             'domain.required' => 'الدومين مطلوب. يرجى إدخال دومين صحيح.',
