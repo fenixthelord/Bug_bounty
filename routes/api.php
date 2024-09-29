@@ -7,6 +7,10 @@ use App\Http\Controllers\api\company\CompanyLoginController;
 use App\Http\Controllers\api\company\CompanyRegisterController;
 use App\Http\Controllers\api\researcher\ResearcherLoginController;
 use App\Http\Controllers\api\researcher\ResearcherRegisterController;
+
+use App\Http\Controllers\Api\ReportController;
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -85,4 +89,11 @@ Route::prefix('researcher')->group(function () {
         # Change Password
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
     });
+});
+
+
+Route::middleware([ 'auth:researcher'])->group(function () {
+
+    Route::get('/Reports-Researcher', [ReportController::class, 'ReportByResearcher']);
+    Route::post('/add-Reports-Researcher', [ReportController::class, 'addreport']);
 });
