@@ -37,7 +37,7 @@ class CompanyRegisterController extends Controller
             'name' => [
                 'required',
                 'string',
-                'regex:/^[\p{Arabic}\s]+$/u',
+                'regex:/^[\p{Arabic}a-zA-Z0-9\s]+$/u',
                 'max:255',
             ],
             'domain' => [
