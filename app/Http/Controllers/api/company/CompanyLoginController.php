@@ -72,7 +72,7 @@ class CompanyLoginController extends Controller
         // {
         //     return $this->unAuthorizeResponse();
         // }
-
+        
         $token = $company->createToken('auth_token')->plainTextToken;
 
         return (new CompanyResource($company))->successResponseWithToken($token);
