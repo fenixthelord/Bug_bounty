@@ -8,27 +8,38 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
-class Company extends Model 
+class Company extends Model
 {
 
-    use HasApiTokens,HasFactory,SoftDeletes,Uuid;
+    use HasApiTokens, HasFactory, SoftDeletes, Uuid;
 
     protected $fillable = [
 
-        'uuid','name','phone','email','password','logo','type','description','domain','employess_count'
-        ];
-        public function companySpecialization(){
-            return $this->hasMany(CompanySpecialization::class);
-        }
-        public function specializations(){
-            return $this->belongsToMany(Specialization::class);
-        }
-        public function products(){
-            return $this->hasMany(Product::class);
-        }
-        public function reports()
+        'uuid',
+        'name',
+        'phone',
+        'email',
+        'password',
+        'logo',
+        'type',
+        'description',
+        'domain',
+        'employess_count'
+    ];
+    public function companySpecialization()
+    {
+        return $this->hasMany(CompanySpecialization::class);
+    }
+    public function specializations()
+    {
+        return $this->belongsToMany(Specialization::class);
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'company_id');
+    }
+    public function reports()
     {
         return $this->hasManyThrough(Report::class, Product::class);
-
     }
 }

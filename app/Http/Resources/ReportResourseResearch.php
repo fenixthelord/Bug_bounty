@@ -18,7 +18,7 @@ class ReportResourseResearch extends JsonResource
         [
             'id'=>$this->uuid,
             'title'=>$this->title,
-            'company_name' => CompanyResource::collection($this->product?->company?->get('name')),
+            'company_name' => $this->product->company->name,
             'created_at' =>$this->created_at,
             'file' => $this->file ,
             'status' => $this->status

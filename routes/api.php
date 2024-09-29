@@ -86,6 +86,7 @@ Route::prefix('researcher')->group(function () {
 
         # Reports
         Route::get('/reports-researcher', [ReportController::class, 'ReportByResearcher']);
+        Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
     });
 });
