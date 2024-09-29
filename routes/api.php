@@ -73,6 +73,6 @@ Route::post('/companylogin',[CompanyLoginController::class,'login']);
 Route::post('/companylogout',[CompanyLoginController::class,'logout'])->middleware('auth:sanctum');
 
 
-
+////this is the route anas ///
 Route::post('/show/{uuid}', [ResearcherController::class , 'editresearsher']);
-Route::post('/update/{uuid}', [ResearcherController::class , 'updateprofile']);
+Route::post('/update/{uuid}', [ResearcherController::class , 'updateprofile']); 

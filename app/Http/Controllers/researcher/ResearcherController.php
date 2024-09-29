@@ -14,6 +14,7 @@ use Illuminate\Validation\Rule;
 class ResearcherController extends Controller
 {
 use GeneralTrait;
+
     public function searchCompany( Request $request)
     {
         try {
@@ -56,7 +57,7 @@ use GeneralTrait;
 
         public function updateprofile($uuid , Request $request){
             $researcher = Researcher::where("uuid",$uuid)->first();
-            
+
             $validateData = $request ->validate([
                 'name'=> 'required|string|max:255',
                 //'uuid'=>'nullable',
@@ -90,6 +91,6 @@ use GeneralTrait;
 
 
             ]);
-            return $this->apiResponse($researcher, true, 'تم تحديث الشركة بنجاح', 200);
+            return $this->apiResponse($researcher, true, 'تم تحديث معلزمات الباحث بنجاح', 200);
         }
     }
