@@ -54,12 +54,12 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth:company']], function
     # Products
     Route::get('/all_product', [ProductController::class, 'index']);
     Route::post('/add_product', [ProductController::class, 'store']);
-    Route::get('/delete_product', [ProductController::class, 'deletepackage']);
+    Route::post('/delete_product', [ProductController::class, 'deletepackage']);
 
     # Home
-    Route::get('/show', [CompanyController::class, 'index']);
-    Route::get('/show/{uuid}', [CompanyController::class, 'show']);
-    Route::post('/update/{uuid}', [CompanyController::class, 'update']);
+    Route::get('/home', [CompanyController::class, 'index']);
+    Route::get('/show', [CompanyController::class, 'show']);
+    Route::post('/update', [CompanyController::class, 'update']);
 
     # Reports
     Route::get('/all_report', [ReportController::class, 'ReportByCompany']);

@@ -6,6 +6,7 @@ use App\Http\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
 class Product extends Model
 {
@@ -38,7 +39,7 @@ class Product extends Model
         parent::boot();
 
         static::creating(function ($user) {
-            $user->uuid = (string) Str::uuid(); // توليد UUID عند الإنشاء
+            $user->uuid = (string) \Str::uuid(); // توليد UUID عند الإنشاء
         });
     }
 

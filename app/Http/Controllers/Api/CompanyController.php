@@ -22,6 +22,7 @@ class CompanyController extends Controller
         $query = Company::query();
 
         if ($request->has('search') && !empty($request->input('search'))) {
+
             $searchName = $request->input('search');
             $query->where('name', 'like', '%' . $searchName . '%');
         }
@@ -32,9 +33,9 @@ class CompanyController extends Controller
         return $this->apiResponse(CompanyResource::collection($companies), true, null, 200);
     }
 
-    public function show($uuid)
+    public function show(Request $request)
     {
-        $companies = Company::where('uuid', $uuid);
+        $companies = Company::where('uuid', $request->uuid)->first();
 
         if (!$companies) {
             return $this->notFoundResponse('هذه الشركة غير موجودة ',);
@@ -44,11 +45,11 @@ class CompanyController extends Controller
 
 
 
-    public function update($uuid, Request $request)
+    public function update(Request $request)
     {
         # ***************
         // $companies = company::find($id);
-        $companies = company::where('uuid', $uuid);
+        $companies = company::where('uuid', $request->uuid)->first();
         if (!$companies) {
             return $this->notFoundResponse('هذه الشركة غير موجودة ',);
         }
@@ -62,10 +63,10 @@ class CompanyController extends Controller
                 'max:255',
                 Rule::unique('companies')->ignore($companies->id),
             ],
-            'type' => 'required|string|max:255',
+            'type' => 'required|string|max:255|in:خاصة,حكومية,مشتركة',
             'description' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'domain' => 'nullable|string|max:255',
+            'domain' => 'required|string|max:255',
             'employess_count' => 'required|integer|min:1',
         ]);
 
@@ -85,6 +86,6 @@ class CompanyController extends Controller
             'employess_count' => $validateData['employess_count'],
 
         ]);
-        return $this->apiResponse(new CompanyResource($companies), true, 'تم تحديث الشركة بنجاح', 200);
+        return $this->SuccessResponse(new CompanyResource($companies));
     }
 }

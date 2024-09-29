@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Validator;
 class ReportController extends Controller
 {
     use GeneralTrait;
-    public function __construct()
-    {
-        $this->middleware('auth:researcher');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:researcher');
+    // }
     public function ReportByResearcher(Request $request)
     {
         try {
@@ -27,7 +27,6 @@ class ReportController extends Controller
             // $id = $request->researcher;
             $idreseacher = auth('researcher')->user()->id;
             $reports = Report::where('researcher_id', $idreseacher)->get();
-            // dd($reports);
             if ($reports) {
                 $data['reports'] = ReportResourseResearch::collection($reports);
                 return $this->apiResponse($data, true, null, 200);
@@ -79,15 +78,13 @@ class ReportController extends Controller
     //
     public function ReportByCompany(Request $request)
     {
-        $company_id = auth('company')->user();
-        // $company_id = $request->id;
+        $company_id = auth('company')->user()->id;
         $company = Company::find($company_id);
         $report = $company->reports()->get();
-
         if (!$report) {
             return $this->apiResponse(null, false, 'not found', 404);
         }
         $data['report'] = ReportResource::collection($report);
-        return $this->apiResponse($data, true, null, 200);
+        return $this->SuccessResponse($data);
     }
 }

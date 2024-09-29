@@ -9,6 +9,7 @@ use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CompanyLoginController extends Controller
 {
@@ -71,15 +72,15 @@ class CompanyLoginController extends Controller
 
         $company = Company::where('email', $request->email)->first();
 
-        if (!$company || !\Hash::check($request->password, $company->password))
+        if (!$company || !Hash::check($request->password, $company->password))
         {
             return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
-        if ($company->tokens()->exists()) 
-        {
-            return $this->unAuthorizeResponse();
-        }
+        // if ($company->tokens()->exists()) 
+        // {
+        //     return $this->unAuthorizeResponse();
+        // }
 
         $token = $company->createToken('auth_token')->plainTextToken;
 

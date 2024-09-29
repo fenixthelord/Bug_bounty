@@ -36,18 +36,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'company_id' => 'required|integer',
-            'url' => 'required|string',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                // 'company_uuid' => 'required|integer|exists:companies,uuid',
+                'url' => 'required|string',
+            ]
+        );
 
         if ($validator->fails()) {
-
-            $error = $validator->errors()->first();
-            return $this->apiResponse(null, false, $error, 400);
+            return $this->ValidationError($request->all() , $validator);
         }
         $id = Auth::user()->id;
         try {
@@ -57,9 +57,8 @@ class ProductController extends Controller
                 'company_id' => $id,
                 'terms' => '',
                 'url' => $request->url,
-
             ]);
-            $data['product'] = $product;
+            $data['product'] = ProductResource::make($product);
             return $this->apiResponse($data, true, null, 200);
         } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
@@ -93,7 +92,7 @@ class ProductController extends Controller
     public function deletepackage(Request $request)
     {
 
-        $Product = Product::where('uuid' , $request->uuid);
+        $Product = Product::where('uuid', $request->uuid);
 
         $Product->delete();
         return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
