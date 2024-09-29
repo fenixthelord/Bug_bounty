@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class ReportResourseResearch extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,14 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'uuid'=>$this->uuid,
+        return
+        [
+            'id'=>$this->uuid,
             'title'=>$this->title,
-            'description'=>$this->description,
-            'url'=>$this->url,
+            'company_name' => CompanyResource::collection($this->product?->company?->get('name')),
+            'created_at' =>$this->created_at,
+            'file' => $this->file ,
+            'status' => $this->status
         ];
     }
 }

@@ -110,7 +110,7 @@ class CompanyRegisterController extends Controller
             {
                 return $this->requiredField($firstError);  
             }
-            return $this->notFoundResponse($firstError);
+            return $this->requiredField($firstError);
         }
     
         $company = Company::create([
@@ -120,6 +120,7 @@ class CompanyRegisterController extends Controller
             'employess_count' => $request->employess_count,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => null ,
         ]);
         return (new CompanyResource($company))->successResponse();
     }
