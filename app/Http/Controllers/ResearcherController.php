@@ -129,7 +129,8 @@ class ResearcherController extends Controller
     }
     public function trashed()
     {
-        $trachedModels = Researcher::onlyTrashed()->get() ; 
+
+        $trachedModels = Researcher::onlyTrashed()->get() ;  
     
        return view('researcher.index',['researchers'=>$trachedModels]);
         

@@ -11,6 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Researcher extends Model
 {
+    use HasApiTokens,HasFactory,SoftDeletes,Uuid;
+    
     protected $fillable = [
         'uuid',
         'name',

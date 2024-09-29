@@ -48,7 +48,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/researcher/delete/{uuid}', [App\Http\Controllers\ResearcherController::class, 'destroy'])->name('destroy.researcher');
+Route::get('/researcher/destroy/{uuid}', [App\Http\Controllers\ResearcherController::class,'destroy'])->name('destroy.researcher');
 Route::get('/researcher/restore/{uuid}', [App\Http\Controllers\ResearcherController::class, 'restore'])->name('restore.researcher');
 Route::get('/researcher/trashed', [App\Http\Controllers\ResearcherController::class, 'trashed'])->name('trashed.researcher');
 Route::get('/researcher/show', [App\Http\Controllers\ResearcherController::class, 'index'])->name('index.researcher');

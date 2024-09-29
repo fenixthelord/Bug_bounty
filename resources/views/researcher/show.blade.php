@@ -60,22 +60,16 @@
                <td>{{ $researcher->phone }}</td>
                <td>{{ $researcher->reports_count > 0 ? intval($researcher->points/$researcher->reports_count):0 }}</td>
                <td>{{ $researcher->points }}</td>
-          <td><a href="{{ route('trashed.researcher', $researcher->uuid) }}"   style="color: red ;" class="btn btn-update" >Trashed Data</a></td>         
+          <td><a href="{{ route('trashed.researcher') }}"   style="color: red ;" class="btn btn-update" >Trashed Data</a></td>         
              <td> <div style="display: inline-block; margin-right:2px;"> 
                 <a href="{{route('edit.researcher',$researcher->uuid)}}" id="edit">Edit</a> 
                  <span class="icon" onclick="edit()"><i class="fas fa-edit"></i></span> 
             </div> </td> 
 
-           <td> <div style="display: inline-block;"> 
-                <form action="{{ route('destroy.researcher',$researcher->uuid)}}" 
+            <td><a href="{{route('destroy.researcher',$researcher->uuid)}}"  style="color: red ;" class="btn btn-update" > Delete</a></td>         
 
-method="get" style="display: inline;"> 
-                    @csrf 
-                    <input type="hidden" name="id" value="{{$researcher->id}}"> 
-                    <button type="submit" id="delete" style="background: none; border: none; color: rgb(161, 17, 17); cursor: pointer;">Delete</button> 
-                </form> 
-                <span class="icon" onclick="deleteRow()"><i class="fas fa-trash"></i></span> 
-            </div></td> 
+
+          
 
             
               

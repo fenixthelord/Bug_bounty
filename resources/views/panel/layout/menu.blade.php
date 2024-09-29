@@ -28,7 +28,8 @@
                 <ul class="menu-content">
                  <li>
                   <a href="{{ route('trashed.index') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>
-               
+</li>
+</ul>
 
 
         </ul>

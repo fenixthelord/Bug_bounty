@@ -43,7 +43,7 @@
                             <th scope="col"><h3> phone </h3></th>
                             <th scope="col"><h3> code </h3></th>
                             <th scope="col"><h3> points </h3></th>
-                            <th scope="col"><h3> linkedin </h3></th>
+                            <th scope="col"><h3> rate </h3></th>
                             <th scope="col">  </th>
                            
                          
@@ -58,7 +58,7 @@
                         <td>&nbsp;  &nbsp;{{$researcher->code}}</td>
                         <td>&nbsp;  &nbsp;{{$researcher->points}}</td>
 
-                        <td>&nbsp;  &nbsp;{{$researcher->linkedin}}</td>
+                        <td>{{ $researcher->reports_count > 0 ? intval($researcher->points/$researcher->reports_count):0 }}</td>
                         
                        <td>
                             &nbsp;  &nbsp; &nbsp;  <a href="{{ route('restore.researcher',['uuid'=>$researcher->uuid]) }}" class="button">Restore </a> &nbsp;  &nbsp;  &nbsp; </td>
