@@ -7,7 +7,11 @@
         </div>
     @endif
     <h1>Specializations</h1>
+<<<<<<< HEAD
     <a href="{{ route('specializations.create') }}" class="btn btn-primary">Add New Specialization</a>
+=======
+    <a href="{{ route('specializations.createe') }}" class="btn btn-primary">Add New Specialization</a>
+>>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
 
     <table class="table mt-2">
         <thead>
@@ -25,7 +29,11 @@
                     
                     <td> <a href="{{ route('specialization.companies', $specialization->id) }}" class="btn btn-primary">show </a>
                     <td>
+<<<<<<< HEAD
                         <a href="{{ route('specializations.edit', $specialization->id) }}" class="btn btn-warning">Edit</a>
+=======
+                        <a href="{{ route('specializations.edite', $specialization->id) }}" class="btn btn-warning">Edit</a>
+>>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
                         <form action="{{ route('specializations.destroy', $specialization->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

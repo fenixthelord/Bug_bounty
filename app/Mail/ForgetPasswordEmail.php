@@ -9,8 +9,10 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ForgetPasswordEmail extends Mailable
-{
+
+
+class ForgetPasswordEmail extends Mailable {
+
     use Queueable, SerializesModels;
 
 
@@ -21,8 +23,11 @@ class ForgetPasswordEmail extends Mailable
     /**
      * Create a new message instance.
      */
+
+   
     public function __construct($subjectTitle, $otp, $description)
     {
+
         $this->subjectTitle = $subjectTitle;
         $this->otp = $otp;
         $this->description = $description;
@@ -31,8 +36,10 @@ class ForgetPasswordEmail extends Mailable
     /**
      * Get the message envelope.
      */
+
     public function envelope(): Envelope
     {
+
         return new Envelope(
             subject: $this->subjectTitle,
         );

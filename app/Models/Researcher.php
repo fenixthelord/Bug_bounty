@@ -11,8 +11,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Researcher extends Model
 {
-    use HasApiTokens,HasFactory,SoftDeletes,Uuid;
     
+
+    use HasApiTokens,HasFactory,SoftDeletes,Uuid;
+
     protected $fillable = [
         'uuid',
         'name',
@@ -30,9 +32,9 @@ class Researcher extends Model
     protected $dates = ['deleted_at'] ;
   
 
+ 
     public function reports()
     {
-
         return $this->hasMany(Report::class);
     }
 }

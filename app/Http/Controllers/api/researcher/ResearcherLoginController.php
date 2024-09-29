@@ -17,7 +17,7 @@ class ResearcherLoginController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index()
     {
         //
@@ -29,7 +29,9 @@ class ResearcherLoginController extends Controller
                 'required',
                 'string',
                 'email',
-                'exists:researchers,email',  
+
+                'exists:researchers,email',
+
             ],
             'password' => [
                 'required',
@@ -59,12 +61,20 @@ class ResearcherLoginController extends Controller
             if (strpos($firstError, 'مطلوب') !== false) 
             {
                 return $this->requiredField($firstError);  
+
+        if ($validator->fails()) {
+            $firstError = $validator->errors()->first();
+
+            if (strpos($firstError, 'مطلوب') !== false) {
+                return $this->requiredField($firstError);
+
             }
 
             return $this->notFoundResponse($firstError);
         }
 
         $researcher = Researcher::where('email', $request->email)->first();
+
 
         if (!$researcher || !\Hash::check($request->password, $researcher->password))
         {
@@ -78,6 +88,17 @@ class ResearcherLoginController extends Controller
 
         if ($researcher->tokens()->exists()) 
         {
+
+        if (!$researcher || !\Hash::check($request->password, $researcher->password)) {
+            return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
+        }
+
+        if (is_null($researcher->code)) {
+            return $this->notFoundResponse('الحساب غير مفعل عليك إدخال الكود لتفعيله');
+        }
+
+        if ($researcher->tokens()->exists()) {
+
             return $this->unAuthorizeResponse();
         }
 
@@ -85,7 +106,7 @@ class ResearcherLoginController extends Controller
 
         return (new ResearcherResource($researcher))->successResponseWithToken($token);
     }
-    
+  
     public function logout()
     {
         $researcher = auth()->guard('researcher')->user();
@@ -95,6 +116,18 @@ class ResearcherLoginController extends Controller
             $researcher->currentAccessToken()->delete();
             return response()->json('تم تسجيل الخروج بنجاح', 200);
         } 
+
+
+    public function logout()
+    {
+        $researcher = auth()->guard('researcher')->user();
+
+        if ($researcher && $researcher->currentAccessToken()) {
+            $researcher->currentAccessToken()->delete();
+            return response()->json('تم تسجيل الخروج بنجاح', 200);
+        }
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
+>>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
         return $this->unAuthorizeResponse();
     }
     /**
