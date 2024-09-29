@@ -46,7 +46,7 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const ctx = document.getElementById('myChart').getContext('2d');
-                const dataValues = [30, 25, 25, 25]; // example data values
+                const dataValues = [$reject, $accept, $pending, $done]; // example data values
                 const total = dataValues.reduce((a, b) => a + b, 0);
 
                 const chart = new Chart(ctx, {
