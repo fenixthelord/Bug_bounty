@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('code')->nullable();
             $table->string('image')->nullable();
-            $table->integer('points');
+            $table->integer('points')->nullable();
             $table->string('facebook')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('github')->nullable();
