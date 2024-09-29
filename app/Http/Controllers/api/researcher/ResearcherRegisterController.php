@@ -114,6 +114,7 @@ class ResearcherRegisterController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
+                'points' => 0,
             ]);
             return (new ResearcherResource($researcher))->successResponse();           
         }

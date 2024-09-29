@@ -15,14 +15,14 @@ class CompanyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'uuid' => $this-> uuid,
-            'name' => $this -> name ,
-            'email' => $this -> email,
-            'type' => $this -> type ,
-            'description' => $this -> discription ,
-            'logo' => env('LOGO_URL_PATH') . $this -> logo ,
-            'domain' => $this -> domain ,
-            'employess_count' => $this -> employess_count ,
+            'uuid' => $this->uuid,
+            'name' => $this->name,
+            'email' => $this->email,
+            'type' => $this->type,
+            'description' => $this->discription,
+            'logo' => env('LOGO_URL_PATH') . $this->logo,
+            'domain' => $this->domain,
+            'employess_count' => $this->employess_count,
         ];
     }
 }

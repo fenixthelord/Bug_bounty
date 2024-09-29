@@ -93,7 +93,7 @@ class CompanyLoginController extends Controller
         if ($company && $company->currentAccessToken())
         {
             $company->currentAccessToken()->delete();
-            return response()->json('تم تسجيل الخروج بنجاح', 200);
+            return $this->successResponse('تم تسجيل الخروج بنجاح');
         }
         return $this->unAuthorizeResponse();
     }

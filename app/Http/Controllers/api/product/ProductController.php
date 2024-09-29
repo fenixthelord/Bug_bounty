@@ -18,18 +18,17 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth::company');
-
+        $this->middleware('auth:company');
     }
     public function index()
     {
-        $id=Auth::user()->id;
-        $product=product::where('id',$id)->get();
-        if(!$product){
-            return $this->apiResponse(null,false,'not found',404);
+        $id = Auth::user()->id;
+        $product = product::where('id', $id)->get();
+        if (!$product) {
+            return $this->apiResponse(null, false, 'not found', 404);
         }
-        $data['product']=productResource::collection($product);
-        return $this->apiResponse($data,true,null,200);
+        $data['product'] = productResource::collection($product);
+        return $this->apiResponse($data, true, null, 200);
     }
 
     /**
@@ -47,23 +46,22 @@ class ProductController extends Controller
 
         if ($validator->fails()) {
 
-       $error = $validator->errors()->first();
-      return $this->apiResponse(null, false, $error, 400);
+            $error = $validator->errors()->first();
+            return $this->apiResponse(null, false, $error, 400);
         }
-        $id=Auth::user()->id;
+        $id = Auth::user()->id;
         try {
             $product = Product::create([
-                'title' =>$request->title,
-                'description' =>$request->description,
-                'company_id' =>$id,
-                'terms'=>'',
-                'url' =>$request->url,
+                'title' => $request->title,
+                'description' => $request->description,
+                'company_id' => $id,
+                'terms' => '',
+                'url' => $request->url,
 
             ]);
-            $data['product']=$product;
+            $data['product'] = $product;
             return $this->apiResponse($data, true, null, 200);
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
@@ -92,12 +90,12 @@ class ProductController extends Controller
         //
     }
 
-public function deletepackage(Request $request)
-{
+    public function deletepackage(Request $request)
+    {
 
-    $Product = Product::find($request->uuid);
+        $Product = Product::where('uuid' , $request->uuid);
 
-    $Product->delete();
-    return $this->apiResponse('تم الحذف بنجاح',true,null,200);
-}
+        $Product->delete();
+        return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
+    }
 }

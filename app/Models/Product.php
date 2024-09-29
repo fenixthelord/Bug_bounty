@@ -11,7 +11,13 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-        'uuid','title','description','company_id','status','terms','url'
+        'uuid',
+        'title',
+        'description',
+        'company_id',
+        'status',
+        'terms',
+        'url'
     ];
     public function company()
     {
