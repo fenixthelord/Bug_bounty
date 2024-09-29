@@ -8,6 +8,7 @@ use App\Http\Controllers\api\company\CompanyRegisterController;
 use App\Http\Controllers\api\researcher\ResearcherLoginController;
 use App\Http\Controllers\api\researcher\ResearcherRegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ReportController;
 
 
 
@@ -24,6 +25,13 @@ use App\Http\Controllers\api\product\ProductController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::prefix('')->middleware('auth::company')->group(function() {
+    Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
+
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('')->middleware('auth::company')->
 group(function(){
     Route::get('/all_product', [ProductController::class, 'index']);
@@ -56,15 +64,12 @@ Route::prefix('researcher')->group(function () {
     Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
 
     Route::middleware('auth:researcher')->group(function () {
-        # Change Password
+        
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
     });
 
 });
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-*/
+
 Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
 Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class,'registerCode']);
 Route::post('/researcherlogin',[ResearcherLoginController::class,'login']);
