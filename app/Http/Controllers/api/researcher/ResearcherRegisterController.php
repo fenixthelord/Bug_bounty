@@ -35,7 +35,7 @@ class ResearcherRegisterController extends Controller
             'name' => [
                 'required',
                 'string',
-                'regex:/^[\p{Arabic}\s]+$/u',
+                'regex:/^[\p{Arabic}a-zA-Z\s]+$/u',
                 'max:255',
             ],
             'email' => [
@@ -82,15 +82,20 @@ class ResearcherRegisterController extends Controller
         $existingResearcher = Researcher::where('name', $request->name)
         ->where('email', $request->email)
         ->where('phone', $request->phone)
+        ->whereNull('code')
         ->first(); 
 
         if($existingResearcher)
         {
             if (Hash::check($request->password, $existingResearcher->password))
             {
-                return 'بيانات الباحث موجودة مسبقاً.اذهب للقيام بإدخال الرمز لتفعيل حسابك.';
+                return response()->json([
+                    'message' => 'بيانات الباحث موجودة مسبقاً. اذهب للقيام بإدخال الرمز لتفعيل حسابك.'
+                ],409);
             }
-            return 'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.';
+            return response()->json([
+                'message' => 'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.'
+            ], 400); 
         }
  
         $validator = Validator::make($request->all(), $rules, $messages);
