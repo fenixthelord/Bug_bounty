@@ -1,12 +1,10 @@
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
-        <span class="float-left d-inline-block">2024 © Derrebni Order</span>
-        <span class="float-right d-sm-inline-block d-none">Designed And Programming  with<i class="bx bxs-heart pink mx-50 font-small-3"></i>
-            by <a class="text-uppercase" href="https://fb.com/fenix.p2h" target="_blank">Muhammad Khalaf 😎</a></span>
-        <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="bx bx-up-arrow-alt"></i></button>
+        <span class="float-left d-inline-block">2024 © Bug Bounty</span>
+        <button class="btn btn-primary btn-icon scroll-top" type="button">
+            <i class="bx bx-up-arrow-alt"></i></button>
     </p>
 </footer>
-
 
 <!-- BEGIN: Vendor JS-->
 <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
@@ -36,4 +34,3 @@
 <!-- END: Body-->
 
 </html>
-

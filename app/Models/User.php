@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -21,9 +21,23 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'type',
+        'profile_picture',
     ];
+//--------------------------------------------------------------|
+    public function isSuperAdmin() {
+        return $this->type === 'super admin';
+    }
 
+    public function isAdmin() {
+        return $this->type === 'admin';
+    }
+
+    public function setPasswordAttribute($value) {
+       $this->attributes['password'] = Hash::make($value);
+    }
+//--------------------------------------------------------------|
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -43,8 +57,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+<<<<<<< HEAD
+
+    public function reports() {
+=======
     public function reports()
     {
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
         return $this->hasMany(Report::class);
     }
 }
