@@ -3,6 +3,11 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SpecializationController;
+use App\Models\Company;
+use App\Models\Specialization;
+use App\Models\Researcher;
+
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
@@ -44,7 +49,10 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 
 Route::get('/test', [DashboardController::class, 'index'])->name('Admin-Panel');
 Route::get('/404', [DashboardController::class, 'notFound'])->name('404');
+<<<<<<< HEAD
 Route::get('/500', [DashboardController::class, 'serverError'])->name('500');
+=======
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
 //Route::get('/500', [DashboardController::class, 'serverError'])->name('404');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -52,6 +60,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 
 //-----------------------------------------------------------------------------------------
 Route::middleware('auth')->group(function () {
@@ -67,6 +76,8 @@ Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('send.em
 
 
 
+=======
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
 Route::get('/home/specializations', [SpecializationController::class, 'index'])->name('specializations');
 Route::get('/home/specializations/create', [SpecializationController::class, 'create'])->name('specializations.create');
 Route::post('/home/specializations/store', [SpecializationController::class, 'store'])->name('specializations.store');
@@ -75,7 +86,10 @@ Route::get('/home/specializations/{specialization}/edit', [SpecializationControl
 Route::put('/home/specializations/{specialization}', [SpecializationController::class, 'update'])->name('specializations.update');
 Route::resource('specializations', SpecializationController::class);
 Route::post('/specializations/restore/{id}', [SpecializationController::class, 'restore'])->name('specializations.restore');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
 Route::get('/trashed', function () {
     $companies = Company::onlyTrashed()->get();
     $specializations = Specialization::onlyTrashed()->get();

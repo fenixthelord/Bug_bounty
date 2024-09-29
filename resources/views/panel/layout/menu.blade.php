@@ -14,6 +14,7 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content" style="background-color: #2E2E2E;">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+<<<<<<< HEAD
             </li>
 
             <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title">Dashboard</span>
@@ -28,8 +29,25 @@
                     @endif
                     @endauth
 
+=======
+            <li class="nav-item">
+                <a href="#"><i class="bx bx-book"></i><span class="menu-title">الاختصاصات</span></a>
+                <ul class="menu-content">
+                 <li>
+                  <a href="{{ route('specializations') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>
+                 <li>
+                  <a href="{{ route('specializations.create') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">اضافة </span></a>
+                 </li>
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
                 </ul>
-            </li>
+               </li>
+               <br>
+               <li class="nav-item">
+                <a href="#"><i class="bx bx-trash"></i><span class="menu-title">المحذوفات</span></a>
+                <ul class="menu-content">
+                 <li>
+                  <a href="{{ route('trashed.index') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>
+               
 
             <li class="nav-item">
                 <a href="#"><i class="bx bx-book"></i><span class="menu-title">الاختصاصات</span></a>
