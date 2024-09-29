@@ -26,18 +26,19 @@ use App\Http\Controllers\api\product\ProductController;
 |
 */
 
-Route::prefix('')->middleware('auth::company')->group(function() {
-    Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
+// Route::prefix('')->middleware('auth::company')->group(function() {
+//     Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
 
-});
+// });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-Route::prefix('')->middleware('auth::company')->
-group(function(){
-    Route::get('/all_product', [ProductController::class, 'index']);
-    Route::post('/add_product', [ProductController::class, 'store']);
-    Route::get('/delete_product', [ProductController::class, 'deletepackage']);
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// Route::prefix('')->middleware('auth::company')->
+// group(function(){
+//     Route::get('/all_product', [ProductController::class, 'index']);
+//     Route::post('/add_product', [ProductController::class, 'store']);
+//     Route::get('/delete_product', [ProductController::class, 'deletepackage']);
+// });
+
 
 
 
@@ -64,7 +65,7 @@ Route::prefix('researcher')->group(function () {
     Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
 
     Route::middleware('auth:researcher')->group(function () {
-        
+
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
     });
 
