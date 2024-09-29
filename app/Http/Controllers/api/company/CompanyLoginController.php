@@ -82,10 +82,11 @@ class CompanyLoginController extends Controller
         {
             return $this->unAuthorizeResponse();
         }
-        // if ($company->tokens()->exists()) 
-        // {
-        //     return $this->unAuthorizeResponse();
-        // }
+        
+        if ($company->tokens()->exists()) 
+        {
+            return $this->unAuthorizeResponse();
+        }
 
         $token = $company->createToken('auth_token')->plainTextToken;
 
