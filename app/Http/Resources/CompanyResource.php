@@ -2,19 +2,13 @@
 
 namespace App\Http\Resources;
 
-<<<<<<< HEAD
-=======
 use App\Http\Traits\GeneralTrait;
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyResource extends JsonResource
 {
-<<<<<<< HEAD
-=======
     use GeneralTrait;
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
     /**
      * Transform the resource into an array.
      *
