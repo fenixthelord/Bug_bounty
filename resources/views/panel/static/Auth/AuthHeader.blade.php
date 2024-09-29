@@ -12,7 +12,7 @@
     <meta name="description" content="ساندري للخدمات العامة">
     <meta name="keywords" content="سناندري,خدمات">
     <meta name="author" content="Muhammad Khalaf">
-    <title> @if(isset($PageTitle) and $PageTitle != '') {{ $PageTitle }} @else تسجيل الدخول @endif - {{ config('app.name') }}</title>
+    <title> @if(isset($PageTitle) and $PageTitle != '') {{ $PageTitle }} @else تسجيل الدخول @endif - Bug Bounty </title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/icon/sketch-mac-icon.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}">
 
@@ -59,7 +59,9 @@
 <!-- END: Head-->
 
 @if(auth()->user())
+
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
+
     @if(auth()->user()->type == 'admin')
         @include('admin.Static.NavBar')
     @elseif(auth()->user()->type == 'monitor')

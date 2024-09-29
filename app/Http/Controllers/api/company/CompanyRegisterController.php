@@ -37,7 +37,11 @@ class CompanyRegisterController extends Controller
             'name' => [
                 'required',
                 'string',
+<<<<<<< HEAD
+                'regex:/^[\p{Arabic}\s]+$/u',
+=======
                 'regex:/^[\p{Arabic}a-zA-Z0-9\s]+$/u',
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
                 'max:255',
             ],
             'domain' => [
@@ -73,7 +77,11 @@ class CompanyRegisterController extends Controller
         $messages = [
             'name.required' => 'اسم الشركة مطلوب. يرجى إدخال اسم الشخص.',
             'name.string' => 'اسم الشركة يجب أن يكون نصاً صحيحاً.',
+<<<<<<< HEAD
+            'name.regex' => 'اسم الشركة يجب أن يحتوي فقط على حروف عربية ومسافات.',
+=======
             'name.regex' => 'اسم الشركة يجب أن يحتوي فقط على حروف عربية أو انكليزية و مسافات و يمكن أن تحتوي على أرقام .',
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
             'name.max' => 'اسم الشركة يجب ألا يزيد عن 255 حرفاً.',
             
             'domain.required' => 'الدومين مطلوب. يرجى إدخال دومين صحيح.',
@@ -110,7 +118,11 @@ class CompanyRegisterController extends Controller
             {
                 return $this->requiredField($firstError);  
             }
+<<<<<<< HEAD
+            return $this->notFoundResponse($firstError);
+=======
             return $this->requiredField($firstError);
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
         }
     
         $company = Company::create([
@@ -120,7 +132,10 @@ class CompanyRegisterController extends Controller
             'employess_count' => $request->employess_count,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+<<<<<<< HEAD
+=======
             'phone' => null ,
+>>>>>>> 817db03745428b42a476cb69a119115db25638d1
         ]);
         return (new CompanyResource($company))->successResponse();
     }
