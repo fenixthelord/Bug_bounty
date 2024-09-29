@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CompanyResource;
+use App\Http\Resources\CompanyResource\CompanyResource as CompanyResourceCompanyResource;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Hash;
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 
 class CompanyLoginController extends Controller
 {
@@ -20,7 +18,6 @@ class CompanyLoginController extends Controller
     use GeneralTrait;
 
     /**
-<<<<<<< HEAD
      * Display a listing of the resource.
      */
 
@@ -30,8 +27,6 @@ class CompanyLoginController extends Controller
     }
 
     /**
-=======
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
      * Store a newly created resource in storage.
      */
     public function login(Request $request)
@@ -78,30 +73,23 @@ class CompanyLoginController extends Controller
 
         $company = Company::where('email', $request->email)->first();
 
-<<<<<<< HEAD
-        if (!$company || !\Hash::check($request->password, $company->password))
-=======
         if (!$company || !Hash::check($request->password, $company->password))
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
         {
             return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
-<<<<<<< HEAD
         if ($company->tokens()->exists()) 
         {
             return $this->unAuthorizeResponse();
         }
-=======
         // if ($company->tokens()->exists()) 
         // {
         //     return $this->unAuthorizeResponse();
         // }
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 
         $token = $company->createToken('auth_token')->plainTextToken;
 
-        return (new CompanyResource($company))->successResponseWithToken($token);
+        return (new CompanyResourceCompanyResource($company))->successResponseWithToken($token);
     }
     
     public function logout()
@@ -111,41 +99,11 @@ class CompanyLoginController extends Controller
         if ($company && $company->currentAccessToken())
         {
             $company->currentAccessToken()->delete();
-<<<<<<< HEAD
-            return response()->json('تم تسجيل الخروج بنجاح', 200);
-=======
-            return $this->successResponse('تم تسجيل الخروج بنجاح');
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
         }
         return $this->unAuthorizeResponse();
     }
 
 
-<<<<<<< HEAD
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-=======
    
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 }
+

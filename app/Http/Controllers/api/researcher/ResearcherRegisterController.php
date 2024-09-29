@@ -214,7 +214,7 @@ class ResearcherRegisterController extends Controller
             'code' => [
                 'required',
                 'string',
-                'size:8',
+                // 'size:8',
             ],
         ];
         $messages = [
@@ -242,12 +242,7 @@ class ResearcherRegisterController extends Controller
 =======
 
         if ($validator->fails()) {
-            $firstError = $validator->errors()->first();
-
-            if (strpos($firstError, 'مطلوب') !== false) {
-                return $this->requiredField($firstError);
-            }
-            return $this->notFoundResponse(more: $firstError);
+            return $this->ValidationError($request->all(),$validator);
         }
         if ($researcher) {
             $researcher->update([

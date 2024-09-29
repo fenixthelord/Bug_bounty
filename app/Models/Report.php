@@ -21,6 +21,7 @@ class Report extends Model
         'user_id',
         'canceled_note'
     ];
+    
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -32,5 +33,8 @@ class Report extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function Products() {
+        return $this->HasManyThrough(Product::class,Report::class);
     }
 }
