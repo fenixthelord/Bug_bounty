@@ -9,6 +9,7 @@ use App\Http\Traits\GeneralTrait;
 class ResearcherResource extends JsonResource
 {
     use GeneralTrait;
+
     /**
      * Transform the resource into an array.
      *
@@ -17,6 +18,7 @@ class ResearcherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+
             'uuid' => $this->uuid ,
             'name'=> $this->name ,
             'email' => $this->email,
@@ -39,4 +41,5 @@ class ResearcherResource extends JsonResource
         return $this->apiResponse(['researcher' => $this,'token' => $token], true, null, 200);
     }
 }
+
 

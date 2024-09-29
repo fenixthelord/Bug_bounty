@@ -14,27 +14,21 @@ class Company extends Model
     use HasApiTokens,HasFactory,SoftDeletes,Uuid;
 
     protected $fillable = [
-        'uuid',
-        'name',
-        'phone',
-        'email',
-        'password',
-        'logo',
-        'type',
-        'description',
-        'domain',
-        'employess_count'
-    ];
-    public function companySpecialization()
+
+        'uuid','name','phone','email','password','logo','type','description','domain','employess_count'
+        ];
+        public function companySpecialization(){
+            return $this->hasMany(CompanySpecialization::class);
+        }
+        public function specializations(){
+            return $this->belongsToMany(Specialization::class);
+        }
+        public function products(){
+            return $this->hasMany(Product::class);
+        }
+        public function reports()
     {
-        return $this->hasMany(CompanySpecialization::class);
-    }
-    public function specializations()
-    {
-        return $this->belongsToMany(Specialization::class);
-    }
-    public function products()
-    {
-        return $this->hasMany(Product::class);
+        return $this->hasManyThrough(Report::class, Product::class);
+
     }
 }
