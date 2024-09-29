@@ -14,13 +14,20 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class=" navigation-header"><span>Dashboard</span>
             </li>
-            <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">2</span></a>
-                <ul class="menu-content">
+            <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">التقارير</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">2</span></a>
+                
                 <li><a href="{{ route('reports.index') }}">كل التقارير </a></li>  
 
                         <li><a href="{{ route('reports.pending') }}">التقارير المعلقة</a></li> 
-                        <li><a href="{{ route('reports.researchers') }}">التقارير لباحث واحد</a></li>  
- 
+             
+                        
+                        <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">الباحثين</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">2</span></a>
+             <li><a href="{{ route('researchers.index') }}">كل الباحثين </a></li>  
+
+             <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">الشركات</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">2</span></a>
+
+             <li><a href="{{ route('companies.index') }}">ادارة الشركات  </a></li>  
+
                 </ul>
             </li>
 

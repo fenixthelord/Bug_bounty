@@ -4,6 +4,10 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResearcherController; 
+use App\Http\Controllers\CompanyController;  
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +44,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');  
-Route::get('/researcher/{researcherUuid}/reports', [ReportController::class, 'showResearcherReports'])->name('researcher.reports');  
 Route::get('/reports/pending', [ReportController::class, 'showPendingReports'])->name('reports.pending');  
 Route::post('/reports/{reportUuid}/update-status', [ReportController::class, 'updateStatus'])->name('reports.update-status');  
 Route::get('/researchers', [ResearcherController::class, 'index'])->name('researchers.index');  
+Route::get('/researchers/{researcher}/reports', [ResearcherController::class, 'showReports'])->name('researchers.reports');  
+Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');  

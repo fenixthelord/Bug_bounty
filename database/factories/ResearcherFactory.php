@@ -1,26 +1,28 @@
-<?php
+<?php  
 
-namespace Database\Factories;
+namespace Database\Factories;  
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Researcher;  
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Researcher>
- */
-class ResearcherFactory extends Factory
-{
+use Illuminate\Database\Eloquent\Factories\Factory;  
+
+class ResearcherFactory extends Factory  
+{  
     protected $model = Researcher::class;  
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+    public function definition()  
+    {  
         return [  
+            'uuid' => \Illuminate\Support\Str::uuid(),  
             'name' => $this->faker->name,  
-            'points' => $this->faker->numberBetween(0, 50),  
-        ];      
-    }
+            'email' => $this->faker->unique()->safeEmail,  
+            'password' => bcrypt('password'), // or use Hash::make('password')  
+            'phone' => $this->faker->phoneNumber,  
+            'code' => $this->faker->unique()->word,  
+            'image' => $this->faker->imageUrl(),  
+            'points' => $this->faker->numberBetween(0, 100),  
+            'facebook' => $this->faker->url,  
+            'linkedin' => $this->faker->url,  
+            'github' => $this->faker->url,  
+        ];  
+    }  
 }

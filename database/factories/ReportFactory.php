@@ -1,30 +1,31 @@
-<?php
+<?php  
 
-namespace Database\Factories;
+namespace Database\Factories;  
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Report;  
 use App\Models\Product;  
-use App\Models\Researcher;  
+use App\Models\Researcher;
+use App\Models\User;  
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Report>
- */
-class ReportFactory extends Factory
-{
+use Illuminate\Database\Eloquent\Factories\Factory;  
+
+class ReportFactory extends Factory  
+{  
     protected $model = Report::class;  
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+
+    public function definition()  
+    {  
         return [  
+            'uuid' => \Illuminate\Support\Str::uuid(),  
+            'product_id' => Product::factory(),  
+            'researcher_id' => Researcher::factory(),  
             'title' => $this->faker->sentence,  
-            'status' => $this->faker->randomElement(['pending', 'completed', 'in progress']),  
-            'product_id' => Product::factory(), // Creates a Product for each Report  
-            'researcher_id' => Researcher::factory(), // Creates a Researcher for each Report  
+            'file' => $this->faker->filePath(),  
+            'status' => "pending",  
+            'review_status' => 1,  
+             
+            'user_id' => User::factory(),  
+            'canceled_note' => $this->faker->sentence,  
         ];  
-    }
+    }  
 }

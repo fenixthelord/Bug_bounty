@@ -1,25 +1,26 @@
-<?php
+<?php  
 
-namespace Database\Factories;
+namespace Database\Factories;  
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Product;  
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
- */
-class ProductFactory extends Factory
-{
+use App\Models\Company;  
+use Illuminate\Database\Eloquent\Factories\Factory;  
+
+class ProductFactory extends Factory  
+{  
     protected $model = Product::class;  
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+
+    public function definition()  
+    {  
         return [  
-            'title' => $this->faker->word,  
-            'company_id' => \App\Models\Company::factory(), // Creates a Company for each Product  
+            'uuid' => \Illuminate\Support\Str::uuid(),  
+            'title' => $this->faker->sentence,  
+            'description' => $this->faker->paragraph,  
+            'company_id' => Company::factory(), // Automatically associate with a company  
+            'status' => 1,  
+            'terms' => $this->faker->sentence, 
+            'url' => $this->faker->sentence,  
+
         ];  
-    }
+    }  
 }

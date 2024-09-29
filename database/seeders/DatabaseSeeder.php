@@ -4,6 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Company;  
+use App\Models\Product;  
+use App\Models\Report;  
+use App\Models\Researcher;  
+use App\Models\CompanySpecialization;  
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,24 +18,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-          // Create 10 researchers  
-          \App\Models\Researcher::factory(10)->create();  
-        
-          // Create 5 companies  
-          \App\Models\Company::factory(5)->create()  
-              ->each(function ($company) {  
-                  // For each company, create 3 products  
-                  $company->products()->saveMany(\App\Models\Product::factory(3)->make())  
-                      ->each(function ($product) {  
-                          // For each product, create 2 reports  
-                          $product->reports()->saveMany(\App\Models\Report::factory(2)->make());  
-                      });  
-              });  
+        Company::factory(10)->create(); // Create 10 companies  
+        Researcher::factory(10)->create(); // Create 10 researchers  
+        Product::factory(20)->create(); // Create 20 products  
+        Report::factory(30)->create(); 
     }
 }

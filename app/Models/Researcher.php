@@ -19,20 +19,36 @@ class Researcher extends Model
     public function addPoints(int $points)  
     {  
         $this->increment('points', $points);  
-    }
-    public function getRatingAttribute()  
-    {  
-       
-        if ($this->points < 5) {  
-            return 'Beginner';  
-        } elseif ($this->points < 7) {  
-            return 'Intermediate';  
-        } elseif ($this->points < 9) {  
-            return 'Advanced';  
-        } else {  
-            return 'Expert';  
-        }  
     }  
+
+    public function calculatePoints()  
+    {  
+        $acceptedReportsCount = $this->reports()->where('status', 'accept')->count();  
+
+        // Update the points based on accepted reports  
+        $this->points = $acceptedReportsCount;  
+        $this->save();  
+
+        return $this->points;  
+    }  
+    public function calculateRating()  
+    {  
+        // Get the number of accepted reports  
+        $acceptedReportsCount = $this->reports()->where('status', 'accepted')->count();  
+
+        // Prevent division by zero  
+        if ($acceptedReportsCount === 0) {  
+            return 0; // Or you can return null or any other value that makes sense for your application  
+        }  
+
+        // Calculate the rating  
+        $rating = $this->points / $acceptedReportsCount;  
+
+        return $rating;  
+    }  
+    
+    
+    
   
 
 }

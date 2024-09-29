@@ -9,7 +9,6 @@
 <!DOCTYPE html>  
 <html>  
 <head>  
-    <title>المـــدن</title>  
 </head> 
 <style>  
         
@@ -22,17 +21,21 @@
             border: 1px solid black;  
             padding: 10px;  
             text-align: center;  
-        }  
+        } 
+        body {  
+            direction: rtl;  
+            text-align: right; /* Optional: aligns text to the right */  
+        }   
     </style>   
 <body>  
-<h1>Pending Reports</h1>  
+<h1>التقارير المعلقة</h1>  
     <table>  
         <thead>  
             <tr>  
-                <th>Title</th>  
-                <th>Researcher</th>  
-                <th>Product</th>  
-                <th>Status</th>  
+                <th>العنوان</th>  
+                <th>الباحث</th>  
+                <th>المنتج</th>  
+                <th>الحالة</th>  
             </tr>  
         </thead>  
         <tbody>  

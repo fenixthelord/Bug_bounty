@@ -9,7 +9,6 @@
 <!DOCTYPE html>  
 <html>  
 <head>  
-    <title>المـــدن</title>  
 </head> 
 <style>  
         
@@ -22,17 +21,21 @@
             border: 1px solid black;  
             padding: 10px;  
             text-align: center;  
+        } 
+        body {  
+            direction: rtl;  
+            text-align: right; /* Optional: aligns text to the right */  
         }  
     </style>   
 <body>  
-    <h1>All Reports</h1>  
+    <h1>كل التقارير</h1>  
     <table>  
         <thead>  
             <tr>  
-                <th>Title</th>  
-                <th>Researcher</th>  
-                <th>Product</th>  
-                <th>Status</th>  
+                <th>العنوان</th>  
+                <th>الباحث</th>  
+                <th>المنتج</th>  
+                <th>الحالة</th>  
             </tr>  
         </thead>  
         <tbody>  
@@ -46,11 +49,11 @@
                         <form action="{{ route('reports.update-status', $report->uuid) }}" method="POST">  
                             @csrf  
                             <select name="status">  
-                                <option value="pending" {{ $report->status == 'pending' ? 'selected' : '' }}>Pending</option>  
-                                <option value="accept" {{ $report->status == 'accept' ? 'selected' : '' }}>Accept</option>  
-                                <option value="reject" {{ $report->status == 'reject' ? 'selected' : '' }}>Reject</option>  
+                                <option value="pending" {{ $report->status == 'pending' ? 'selected' : '' }}>معلق</option>  
+                                <option value="accept" {{ $report->status == 'accept' ? 'selected' : '' }}>مقبول</option>  
+                                <option value="reject" {{ $report->status == 'reject' ? 'selected' : '' }}>مرفوض</option>  
                             </select>  
-                            <button type="submit">Update</button>  
+                            <button type="submit">تحديث الحالة</button>  
                         </form>  
                     </td>  
                 </tr>  

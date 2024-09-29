@@ -1,28 +1,29 @@
 <?php
 
-namespace Database\Factories;
+  
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+namespace Database\Factories;  
+
 use App\Models\Company;  
- 
+use Illuminate\Database\Eloquent\Factories\Factory;  
 
-
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
- */
-class CompanyFactory extends Factory
-{
+class CompanyFactory extends Factory  
+{  
     protected $model = Company::class;  
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
+
+    public function definition()  
+    {  
         return [  
+            'uuid' => \Illuminate\Support\Str::uuid(),  
             'name' => $this->faker->company,  
-            'location' => $this->faker->address,  
+            'phone' => $this->faker->phoneNumber,  
+            'email' => $this->faker->unique()->safeEmail,  
+            'password' => bcrypt('password'),  // Consider using Hash::make('password')  خاصة
+            'logo' => $this->faker->imageUrl(),  
+            'type' => "خاصة"  ,
+            'description' => $this->faker->paragraph,  
+            'domain' => $this->faker->domainName,  
+            'employess_count' => $this->faker->numberBetween(1, 1000),  
         ];  
-    }
+    }  
 }
