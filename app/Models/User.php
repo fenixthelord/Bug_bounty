@@ -57,13 +57,8 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-<<<<<<< HEAD
-
-    public function reports() {
-=======
     public function reports()
     {
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
         return $this->hasMany(Report::class);
     }
 }

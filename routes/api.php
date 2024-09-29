@@ -86,7 +86,6 @@ Route::prefix('researcher')->group(function () {
     Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
 
     Route::middleware('auth:researcher')->group(function () {
-
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
 
         # Reports

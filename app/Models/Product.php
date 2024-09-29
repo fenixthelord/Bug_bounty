@@ -34,13 +34,6 @@ class Product extends Model
         $this->attributes['password'] = Hash::make($value);
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($user) {
-            $user->uuid = (string) \Str::uuid(); // توليد UUID عند الإنشاء
-        });
-    }
+   
 
 }
