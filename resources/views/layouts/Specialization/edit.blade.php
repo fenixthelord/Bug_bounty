@@ -20,7 +20,7 @@
                     <h3 class="card-title">تعديل الاختصاص </h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('specializations.update',$specialization->id) }}" method="POST">
+                    <form action="{{ route('specializations.updatee',$specialization->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
