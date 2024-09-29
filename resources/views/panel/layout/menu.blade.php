@@ -36,7 +36,7 @@
                  <li>
                   <a href="{{ route('specializations') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>
                  <li>
-                  <a href="{{ route('specializations.create') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">اضافة </span></a>
+                  <a href="{{ route('specializations.createe') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">اضافة </span></a>
                  </li>
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
                 </ul>
