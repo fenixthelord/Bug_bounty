@@ -9,89 +9,48 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
+class LoginController extends Controller {
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest')->except('logout');
     }
 
-    public function show_login_form()
-    {
+    public function show_login_form() {
         return view('auth.login');
     }
 
-    public function login(Request $request)
-    {
-
+    public function login(Request $request) {
         $request->validate([
             'UserMail' => 'required',
             'password' => 'required',
         ]);
 
-        $login = request()->input('UserMail');
+        $login = $request->input('UserMail');
 
-        if(is_numeric($login)){
-            $request['mobile'] = $login;
+        if (is_numeric($login)) {
+          $credentials = ['phone' => $login, 'password' => $request->password];
         } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-            $request['email'] = $login;
+          $credentials = ['email' => $login, 'password' => $request->password];
         } else {
-            $request['email'] = $login;
+          return redirect()->back()
+          ->withErrors(['UserMail' => 'البريد الإلكتروني أو رقم الهاتف غير صحيح'])->withInput();
         }
-
-        $credentials = $request->except(['_token','remember','UserMail']);
+        // dd($credentials);
         if (auth()->attempt($credentials)) {
-            $user = User::where('email',$request->UserMail)->first();
-            if($user){
-                $this->redirectTo = '/admin-panel';
-                return redirect()->route('Admin-Panel');
-            
-            }else{
-                return redirect()->back()->withErrors(['email', 'Invalid credentials'])->withInput()->with('message', 'خطأ في الصلاحية');
-            }
-
-        }else{
-            return redirect()->back()->withErrors(['email', 'Invalid credentials'])->withInput()->with('message', 'خطأ في البيانات');
-        }
+          $user = auth()->user();
+          if ($user) {
+            return redirect()->route('Admin-Panel');
+          }
+        } else {
+          return redirect()->back()->withErrors(['UserMail' => 'خطأ في بيانات تسجيل الدخول'])->withInput();
+          }
     }
 
-
-
-   
-
-    
-
-    public function logout()
-    {
-        Auth::logout();
-
+    public function logout() {
+        \Auth::logout();
         return redirect()->route('login');
     }
-
-
 }
