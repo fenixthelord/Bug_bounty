@@ -27,15 +27,9 @@ class ForgetPasswordController extends Controller
         $validate = Validator::make(
             ['email' => $request->email],
             [
-<<<<<<< HEAD
-                'email' => 'required|email|exists:researchers:email'
-=======
-<<<<<<< HEAD
-                'email' => 'required|email|exists:researchers:email'
-=======
+    
                 'email' => 'required|email|exists:researchers,email'
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+
             ]
         );
         if ($validate->fails()) {
@@ -81,15 +75,9 @@ class ForgetPasswordController extends Controller
             $request->all(),
             [
                 'otp' => 'required|numeric',
-<<<<<<< HEAD
-                'email' => 'required|email|exists:researchers:email',
-=======
-<<<<<<< HEAD
-                'email' => 'required|email|exists:researchers:email',
-=======
+
+ 
                 'email' => 'required|email|exists:researchers,email',
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
             ]
         );
         if ($validate->fails()) {
@@ -104,18 +92,14 @@ class ForgetPasswordController extends Controller
         try {
             $otp = (new Otp())->validate($request->email, $request->otp);
             if ($otp->status == true) {
-<<<<<<< HEAD
+
                 $otp = (new Otp())->generate($request->email, 'numeric');
                 $data['otp'] = $otp->token;
-=======
-<<<<<<< HEAD
-                $otp = (new Otp())->generate($request->email, 'numeric');
-                $data['otp'] = $otp->token;
-=======
+               
+
                 $user = Researcher::where('email', $request->email)->pluck("uuid")->first();
                 $data['uuid'] = $user;
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+
                 return $this->SuccessResponse($data);
             } else {
                 return $this->requiredField('Invalid otp');
@@ -130,17 +114,11 @@ class ForgetPasswordController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'otp' => 'required|numeric',
                 'password' => 'required|min:8|confirmed',
-<<<<<<< HEAD
-                'email' => 'required|email|exists:researchers:email',
-=======
-<<<<<<< HEAD
-                'email' => 'required|email|exists:researchers:email',
-=======
+
+      
                 'email' => 'required|email|exists:researchers,email',
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+                'uuid' => 'required|exists:researchers,uuid',
             ]
         );
         if ($validate->fails()) {
@@ -153,15 +131,14 @@ class ForgetPasswordController extends Controller
             return $this->ValidationError($request->all(), $validate);
         }
         try {
-            $otp = (new Otp())->validate($request->email, $request->otp);
-            if ($otp->status == true) {
-                $researcher = Researcher::where('email', $request->email)->first();
+            $researcher = Researcher::where('uuid', $request->uuid)->first();
+            if ($researcher) {
                 $researcher->update([
                     'password' => Hash::make($request->password)
                 ]);
                 return $this->SuccessResponse();
             } else {
-                return $this->requiredField('Invalid otp');
+                return $this->requiredField('Invalid Request');
             }
         } catch (\Exception $e) {
             return $this->handleException($e);

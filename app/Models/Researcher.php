@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -36,5 +37,9 @@ class Researcher extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function Products() {
+        return $this->belongsToMany(Product::class,Report::class);
     }
 }

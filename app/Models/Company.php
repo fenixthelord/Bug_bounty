@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 
-class Company extends Model 
+class Company extends Model
 {
 
-    use HasApiTokens,HasFactory,SoftDeletes,Uuid;
+    use HasApiTokens, HasFactory, SoftDeletes, Uuid;
 
     protected $fillable = [
-
         'uuid',
         'name',
         'phone',
@@ -37,9 +36,5 @@ class Company extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
-        }
-        public function reports()
-    {
-        return $this->hasManyThrough(Report::class, Product::class);
     }
 }

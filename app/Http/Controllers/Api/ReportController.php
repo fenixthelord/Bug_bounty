@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\ReportResource;
 use App\Http\Resources\ReportResourseResearch;
 use App\Models\Company;
@@ -37,6 +38,18 @@ class ReportController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
+
+    public function showAll()
+    {
+        $reports = Product::all();
+        if ($reports) {
+            $data['Product'] = ProductResource::collection($reports);
+            return $this->apiResponse($data, true, null, 200);
+        } else {
+            return $this->apiResponse(null, true, null, 200);
+        }
+    }
+
     public function addreport(Request $request)
     {
         try {
@@ -58,16 +71,15 @@ class ReportController extends Controller
             $report = Report::create([
                 'title' => $request->title,
                 'status' => 'pending',
-                'product_id' => Product::where('uuid', $request->uuid)->pluck('id')->first(),
-                // 'researcher_id' => $idreseacher,
-                'researcher_id' => $request->idreseacher,
+                'product_id' => Product::where('uuid', $request->product_uuid)->pluck('id')->first(),
+                'researcher_id' => $idreseacher,
                 'review_status' => 0,
                 'file' => env('PATH_IMG') . $d,
             ]);
 
             if ($report) {
                 $data['report'] = ReportResourseResearch::make($report);
-                return $this->apiResponse($data);
+                return $this->SuccessResponse($data);
             } else {
                 return $this->apiResponse(null, false, 'حدث خطا حاول الاضافة مرة أخرى', 200);
             }

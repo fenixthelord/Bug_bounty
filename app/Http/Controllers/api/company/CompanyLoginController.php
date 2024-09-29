@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\CompanyResource;
+use App\Http\Resources\CompanyResource\CompanyResource as CompanyResourceCompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
 
 class CompanyLoginController extends Controller
 {
@@ -18,7 +18,6 @@ class CompanyLoginController extends Controller
     use GeneralTrait;
 
     /**
-
      * Display a listing of the resource.
      */
 
@@ -28,7 +27,6 @@ class CompanyLoginController extends Controller
     }
 
     /**
-
      * Store a newly created resource in storage.
      */
     public function login(Request $request)
@@ -75,22 +73,23 @@ class CompanyLoginController extends Controller
 
         $company = Company::where('email', $request->email)->first();
 
-
         if (!$company || !Hash::check($request->password, $company->password))
-
         {
             return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
-
         if ($company->tokens()->exists()) 
         {
             return $this->unAuthorizeResponse();
-        } 
+        }
+        // if ($company->tokens()->exists()) 
+        // {
+        //     return $this->unAuthorizeResponse();
+        // }
 
         $token = $company->createToken('auth_token')->plainTextToken;
 
-        return (new CompanyResource($company))->successResponseWithToken($token);
+        return (new CompanyResourceCompanyResource($company))->successResponseWithToken($token);
     }
     
     public function logout()
@@ -100,37 +99,11 @@ class CompanyLoginController extends Controller
         if ($company && $company->currentAccessToken())
         {
             $company->currentAccessToken()->delete();
-
-            return $this->successResponse('تم تسجيل الخروج بنجاح');
-
         }
         return $this->unAuthorizeResponse();
     }
 
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
+   
 }
+
