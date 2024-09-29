@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 class ResearcherRegisterController extends Controller
 {
-    
+
     use GeneralTrait;
     use Uuid;
 
@@ -41,12 +41,12 @@ class ResearcherRegisterController extends Controller
             'email' => [
                 'required',
                 'string',
-                'email', 
+                'email',
             ],
             'phone' => [
                 'required',
                 'regex:/^09\d{8}$/',
-                'size:10',     
+                'size:10',
             ],
             'password' => [
                 'required',
@@ -55,12 +55,12 @@ class ResearcherRegisterController extends Controller
                 'max:255',
             ],
         ];
-    
+
         $messages = [
             'email.required' => 'اسم الايميل مطلوب. يرجى إدخال اسم الايميل',
             'email.string' => 'اسم الايميل يجب أن يكون نصاً صحيحاً',
             'email.email' => 'اسم الايميل يجب أن يكون نمطه ايميل',
-            'email.unique' => 'اسم الايميل يجب أن يكون فريد', 
+            'email.unique' => 'اسم الايميل يجب أن يكون فريد',
 
             'name.required' => 'اسم الباحث مطلوب. يرجى إدخال اسم الشخص',
             'name.string' => 'اسم الباحث يجب أن يكون نصاً صحيحاً',
@@ -71,7 +71,7 @@ class ResearcherRegisterController extends Controller
             'phone.required' => 'رقم الموبايل يجب أن يحتوي على حرفين على الأقل',
             'phone.regex' => 'رقم الموبايل يجب يحتوي 10 أرقام و يبدأ بالرقمين 09',
             'phone.size' => 'رقم الموبايل يجب ألا يزيد عن 10 أرقام',
-            'phone.unique' => 'رقم الموبايل يجب أن يكون فريد', 
+            'phone.unique' => 'رقم الموبايل يجب أن يكون فريد',
 
             'password.required'=> 'كلمة السر مطلوب. يرجى إدخال كلمة السر',
             'password.string' => 'كلمة السر يجب أن يكون نصاً صحيحاً',
@@ -82,7 +82,7 @@ class ResearcherRegisterController extends Controller
         $existingResearcher = Researcher::where('name', $request->name)
         ->where('email', $request->email)
         ->where('phone', $request->phone)
-        ->first(); 
+        ->first();
 
         if($existingResearcher)
         {
@@ -92,16 +92,16 @@ class ResearcherRegisterController extends Controller
             }
             return 'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.';
         }
- 
+
         $validator = Validator::make($request->all(), $rules, $messages);
-   
-        if ($validator->fails()) 
+
+        if ($validator->fails())
         {
             $firstError = $validator->errors()->first();
 
-            if (strpos($firstError, 'مطلوب') !== false) 
+            if (strpos($firstError, 'مطلوب') !== false)
             {
-                return $this->requiredField($firstError);  
+                return $this->requiredField($firstError);
             }
             return $this->notFoundResponse($firstError);
         }
@@ -115,7 +115,7 @@ class ResearcherRegisterController extends Controller
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
             ]);
-            return (new ResearcherResource($researcher))->successResponse();           
+            return (new ResearcherResource($researcher))->successResponse();
         }
         return $this->notFoundResponse('الايميل أو رقم الموبايل موجود مسبقاً');
     }
@@ -123,13 +123,13 @@ class ResearcherRegisterController extends Controller
     public function registerCode(Request $request,$uuid)
     {
        $researcherexists=Researcher::where('uuid',$uuid)->first();
-    
+
        if(!$researcherexists)
        {
             return $this->notFoundResponse('لا يمكن طلب رمز لا يوجد باحث لإتمام ذلك');
        }
        $researcher=Researcher::find($researcherexists->id);
-       
+
        $rules = [
             'code' => [
                 'required',
@@ -144,17 +144,17 @@ class ResearcherRegisterController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-    
-        if ($validator->fails()) 
+
+        if ($validator->fails())
         {
             $firstError = $validator->errors()->first();
 
-            if (strpos($firstError, 'مطلوب') !== false) 
+            if (strpos($firstError, 'مطلوب') !== false)
             {
-                return $this->requiredField($firstError);  
+                return $this->requiredField($firstError);
             }
             return $this->notFoundResponse(more: $firstError);
-        }          
+        }
         if($researcher)
         {
                 $researcher->update([
