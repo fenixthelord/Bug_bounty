@@ -9,13 +9,16 @@ use App\Models\Researcher;
 
 class DashboardController extends Controller
 {
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index(Company $company)
     {
         $companies = Company::all()->count();
-        
-         $products = Product::all()->count();
+
+        $products = Product::all()->count();
 
         $researchers = Researcher::all()->count();
 
