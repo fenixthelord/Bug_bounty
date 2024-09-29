@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminCompanyController;
 use App\Http\Controllers\SpecializationController;
 use App\Models\Company;
 use App\Models\Specialization;
 use App\Models\Researcher;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,10 @@ use App\Models\Researcher;
 
 \Illuminate\Support\Facades\Auth::routes(['register' => false]);
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Custom Auth
 Route::get('/login',[LoginController::class,'show_login_form'])->name('login');
@@ -38,11 +42,11 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 
 Route::get('/test', [DashboardController::class, 'index'])->name('Admin-Panel');
 Route::get('/404', [DashboardController::class, 'notFound'])->name('404');
-//Route::get('/500', [DashboardController::class, 'serverError'])->name('404');
+Route::get('/500', [DashboardController::class, 'serverError'])->name('500');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/admin')->middleware('auth')->group(function(){
+Route::get('/company',[AdminCompanyController::class,'index'])->name('admin.company');
+Route::get('/company/show/{company}',[AdminCompanyController::class,'show'])->name('admin.company.show');
 });
 
 Route::get('/home/specializations', [SpecializationController::class, 'index'])->name('specializations');
@@ -57,7 +61,5 @@ Route::get('/trashed', function () {
     $companies = Company::onlyTrashed()->get();
     $specializations = Specialization::onlyTrashed()->get();
     $researchers = Researcher::onlyTrashed()->get();
-
-    return view('layouts.trashed', compact('companies', 'specializations', 'researchers')); })->name('trashed.index');
-
-
+    return view('layouts.trashed', compact('companies', 'specializations', 'researchers'));
+     })->name('trashed.index');

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\CompanySpecialization ;
+use App\Models\Product;
+use App\Models\Specialization;
 
 class Company extends Model 
 {
@@ -25,16 +28,17 @@ class Company extends Model
         'domain',
         'employess_count'
     ];
-    public function companySpecialization()
-    {
+      
+    public function company_specializations() {
         return $this->hasMany(CompanySpecialization::class);
     }
-    public function specializations()
-    {
-        return $this->belongsToMany(Specialization::class);
-    }
-    public function products()
-    {
+
+    public function products() {
         return $this->hasMany(Product::class);
     }
+
+    public function specializations() {
+        return $this->belongsToMany(Specialization::class,'company_specializations','company_id','specialization_id');
+    }
+
 }
