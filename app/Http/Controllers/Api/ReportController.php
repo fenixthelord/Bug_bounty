@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ReportResource;
 use App\Http\Resources\ReportResourseResearch;
-use App\Http\Traits\GeneralTrait;
-use App\Models\Product;
+use App\Models\Company;
 use App\Models\Report;
-use App\Models\Researcher;
 use Auth;
 use Illuminate\Http\Request;
+use App\Http\Traits\GeneralTrait;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
@@ -76,4 +77,17 @@ class ReportController extends Controller
         }
     }
     //
+    public function ReportByCompany(Request $request)
+    {
+        $company_id = auth('company')->user();
+        // $company_id = $request->id;
+        $company = Company::find($company_id);
+        $report = $company->reports()->get();
+
+        if (!$report) {
+            return $this->apiResponse(null, false, 'not found', 404);
+        }
+        $data['report'] = ReportResource::collection($report);
+        return $this->apiResponse($data, true, null, 200);
+    }
 }

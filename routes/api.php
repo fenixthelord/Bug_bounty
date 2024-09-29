@@ -7,16 +7,9 @@ use App\Http\Controllers\api\company\CompanyLoginController;
 use App\Http\Controllers\api\company\CompanyRegisterController;
 use App\Http\Controllers\api\researcher\ResearcherLoginController;
 use App\Http\Controllers\api\researcher\ResearcherRegisterController;
-
-use App\Http\Controllers\Api\ReportController;
-use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Route;
-
-
-
-
 use App\Http\Controllers\api\product\ProductController;
+use App\Http\Controllers\Api\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +60,9 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth:company']], function
     Route::get('/show', [CompanyController::class, 'index']);
     Route::get('/show/{uuid}', [CompanyController::class, 'show']);
     Route::post('/update/{uuid}', [CompanyController::class, 'update']);
+
+    # Reports
+    Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
 });
 
 
@@ -85,7 +81,7 @@ Route::prefix('researcher')->group(function () {
     Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
 
     Route::middleware('auth:researcher')->group(function () {
-        # Change Password
+        
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
 
         # Reports
