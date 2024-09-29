@@ -57,14 +57,13 @@ Route::post('/researcherlogout', [ResearcherLoginController::class, 'logout'])->
     ****************************************
 */
 
-Route::middleware('auth:company')->group(function () {
+Route::group(['prefix' => 'company', 'middleware' => ['auth:company']], function () {
+    # Products
     Route::get('/all_product', [ProductController::class, 'index']);
     Route::post('/add_product', [ProductController::class, 'store']);
     Route::get('/delete_product', [ProductController::class, 'deletepackage']);
-});
 
-
-Route::group(['prefix' => 'company', 'middleware' => ['auth:company']], function () {
+    # Home
     Route::get('/show', [CompanyController::class, 'index']);
     Route::get('/show/{uuid}', [CompanyController::class, 'show']);
     Route::post('/update/{uuid}', [CompanyController::class, 'update']);
@@ -88,12 +87,9 @@ Route::prefix('researcher')->group(function () {
     Route::middleware('auth:researcher')->group(function () {
         # Change Password
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
+
+        # Reports
+        Route::get('/Reports-Researcher', [ReportController::class, 'ReportByResearcher']);
+        Route::post('/add-Reports-Researcher', [ReportController::class, 'addreport']);
     });
-});
-
-
-Route::middleware([ 'auth:researcher'])->group(function () {
-
-    Route::get('/Reports-Researcher', [ReportController::class, 'ReportByResearcher']);
-    Route::post('/add-Reports-Researcher', [ReportController::class, 'addreport']);
 });

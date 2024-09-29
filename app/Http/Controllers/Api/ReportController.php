@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReportResourseResearch;
 use App\Http\Traits\GeneralTrait;
+use App\Models\Product;
 use App\Models\Report;
 use App\Models\Researcher;
 use Auth;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
@@ -17,7 +18,6 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware('auth:researcher');
-
     }
     public function ReportByResearcher(Request $request)
     {
@@ -42,9 +42,9 @@ class ReportController extends Controller
         try {
             //code...
 
-            $idreseacher =auth('researcher')->user()->id;
+            $idreseacher = auth('researcher')->user()->id;
             $validator = Validator::make($request->all(), [
-                'product_id' => 'required|exists:products,id',
+                'product_uuid' => 'required|exists:products,uuid',
                 'title' => 'required|string',
                 'report_file' => 'required|mimes:pdf,docx|max:2048'
             ]);
@@ -58,7 +58,7 @@ class ReportController extends Controller
             $report = Report::create([
                 'title' => $request->title,
                 'status' => 'pending',
-                'product_id' => $request->product_id,
+                'product_id' => Product::where('uuid', $request->uuid)->pluck('id')->first(),
                 // 'researcher_id' => $idreseacher,
                 'researcher_id' => $request->idreseacher,
                 'review_status' => 0,
@@ -70,8 +70,6 @@ class ReportController extends Controller
                 return $this->apiResponse($data);
             } else {
                 return $this->apiResponse(null, false, 'حدث خطا حاول الاضافة مرة أخرى', 200);
-
-
             }
         } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
