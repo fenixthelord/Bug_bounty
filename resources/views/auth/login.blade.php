@@ -33,7 +33,7 @@
                                                 </div>--}}
                                             <div class="divider">
                                                 <div class="divider-text text-uppercase text-muted">
-                                                    <small>تسجيل الدخول الى لوحة الت</small>
+                                                    <small>لوحة تجكم  التطبيق</small>
                                                 </div>
                                             </div>
                                             <form method="post" action="{{ route('login') }}">

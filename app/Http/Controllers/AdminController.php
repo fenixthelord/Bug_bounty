@@ -32,6 +32,7 @@ class AdminController extends Controller {
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8',
             'phone' => 'nullable|string|max:10',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
   //dd($request->file('profile_picture'));
         $profile_picture = $request->file('profile_picture') ? $request->file('profile_picture')

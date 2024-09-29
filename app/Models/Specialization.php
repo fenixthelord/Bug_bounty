@@ -9,14 +9,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Specialization extends Model
 {
-    use HasFactory,SoftDeletes,Uuid;
+    use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-        'uuid','title'
-        ];
-        public function companySpecialization(){
-            return $this->hasMany(CompanySpecialization::class);
-        }
-        public function companies(){
-            return $this->belongsToMany(Company::class);
-        }
+        'uuid',
+        'title'
+    ];
+    public function companySpecialization()
+    {
+        return $this->hasMany(CompanySpecialization::class);
+    }
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class);
+    }
 }

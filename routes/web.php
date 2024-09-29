@@ -3,8 +3,17 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmailController;
+
+use App\Http\Controllers\SpecializationController;
+use App\Models\Company;
+use App\Models\Specialization;
+use App\Models\Researcher;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +45,7 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/test', [DashboardController::class, 'index'])->name('Admin-Panel');
 Route::get('/404', [DashboardController::class, 'notFound'])->name('404');
 Route::get('/500', [DashboardController::class, 'serverError'])->name('500');
+//Route::get('/500', [DashboardController::class, 'serverError'])->name('404');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
@@ -43,9 +53,34 @@ Route::get('/', function () {
 });
 
 
-
+//-----------------------------------------------------------------------------------------
 Route::middleware('auth')->group(function () {
     Route::get('/admin/create', [AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 });
+
+Route::get('/send-email', [EmailController::class, 'showEmailForm'])->name('email.form');
+Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('send.email');
+//-----------------------------------------------------------------------------------------
+
+
+
+
+Route::get('/home/specializations', [SpecializationController::class, 'index'])->name('specializations');
+Route::get('/home/specializations/create', [SpecializationController::class, 'create'])->name('specializations.create');
+Route::post('/home/specializations/store', [SpecializationController::class, 'store'])->name('specializations.store');
+Route::get('/home/specializations/{id}/companies', [SpecializationController::class, 'show'])->name('specialization.companies');
+Route::get('/home/specializations/{specialization}/edit', [SpecializationController::class, 'edit'])->name('specializations.edit');
+Route::put('/home/specializations/{specialization}', [SpecializationController::class, 'update'])->name('specializations.update');
+Route::resource('specializations', SpecializationController::class);
+Route::post('/specializations/restore/{id}', [SpecializationController::class, 'restore'])->name('specializations.restore');
+
+Route::get('/trashed', function () {
+    $companies = Company::onlyTrashed()->get();
+    $specializations = Specialization::onlyTrashed()->get();
+    $researchers = Researcher::onlyTrashed()->get();
+
+    return view('layouts.trashed', compact('companies', 'specializations', 'researchers')); })->name('trashed.index');
+
+

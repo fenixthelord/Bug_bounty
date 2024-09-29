@@ -2,7 +2,7 @@
 <div class="header-navbar-shadow"></div>
 <nav class="header-navbar main-header-navbar navbar-expand-lg navbar navbar-with-menu fixed-top "
  style="background-color: #D3d3D3;">
-    <div class="navbar-mobile">
+    <div class="navbar-wrapper">
         <div class="navbar-container content">
             <div class="navbar-collapse" id="navbar-mobile">
                 <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
@@ -12,9 +12,10 @@
                                     class="ficon bx bx-menu"></i></a></li>
                     </ul>
                     <ul class="nav navbar-nav bookmark-icons">
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-email.html"
+                        <li class="nav-item d-none d-lg-block"><a class="nav-link"
+                         href="{{ route('send.email') }}"
                                                                   data-toggle="tooltip" data-placement="top"
-                                                                  title="Email"><i class="ficon bx bx-envelope"></i></a></li>
+                                                                  title="Send Email"><i class="ficon bx bx-envelope"></i></a></li>
                         
                         <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calendar.html"
                                                                   data-toggle="tooltip" data-placement="top"
@@ -32,6 +33,20 @@
         <a class="dropdown-item" href="#" data-language="ar"><i class="flag-icon flag-icon-sa mr-50"></i> العربية</a>
     </div>
 </li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand">
+                        <i 
+                        class="ficon bx bx-fullscreen"></i></a></li>
+                     <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i
+                                class="ficon bx bx-search"></i></a>
+                        <div class="search-input">
+                            <div class="search-input-icon"><i class="bx bx-search primary"></i></div>
+                            <input class="input" type="text" placeholder="Explore Frest..." tabindex="-1"
+                                   data-search="template-search">
+                            <div class="search-input-close"><i class="bx bx-x"></i></div>
+                            <ul class="search-list"></ul>
+                        </div>
+                    </li>
+
                     <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#"
                                                                            data-toggle="dropdown"><i
                                 class="ficon bx bx-bell bx-tada bx-flip-horizontal"></i><span
@@ -181,38 +196,44 @@
                                     href="javascript:void(0)">Read all notifications</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link"
-                                                                 href="#" data-toggle="dropdown">
+
+<li class="dropdown dropdown-user nav-item">
+ <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
 
                             <div class="user-nav d-sm-flex d-none">
-                                @if(auth()->check())
+                              @if(auth()->check())
                                 <span class="name">{{ auth()->user()->name }}</span>
-                                @else
+                              @else
                                 <span class="name">Guest</span>
-                                @endif
+                              @endif
+                                <span class="user-status text-muted">Available</span>
+                            </div>
 
-                            <span class="user-status text-muted">Available</span></div>
+<span>
+@if(auth()->check())
+ <img src="{{ auth()->user()->profile_picture }}" alt="{{ auth()->user()->profile_picture }}"            class="round" height="40" width="40">
+@else
+ <img src="path/to/default/image.jpg" alt="Default User" class="user-profile-image">
+@endif
+</span>
+</a>
 
-                            <span>@if(auth()->check())
-                             <img src="{{ auth()->user()->profile_picture }}"
-                              alt="{{ auth()->user()->profile_picture }}" class="user-profile-image"
-                            height="40" width="40">
-                            @else
-                            <img src="path/to/default/image.jpg" alt="Default User" class="user-profile-image">
-                            @endif
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right pb-0"><a class="dropdown-item"
-                                                                               href="page-user-profile.html"><i
-                                    class="bx bx-user mr-50"></i> Edit Profile</a><a class="dropdown-item"
-                                                                                     href="app-email.html"><i
-                                    class="bx bx-envelope mr-50"></i> My Inbox</a><a class="dropdown-item"
-                                                                                     href="app-todo.html"><i
-                                    class="bx bx-check-square mr-50"></i> Task</a><a class="dropdown-item"
-                                                                                     href="app-chat.html"><i
-                                    class="bx bx-message mr-50"></i> Chats</a>
-                            <div class="dropdown-divider mb-0"></div>
-                            <a class="dropdown-item" href="auth-login.html"><i class="bx bx-power-off mr-50"></i> Logout</a>
+
+<div class="dropdown-menu dropdown-menu-right pb-0">
+ <a class="dropdown-item" href="page-user-profile.html">
+<i class="bx bx-user mr-50">
+
+</i> Edit Profile</a>
+<a class="dropdown-item" href="app-email.html">
+ <i class="bx bx-envelope mr-50">
+ </i> My Inbox</a>
+<a class="dropdown-item" href="#" onclick="event.preventDefault();
+ document.getElementById('logout-form').submit();">
+ <i class="bx bx-power-off mr-50">
+</i> Logout</a>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+@csrf
+</form>
                         </div>
                     </li>
                 </ul>
