@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 class ResearcherRegisterController extends Controller
 {
-    
+
     use GeneralTrait;
     use Uuid;
 
@@ -41,12 +41,12 @@ class ResearcherRegisterController extends Controller
             'email' => [
                 'required',
                 'string',
-                'email', 
+                'email',
             ],
             'phone' => [
                 'required',
                 'regex:/^09\d{8}$/',
-                'size:10',     
+                'size:10',
             ],
             'password' => [
                 'required',
@@ -55,12 +55,12 @@ class ResearcherRegisterController extends Controller
                 'max:255',
             ],
         ];
-    
+
         $messages = [
             'email.required' => 'اسم الايميل مطلوب. يرجى إدخال اسم الايميل',
             'email.string' => 'اسم الايميل يجب أن يكون نصاً صحيحاً',
             'email.email' => 'اسم الايميل يجب أن يكون نمطه ايميل',
-            'email.unique' => 'اسم الايميل يجب أن يكون فريد', 
+            'email.unique' => 'اسم الايميل يجب أن يكون فريد',
 
             'name.required' => 'اسم الباحث مطلوب. يرجى إدخال اسم الشخص',
             'name.string' => 'اسم الباحث يجب أن يكون نصاً صحيحاً',
@@ -71,49 +71,44 @@ class ResearcherRegisterController extends Controller
             'phone.required' => 'رقم الموبايل يجب أن يحتوي على حرفين على الأقل',
             'phone.regex' => 'رقم الموبايل يجب يحتوي 10 أرقام و يبدأ بالرقمين 09',
             'phone.size' => 'رقم الموبايل يجب ألا يزيد عن 10 أرقام',
-            'phone.unique' => 'رقم الموبايل يجب أن يكون فريد', 
+            'phone.unique' => 'رقم الموبايل يجب أن يكون فريد',
 
-            'password.required'=> 'كلمة السر مطلوب. يرجى إدخال كلمة السر',
+            'password.required' => 'كلمة السر مطلوب. يرجى إدخال كلمة السر',
             'password.string' => 'كلمة السر يجب أن يكون نصاً صحيحاً',
             'password.min' => 'كلمة السر يجب أن يحتوي على 8 على الأقل',
             'password.max' => 'كلمة السر يجب ألا يزيد عن 255 حرفاً',
         ];
 
         $existingResearcher = Researcher::where('name', $request->name)
-        ->where('email', $request->email)
-        ->where('phone', $request->phone)
-        ->whereNull('code')
-        ->first(); 
+            ->where('email', $request->email)
+            ->where('phone', $request->phone)
+            ->whereNull('code')
+            ->first();
 
-        if($existingResearcher)
-        {
-            if (Hash::check($request->password, $existingResearcher->password))
-            {
+        if ($existingResearcher) {
+            if (Hash::check($request->password, $existingResearcher->password)) {
                 return response()->json([
                     'message' => 'بيانات الباحث موجودة مسبقاً. اذهب للقيام بإدخال الرمز لتفعيل حسابك.'
-                ],409);
+                ], 409);
             }
             return response()->json([
                 'message' => 'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.'
-            ], 400); 
+            ], 400);
         }
- 
+
         $validator = Validator::make($request->all(), $rules, $messages);
-   
-        if ($validator->fails()) 
-        {
+
+        if ($validator->fails()) {
             $firstError = $validator->errors()->first();
 
-            if (strpos($firstError, 'مطلوب') !== false) 
-            {
-                return $this->requiredField($firstError);  
+            if (strpos($firstError, 'مطلوب') !== false) {
+                return $this->requiredField($firstError);
             }
             return $this->notFoundResponse($firstError);
         }
 
-        if(!Researcher::where('email', $request->email)
-            ->orWhere('phone', $request->phone)->first())
-        {
+        if (!Researcher::where('email', $request->email)
+            ->orWhere('phone', $request->phone)->first()) {
             $researcher = Researcher::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -121,22 +116,21 @@ class ResearcherRegisterController extends Controller
                 'password' => Hash::make($request->password),
                 'points' => 0,
             ]);
-            return (new ResearcherResource($researcher))->successResponse();           
+            return (new ResearcherResource($researcher))->successResponse();
         }
         return $this->notFoundResponse('الايميل أو رقم الموبايل موجود مسبقاً');
     }
 
-    public function registerCode(Request $request,$uuid)
+    public function registerCode(Request $request, $uuid)
     {
-       $researcherexists=Researcher::where('uuid',$uuid)->first();
-    
-       if(!$researcherexists)
-       {
+        $researcherexists = Researcher::where('uuid', $uuid)->first();
+
+        if (!$researcherexists) {
             return $this->notFoundResponse('لا يمكن طلب رمز لا يوجد باحث لإتمام ذلك');
-       }
-       $researcher=Researcher::find($researcherexists->id);
-       
-       $rules = [
+        }
+        $researcher = Researcher::find($researcherexists->id);
+
+        $rules = [
             'code' => [
                 'required',
                 'string',
@@ -150,20 +144,17 @@ class ResearcherRegisterController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-    
-        if ($validator->fails()) 
-        {
+
+        if ($validator->fails()) {
             $firstError = $validator->errors()->first();
 
-            if (strpos($firstError, 'مطلوب') !== false) 
-            {
-                return $this->requiredField($firstError);  
+            if (strpos($firstError, 'مطلوب') !== false) {
+                return $this->requiredField($firstError);
             }
             return $this->notFoundResponse(more: $firstError);
-        }          
-        if($researcher)
-        {
-                $researcher->update([
+        }
+        if ($researcher) {
+            $researcher->update([
                 'code' => $request->code,
             ]);
             return (new ResearcherResource($researcher))->successResponse();
