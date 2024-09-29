@@ -25,7 +25,6 @@ return new class extends Migration {
             $table->bigInteger('user_id')->unsigned()->change();
             $table->text('canceled_note')->change();
 
-
         });
     }
 };

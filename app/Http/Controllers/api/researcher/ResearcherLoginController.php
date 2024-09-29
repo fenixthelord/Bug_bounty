@@ -132,7 +132,7 @@ class ResearcherLoginController extends Controller
 
         if ($researcher && $researcher->currentAccessToken()) {
             $researcher->currentAccessToken()->delete();
-            return response()->json('تم تسجيل الخروج بنجاح', 200);
+            return $this->SuccessResponse('تم تسجيل الخروج بنجاح');
         }
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
         return $this->unAuthorizeResponse();

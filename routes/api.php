@@ -121,8 +121,9 @@ Route::prefix('researcher')->group(function () {
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
 
         # Reports
-        Route::get('/Reports-Researcher', [ReportController::class, 'ReportByResearcher']);
-        Route::post('/add-Reports-Researcher', [ReportController::class, 'addreport']);
+        Route::get('/reports-researcher', [ReportController::class, 'ReportByResearcher']);
+        Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
+        Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
     });
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
 });
