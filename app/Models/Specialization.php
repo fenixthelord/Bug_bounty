@@ -20,6 +20,6 @@ class Specialization extends Model
     }
     public function companies()
     {
-        return $this->belongsToMany(Company::class,'company_specializations','company_id','specialization_id');
+        return $this->belongsToMany(Company::class,CompanySpecialization::class);
     }
 }

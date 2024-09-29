@@ -19,7 +19,7 @@
         <tbody>
 
             
-            @foreach ($specialization->company as $company)
+            @foreach ($specialization->companies as $company)
                 <tr>
                     <td>
                         @if ($company->image)

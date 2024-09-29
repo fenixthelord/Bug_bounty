@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\ReportController;
 
 
 
-use App\Http\Controllers\api\product\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +42,7 @@ Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (
     Route::post('/update/{id}' ,[CompanyController::class , 'update']);
 });
 
-<<<<<<< HEAD
-=======
+
 /*
     ****************************************
  ************* Authentication Routes *****************
@@ -87,16 +86,11 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth:company']], function
     Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
 });
 
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 
 
 /*
     ****************************************
-<<<<<<< HEAD
- ************* Researcher Route *****************
-=======
  ************* Researcher Routes *****************
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
     ****************************************
  */
 
@@ -108,15 +102,6 @@ Route::prefix('researcher')->group(function () {
     Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
 
     Route::middleware('auth:researcher')->group(function () {
-<<<<<<< HEAD
-        # Change Password
-        Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
-    });
-
-});
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-=======
         
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
 
@@ -124,9 +109,8 @@ Route::prefix('researcher')->group(function () {
         Route::get('/Reports-Researcher', [ReportController::class, 'ReportByResearcher']);
         Route::post('/add-Reports-Researcher', [ReportController::class, 'addreport']);
     });
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 });
-*/
+
 Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
 Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class,'registerCode']);
 Route::post('/researcherlogin',[ResearcherLoginController::class,'login']);
