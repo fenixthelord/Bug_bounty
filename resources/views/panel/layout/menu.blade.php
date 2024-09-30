@@ -55,6 +55,17 @@
    <a href="{{ route('trashed.index') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>  
  </ul>
 </li>
+</ul>
+<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+        <li class="nav-item">
+    
+    <a href="#"><i class="bx bx-user"></i><span class="menu-title">Researcher </span></a>
+    <ul class="menu-content">
+     <li>
+      <a href="{{ route('show.researcher') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">show</span></a></li>
+
+
+        </ul
 
 
  </div>
