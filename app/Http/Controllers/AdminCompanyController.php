@@ -35,7 +35,7 @@ class AdminCompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($company)
     {
         $company=Company::where('name',$company)->first();
         if($company){
@@ -44,6 +44,29 @@ class AdminCompanyController extends Controller
             return view('error.404');
         }
     }
+
+
+
+    public function search(Request $request)
+    {
+        $company=Company::where('name',$request->company)->first();
+        if($company){
+        return view('company.show',['company'=>$company]);
+        }else{
+            return view('error.404');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.
