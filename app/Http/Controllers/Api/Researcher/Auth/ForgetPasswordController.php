@@ -17,10 +17,7 @@ class ForgetPasswordController extends Controller
 
     use GeneralTrait;
 
-    public function __construct()
-    {
-        $this->middleware('guest:researcher');
-    }
+    
 
     public function GenerateOTP(Request $request)
     {
@@ -115,9 +112,12 @@ class ForgetPasswordController extends Controller
             $request->all(),
             [
                 'password' => 'required|min:8|confirmed',
+<<<<<<< HEAD
 
       
                 'email' => 'required|email|exists:researchers,email',
+=======
+>>>>>>> f19ece9370eda508944c995b9c038e6beaa4e328
                 'uuid' => 'required|exists:researchers,uuid',
             ]
         );

@@ -18,17 +18,18 @@ class CompanyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-
-            'uuid' => $this->uuid ,
-            'name'=> $this->name ,
-            'phone' => $this->phone,
-            'email' => $this->email,
-            'logo' => $this->logo,
-            'type' => $this->type,
-            'description' => $this->description,
-            'domain' => $this->domain,
-            'employess_count' => $this->employess_count,
-            'created_at' => $this->created_at->toDateTimeString(),
+            'company' => [
+                'uuid' => $this->uuid,
+                'name' => $this->name,
+                'phone' => $this->phone,
+                'email' => $this->email,
+                'logo' => $this->logo,
+                'type' => $this->type,
+                'description' => $this->description,
+                'domain' => $this->domain,
+                'employess_count' => $this->employess_count,
+                'created_at' => $this->created_at->toDateTimeString(),
+            ]
         ];
     }
     public function successResponse()
@@ -37,12 +38,6 @@ class CompanyResource extends JsonResource
     }
     public function successResponseWithToken($token)
     {
-        return $this->apiResponse(['company' => $this,'token' => $token], true, null, 200);
+        return $this->apiResponse(['company' => $this, 'token' => $token], true, null, 200);
     }
 }
-
-
-
-
-
-

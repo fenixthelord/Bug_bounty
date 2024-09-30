@@ -16,6 +16,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+<<<<<<< HEAD
     public function __construct()
     {
 <<<<<<< HEAD
@@ -46,6 +47,8 @@ class ProductController extends Controller
 >>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         $this->middleware('auth:company');
     }
+=======
+>>>>>>> f19ece9370eda508944c995b9c038e6beaa4e328
     public function index()
     {
         $id = Auth::user()->id;
