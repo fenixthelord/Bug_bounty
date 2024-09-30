@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Researcher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ResearcherResource;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Company;
 use App\Models\Product;
@@ -47,16 +48,16 @@ class ResearcherController extends Controller
             // Handle the exception and return an error response
         }
     }
-    public function editresearsher(Request $request, $uuid)
+    public function editresearsher()
     {
-        $user = Researcher::where("uuid", $uuid)->get();
+        $user = auth()->user();
 
-        return $this->apiResponse($user, 1, null, 200);
+        return $this->apiResponse(ResearcherResource::make($user), 1, null, 200);
     }
 
-    public function updateprofile($uuid, Request $request)
+    public function updateprofile(Request $request)
     {
-        $researcher = Researcher::where("uuid", $uuid)->first();
+        $researcher = auth()->user();
 
         $validateData = $request->validate([
             'name' => 'required|string|max:255',
@@ -91,6 +92,6 @@ class ResearcherController extends Controller
 
 
         ]);
-        return $this->apiResponse($researcher, true, 'تم تحديث معلزمات الباحث بنجاح', 200);
+        return $this->apiResponse($researcher, true, 'تم تحديث معلومات الباحث بنجاح', 200);
     }
 }

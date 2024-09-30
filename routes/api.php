@@ -94,9 +94,9 @@ Route::prefix('researcher')->group(function () {
         Route::get('/reports-researcher', [ReportController::class, 'ReportByResearcher']);
         Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
-
-        Route::post('/show/{uuid}', [ResearcherController::class, 'editresearsher']);
-        Route::post('/update/{uuid}', [ResearcherController::class, 'updateprofile']);
+        
+        Route::get('/show', [ResearcherController::class, 'editresearsher']);
+        Route::post('/update/', [ResearcherController::class, 'updateprofile']);
         Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
     });
 });

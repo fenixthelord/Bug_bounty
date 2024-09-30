@@ -105,7 +105,6 @@ class ForgetPasswordController extends Controller
             $request->all(),
             [
                 'password' => 'required|min:8|confirmed',
-                'email' => 'required|email|exists:researchers,email',
                 'uuid' => 'required|exists:researchers,uuid',
             ]
         );
