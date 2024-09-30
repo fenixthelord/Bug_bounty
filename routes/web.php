@@ -44,3 +44,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/researcher/show', [App\Http\Controllers\ResearcherController::class, 'index'])->name('researcher.show');
+Route::get('/researcher/edit/{uuid}', [App\Http\Controllers\ResearcherController::class, 'edit'])->name('researcher.edit');
+Route::post('/researcher/update/{uuid}', [App\Http\Controllers\ResearcherController::class, 'update'])->name('researcher.update');
+Route::get('/researcher/delete/{uuid}', [App\Http\Controllers\ResearcherController::class, 'destroy'])->name('researcher.delete');
+Route::get('/researcher/restore/{uuid}', [App\Http\Controllers\ResearcherController::class, 'restore'])->name('researcher.restore');
+Route::get('/researcher/trashed', [App\Http\Controllers\ResearcherController::class, 'trashed'])->name('researcher.trashed');
+
