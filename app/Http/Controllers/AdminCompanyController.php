@@ -37,7 +37,12 @@ class AdminCompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $company=Company::where('name',$company)->first();
+        if($company){
+        return view('company.show',['company'=>$company]);
+        }else{
+            return view('error.404');
+        }
     }
 
     /**
