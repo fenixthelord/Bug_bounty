@@ -1,33 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\api\company;
+namespace App\Http\Controllers\Api\Researcher\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Company;
+use  App\Models\Researcher;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\CompanyResource\CompanyResource as CompanyResourceCompanyResource;
+use App\Http\Resources\ResearcherResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class CompanyLoginController extends Controller
+class ResearcherLoginController extends Controller
 {
-
     use GeneralTrait;
 
     /**
      * Display a listing of the resource.
      */
-
     public function index()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function login(Request $request)
     {
         $rules = [
@@ -35,7 +28,7 @@ class CompanyLoginController extends Controller
                 'required',
                 'string',
                 'email',
-                'exists:companies,email',  
+                'exists:researchers,email',
             ],
             'password' => [
                 'required',
@@ -58,50 +51,73 @@ class CompanyLoginController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
-        if ($validator->fails()) 
-        {
+        if ($validator->fails()) {
             $firstError = $validator->errors()->first();
-        
-            if (strpos($firstError, 'مطلوب') !== false) 
-            {
-                return $this->requiredField($firstError);  
+
+            if (strpos($firstError, 'مطلوب') !== false) {
+                return $this->requiredField($firstError);
             }
 
             return $this->notFoundResponse($firstError);
         }
 
-        $company = Company::where('email', $request->email)->first();
+        $researcher = Researcher::where('email', $request->email)->first();
 
-        if (!$company || !Hash::check($request->password, $company->password))
-        {
+        if (!$researcher || !\Hash::check($request->password, $researcher->password)) {
             return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
-    
-        
-        // if ($company->tokens()->exists()) 
-        // {
+        if (is_null($researcher->code)) {
+            return $this->notFoundResponse('الحساب غير مفعل عليك إدخال الكود لتفعيله');
+        }
+
+        // if ($researcher->tokens()->exists()) {
         //     return $this->unAuthorizeResponse();
         // }
 
-        $token = $company->createToken('auth_token')->plainTextToken;
+        $token = $researcher->createToken('auth_token')->plainTextToken;
 
-        return (new CompanyResourceCompanyResource($company))->successResponseWithToken($token);
+        return (new ResearcherResource($researcher))->successResponseWithToken($token);
     }
-    
+
     public function logout()
     {
-        $company = auth()->guard('company')->user();
-    
-        if ($company && $company->currentAccessToken())
-        {
-            $company->currentAccessToken()->delete();
-            return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);    
-        }
+        $researcher = auth()->guard('researcher')->user();
 
+        if ($researcher && $researcher->currentAccessToken()) {
+            $researcher->currentAccessToken()->delete();
+        }
+        return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
+    }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
 
-   
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
 }
-
