@@ -58,6 +58,17 @@
 
 
 
+            <li class=" nav-item"> <a href="#"><i class="bx bx-trash"></i><span class="menu-title">الشركات</span></a>
+                <ul class="menu-content">
+                    <li>
+                    <a href="{{route('admin.company')}}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">عرض الشركات</span></a>
+                    </li>
+
+                </ul>
+               </li>
+
+
+
 
 
 
