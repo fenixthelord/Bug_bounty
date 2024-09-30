@@ -32,12 +32,12 @@ use App\Http\Controllers\Api\Researcher\ResearcherController;
 */
 
 Route::post('/companylogin', [CompanyLoginController::class, 'login']);
+Route::post('/researcherlogin', [ResearcherLoginController::class, 'login']);
+
+
 Route::post('/companyregister', [CompanyRegisterController::class, 'store']);
-
-
 Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
 Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class, 'registerCode']);
-Route::post('/researcherlogin', [ResearcherLoginController::class, 'login']);
 
 
 
@@ -87,13 +87,15 @@ Route::prefix('researcher')->group(function () {
 
         # Reports
         Route::get('/reports-researcher', [ReportController::class, 'ReportByResearcher']);
-        Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
+        // Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
+
+        Route::get('/company/{uuid}' , [ResearcherController::class , 'company']);
 
         Route::get('/show', [ResearcherController::class, 'editresearsher']);
         Route::post('/update', [ResearcherController::class, 'updateprofile']);
         Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
 
-        Route::post('/researcherlogout', [ResearcherLoginController::class, 'logout'])->middleware('auth:sanctum');
+        Route::post('/researcherlogout', [ResearcherLoginController::class, 'logout']);
     });
 });

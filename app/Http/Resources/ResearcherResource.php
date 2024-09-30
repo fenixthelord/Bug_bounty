@@ -17,13 +17,13 @@ class ResearcherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'uuid' => $this->uuid ,
-            'name'=> $this->name ,
+            'uuid' => $this->uuid,
+            'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
             'code' => $this->code,
-            'image'=>$this->image,
-            'points'=>$this->points,
+            'image' => $this->image,
+            'points' => $this->points,
             'facebook' => $this->facebook,
             'linkedin' => $this->linkedin,
             'github' => $this->github,
@@ -36,7 +36,6 @@ class ResearcherResource extends JsonResource
     }
     public function successResponseWithToken($token)
     {
-        return $this->apiResponse(['researcher' => $this,'token' => $token], true, null, 200);
+        return $this->apiResponse(['researcher' => $this, 'token' => $token], true, null, 200);
     }
 }
-

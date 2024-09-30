@@ -25,7 +25,7 @@ class ChangePasswordController extends Controller
             return $this->ValidationError($request->all(), $validation);
         }
 
-        $user = auth()->user();
+        $user = auth('company')->user();
         if (!$user) {
             # status code 401-UnAuthorize  
             return $this->unAuthorizeResponse();
