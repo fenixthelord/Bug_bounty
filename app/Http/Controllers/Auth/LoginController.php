@@ -42,7 +42,7 @@ class LoginController extends Controller {
         if (auth()->attempt($credentials)) {
           $user = auth()->user();
           if ($user) {
-            return redirect()->route('Admin-Panel');
+            return redirect()->route('home');
           }
         } else {
           return redirect()->back()->withErrors(['UserMail' => 'خطأ في بيانات تسجيل الدخول'])->withInput();
