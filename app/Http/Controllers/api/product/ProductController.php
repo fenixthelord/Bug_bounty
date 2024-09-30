@@ -19,6 +19,7 @@ class ProductController extends Controller
     public function __construct()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
@@ -41,6 +42,8 @@ class ProductController extends Controller
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         $this->middleware('auth:company');
     }
     public function index()
@@ -52,8 +55,11 @@ class ProductController extends Controller
         }
         $data['product'] = productResource::collection($product);
         return $this->apiResponse($data, true, null, 200);
+<<<<<<< HEAD
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
     }
 
     /**
@@ -61,6 +67,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -99,6 +106,8 @@ class ProductController extends Controller
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         $validator = Validator::make(
             $request->all(),
             [
@@ -124,8 +133,11 @@ class ProductController extends Controller
             $data['product'] = ProductResource::make($product);
             return $this->apiResponse($data, true, null, 200);
         } catch (\Exception $ex) {
+<<<<<<< HEAD
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
@@ -155,6 +167,7 @@ class ProductController extends Controller
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
@@ -170,6 +183,8 @@ public function deletepackage(Request $request)
 }
 =======
 =======
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
     public function deletepackage(Request $request)
     {
 
@@ -178,6 +193,5 @@ public function deletepackage(Request $request)
         $Product->delete();
         return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
     }
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
 }
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7

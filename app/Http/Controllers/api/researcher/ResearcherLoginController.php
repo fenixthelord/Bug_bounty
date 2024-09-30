@@ -17,7 +17,10 @@ class ResearcherLoginController extends Controller
     /**
      * Display a listing of the resource.
      */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
     public function index()
     {
         //
@@ -29,9 +32,13 @@ class ResearcherLoginController extends Controller
                 'required',
                 'string',
                 'email',
+<<<<<<< HEAD
 
                 'exists:researchers,email',
 
+=======
+                'exists:researchers,email',
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
             ],
             'password' => [
                 'required',
@@ -54,6 +61,7 @@ class ResearcherLoginController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
+<<<<<<< HEAD
         if ($validator->fails()) 
         {
             $firstError = $validator->errors()->first();
@@ -62,12 +70,17 @@ class ResearcherLoginController extends Controller
             {
                 return $this->requiredField($firstError);  
 
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         if ($validator->fails()) {
             $firstError = $validator->errors()->first();
 
             if (strpos($firstError, 'مطلوب') !== false) {
                 return $this->requiredField($firstError);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
             }
 
             return $this->notFoundResponse($firstError);
@@ -75,6 +88,7 @@ class ResearcherLoginController extends Controller
 
         $researcher = Researcher::where('email', $request->email)->first();
 
+<<<<<<< HEAD
 
         if (!$researcher || !\Hash::check($request->password, $researcher->password))
         {
@@ -89,6 +103,8 @@ class ResearcherLoginController extends Controller
         if ($researcher->tokens()->exists()) 
         {
 
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         if (!$researcher || !\Hash::check($request->password, $researcher->password)) {
             return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
@@ -98,7 +114,10 @@ class ResearcherLoginController extends Controller
         }
 
         if ($researcher->tokens()->exists()) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
             return $this->unAuthorizeResponse();
         }
 
@@ -106,6 +125,7 @@ class ResearcherLoginController extends Controller
 
         return (new ResearcherResource($researcher))->successResponseWithToken($token);
     }
+<<<<<<< HEAD
   
     public function logout()
     {
@@ -117,6 +137,8 @@ class ResearcherLoginController extends Controller
             return response()->json('تم تسجيل الخروج بنجاح', 200);
         } 
 
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
 
     public function logout()
     {
@@ -126,8 +148,11 @@ class ResearcherLoginController extends Controller
             $researcher->currentAccessToken()->delete();
             return $this->SuccessResponse('تم تسجيل الخروج بنجاح');
         }
+<<<<<<< HEAD
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         return $this->unAuthorizeResponse();
     }
     /**

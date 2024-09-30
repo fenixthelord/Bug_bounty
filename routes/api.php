@@ -28,7 +28,6 @@ group(function(){
     Route::get('/all_product', [ProductController::class, 'index']);
     Route::post('/add_product', [ProductController::class, 'store']);
     Route::get('/delete_product', [ProductController::class, 'deletepackage']);
-
 });
 
 
@@ -40,41 +39,6 @@ Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (
     Route::post('/update/{id}' ,[CompanyController::class , 'update']);
 });
 
-
-
-/*
-    ****************************************
- ************* Researcher Route *****************
-    ****************************************
- */
-
-Route::prefix('researcher')->group(function () {
-
-    # forget Password
-    Route::post('/forgetPassword', [ResearcherForgetPasswordController::class, 'GenerateOTP']);
-    Route::post('/validateOtp', [ResearcherForgetPasswordController::class, 'ValidateOtp']);
-    Route::post('/resetPassword', [ResearcherForgetPasswordController::class, 'ResetPassword']);
-
-    Route::middleware('auth:researcher')->group(function () {
-        # Change Password
-        Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
-    });
-
-});
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-=======
-});
-
-
-
-
-Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (){
-    Route::get('/show' , [CompanyController::class , 'index']);
-    Route::get('/show/{id}', [CompanyController::class , 'show']);
-    Route::post('/update/{id}' ,[CompanyController::class , 'update']);
-});
 
 /*
     ****************************************

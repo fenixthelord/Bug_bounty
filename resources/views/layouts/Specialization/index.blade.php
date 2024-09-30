@@ -15,6 +15,7 @@
 
     <table class="table mt-2">
         <thead>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
             <tr>
                 <th>Title</th>
                
@@ -37,11 +38,32 @@
                         <form action="{{ route('specializations.destroy', $specialization->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this specialization?')">Delete</button>
+                            <button type="submit" class="btn btn-danger" onclick="fireSweetAlert()">Delete</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
+            <script>
+                function fireSweetAlert() {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                      });
+                    }
+                  });
+                }
+                </script>
         </tbody>
     </table>
     

@@ -3,6 +3,15 @@
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SpecializationController;
+use App\Http\Controllers\FilterController;
+use App\Models\Company;
+use App\Models\Specialization;
+use App\Models\Researcher;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmailController;
+
 
 /*
 |--------------------------------------------------------------------------

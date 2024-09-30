@@ -8,6 +8,7 @@ use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\CompanyResource;
+use App\Http\Resources\CompanyResource\CompanyResource as CompanyResourceCompanyResource;
 use App\Http\Traits\Uuid;
 use Illuminate\Http\Request;
 
@@ -37,9 +38,13 @@ class CompanyRegisterController extends Controller
             'name' => [
                 'required',
                 'string',
+<<<<<<< HEAD
 
                 'regex:/^[\p{Arabic}\s]+$/u',
 
+=======
+                'regex:/^[\p{Arabic}a-zA-Z0-9\s]+$/u',
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
                 'max:255',
             ],
             'domain' => [
@@ -75,9 +80,13 @@ class CompanyRegisterController extends Controller
         $messages = [
             'name.required' => 'اسم الشركة مطلوب. يرجى إدخال اسم الشخص.',
             'name.string' => 'اسم الشركة يجب أن يكون نصاً صحيحاً.',
+<<<<<<< HEAD
 
             'name.regex' => 'اسم الشركة يجب أن يحتوي فقط على حروف عربية أو انكليزية و مسافات و يمكن أن تحتوي على أرقام .',
 
+=======
+            'name.regex' => 'اسم الشركة يجب أن يحتوي فقط على حروف عربية أو انكليزية و مسافات و يمكن أن تحتوي على أرقام .',
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
             'name.max' => 'اسم الشركة يجب ألا يزيد عن 255 حرفاً.',
             
             'domain.required' => 'الدومين مطلوب. يرجى إدخال دومين صحيح.',
@@ -114,10 +123,14 @@ class CompanyRegisterController extends Controller
             {
                 return $this->requiredField($firstError);  
             }
+<<<<<<< HEAD
 
          
             return $this->requiredField($firstError);
 
+=======
+            return $this->requiredField($firstError);
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         }
     
         $company = Company::create([
@@ -127,11 +140,15 @@ class CompanyRegisterController extends Controller
             'employess_count' => $request->employess_count,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+<<<<<<< HEAD
 
             'phone' => null ,
 
+=======
+            'phone' => null ,
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         ]);
-        return (new CompanyResource($company))->successResponse();
+        return (new CompanyResourceCompanyResource($company))->successResponse();
     }
 
     /**

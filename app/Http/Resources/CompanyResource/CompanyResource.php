@@ -15,21 +15,6 @@ class CompanyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
-            'uuid' => $this-> uuid,
-            'name' => $this -> name ,
-            'email' => $this -> email,
-            'type' => $this -> type ,
-            'description' => $this -> discription ,
-            'logo' => env('LOGO_URL_PATH') . $this -> logo ,
-            'domain' => $this -> domain ,
-            'employess_count' => $this -> employess_count ,
-<<<<<<< HEAD
-=======
-=======
             'uuid' => $this->uuid,
             'name' => $this->name,
             'email' => $this->email,
@@ -38,8 +23,6 @@ class CompanyResource extends JsonResource
             'logo' => env('LOGO_URL_PATH') . $this->logo,
             'domain' => $this->domain,
             'employess_count' => $this->employess_count,
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
         ];
     }
 }

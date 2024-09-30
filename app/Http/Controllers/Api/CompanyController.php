@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class CompanyController extends Controller
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
@@ -90,6 +91,8 @@ public function update($id , Request $request){
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
     use GeneralTrait;
 
     public function index(Request $request)
@@ -164,6 +167,9 @@ public function update($id , Request $request){
         ]);
         return $this->SuccessResponse(new CompanyResource($companies));
     }
+<<<<<<< HEAD
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
+=======
+>>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
 }

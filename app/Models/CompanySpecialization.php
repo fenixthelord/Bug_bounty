@@ -12,12 +12,13 @@ class CompanySpecialization extends Model
         'company_id',
         'specialization_id'
     ];
+    protected $table = 'company_specializations';
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class,'company_id');
     }
     public function specilazation()
     {
-        return $this->belongsTo(Specialization::class);
+        return $this->belongsTo(Specialization::class,'specialization_id');
     }
 }

@@ -9,13 +9,6 @@ use App\Http\Traits\GeneralTrait;
 class ResearcherResource extends JsonResource
 {
     use GeneralTrait;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
     /**
      * Transform the resource into an array.
      *
@@ -24,13 +17,6 @@ class ResearcherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
             'uuid' => $this->uuid ,
             'name'=> $this->name ,
             'email' => $this->email,
@@ -54,10 +40,3 @@ class ResearcherResource extends JsonResource
     }
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
->>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7

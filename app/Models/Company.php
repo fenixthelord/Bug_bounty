@@ -31,7 +31,7 @@ class Company extends Model
     }
     public function specializations()
     {
-        return $this->belongsToMany(Specialization::class);
+        return $this->belongsToMany(Specialization::class , CompanySpecialization::class);
     }
     public function products()
     {
