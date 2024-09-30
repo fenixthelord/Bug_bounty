@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ResearcherResource;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Http\Traits\GeneralTrait;
@@ -11,26 +12,41 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Researcher;
+use App\Models\Report;
+use App\Models\Product;
 
 class CompanyController extends Controller
 {
     use GeneralTrait;
 
-    public function index(Request $request)
+    public function index()
     {
+       
+        $resercher=Researcher::all();
+        $company_id=auth('company')->user();
+       //  $products=product::where('company_id',$company_id)->get();
+       $p_id = Product::where('id' , $company_id)->pluck('id')->toArray();
 
-        $query = Company::query();
+        
+        $pending=Report::whereIn('product_id',$p_id)->where('status','pendeing')->get();
+        $accept=Report::whereIn('product_id',$p_id)->where('status','Accept')->get();
+        
+       if(empty($pending)){$countpend=0;}
+       if(empty($accept)){$countaccept=0;}
+        $countpend=count($pending);
+        $countaccept=count( $accept);
+        $percentpending=$countpend*100/100;
+        $percentaccept=$countaccept*100/100;
 
-        if ($request->has('search') && !empty($request->input('search'))) {
+        $data['users'] = ResearcherResource::collection($resercher);
+        $data['count_pending'] = $countpend;
+        $data['count_accept'] = $countaccept;
+        $data['count_pending_percent'] = $percentpending;
+        $data['count_accept_percent'] = $percentaccept;
 
-            $searchName = $request->input('search');
-            $query->where('name', 'like', '%' . $searchName . '%');
-        }
+       return $this->apiResponse($data, true, null, 200);
 
-        // الحصول على نتائج الاستعلام سواء كانت مفلترة أو جميع الشركات
-        $companies = $query->get();
-
-        return $this->apiResponse(CompanyResource::collection($companies), true, null, 200);
     }
 
     public function show(Request $request)
