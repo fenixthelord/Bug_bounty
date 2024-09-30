@@ -85,3 +85,20 @@ Route::get('/trashed', function () {
 })->name('trashed.index');
 
 Route::get('/researcher', [FilterController::class, 'index']);
+
+
+
+
+
+
+
+
+
+
+
+Route::prefix('/admin')->middleware('auth')->group(function(){
+    Route::get('/company',[AdminCompanyController::class,'index'])->name('admin.company');
+    Route::get('/company/show/{company}',[AdminCompanyController::class,'show'])->name('admin.company.show');
+    Route::get('/company/search',[AdminCompanyController::class,'search'])->name('admin.company.search');
+    });
+    
