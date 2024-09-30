@@ -71,9 +71,9 @@ class ResearcherLoginController extends Controller
             return $this->notFoundResponse('الحساب غير مفعل عليك إدخال الكود لتفعيله');
         }
 
-        if ($researcher->tokens()->exists()) {
-            return $this->unAuthorizeResponse();
-        }
+        // if ($researcher->tokens()->exists()) {
+        //     return $this->unAuthorizeResponse();
+        // }
 
         $token = $researcher->createToken('auth_token')->plainTextToken;
 
@@ -86,9 +86,8 @@ class ResearcherLoginController extends Controller
 
         if ($researcher && $researcher->currentAccessToken()) {
             $researcher->currentAccessToken()->delete();
-            return $this->SuccessResponse('تم تسجيل الخروج بنجاح');
         }
-        return $this->unAuthorizeResponse();
+        return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
     }
     /**
      * Store a newly created resource in storage.

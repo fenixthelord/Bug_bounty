@@ -18,8 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $id = Auth::user()->id;
-        $product = product::where('id', $id)->get();
+        $id = auth('company')->user()->id;
+        $product = product::where('company_id', $id)->get();
         if (!$product) {
             return $this->apiResponse(null, false, 'not found', 404);
         }
@@ -43,9 +43,9 @@ class ProductController extends Controller
         );
 
         if ($validator->fails()) {
-            return $this->ValidationError($request->all() , $validator);
+            return $this->ValidationError($request->all(), $validator);
         }
-        $id = Auth::user()->id;
+        $id = auth("company")->user()->id;
         try {
             $product = Product::create([
                 'title' => $request->title,
