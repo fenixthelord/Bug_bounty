@@ -11,7 +11,9 @@ class AdminCompanyController extends Controller
      */
     public function index()
     {
-        //
+        $comapnies=Company::all();
+
+        return view('company.index',['comapnies'=>$comapnies]); 
     }
 
     /**
