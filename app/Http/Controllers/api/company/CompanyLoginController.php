@@ -78,10 +78,7 @@ class CompanyLoginController extends Controller
             return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
-        if ($company->tokens()->exists()) 
-        {
-            return $this->unAuthorizeResponse();
-        }
+    
         
         if ($company->tokens()->exists()) 
         {
