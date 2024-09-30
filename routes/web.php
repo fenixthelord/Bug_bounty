@@ -14,10 +14,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmailController;
 
-use App\Http\Controllers\SpecializationController;
-use App\Models\Company;
-use App\Models\Specialization;
-use App\Models\Researcher;
 
 
 

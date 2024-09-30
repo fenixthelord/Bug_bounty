@@ -8,45 +8,52 @@
 
         <div class="content-body">
 
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ __('Number of Companies') }}</h5>
-                            <p class="card-text display-4">{{ $companies }}</p>
+            <div class="container">
+                <div class="row text-center mb-4">
+                    <div class="col-md-4">
+                        <div class="card shadow-lg rounded">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ __('Number of Companies') }}</h5>
+                                <p class="card-text display-4 font-weight-bold">{{ $companies }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-lg rounded">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">{{ __('Number of Products') }}</h5>
+                                <p class="card-text display-4 font-weight-bold">{{ $products }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-lg rounded">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">{{ __('Number of Researchers') }}</h5>
+                                <p class="card-text display-4 font-weight-bold">{{ $researchers }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ __('Number of Products') }}</h5>
-                            <p class="card-text display-4">{{ $products }}</p>
-                        </div>
+                <div class="card">
+                    <div class="card-header">
                     </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ __('Number of Researchers') }}</h5>
-                            <p class="card-text display-4">{{ $researchers }}</p>
+                    <div class="card-body text-center">
+                        <div style="width: 30%; margin: auto;">
+                            <canvas id="myChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card-body">
-                <div style="width: 25%; margin: auto;">
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const ctx = document.getElementById('myChart').getContext('2d');
-                const dataValues = [$reject, $accept, $pending, $done]; // example data values
+                const dataValues = [35, 56, 100, 20]; // example data values
                 const total = dataValues.reduce((a, b) => a + b, 0);
 
                 const chart = new Chart(ctx, {

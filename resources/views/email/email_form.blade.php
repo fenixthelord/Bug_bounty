@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head> <p>Designed by Qusai</p>
-                <a href="{{ route('Admin-Panel') }}" class="btn btn-danger">عودة</a>
+                <a href="{{ route('home') }}" class="btn btn-danger">عودة</a>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -12,9 +12,6 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
-<<<<<<< HEAD
-        'uuid','title','description','company_id','status','terms','url'
-=======
         'uuid',
         'title',
         'description',
@@ -22,7 +19,6 @@ class Product extends Model
         'status',
         'terms',
         'url'
->>>>>>> 817db03745428b42a476cb69a119115db25638d1
     ];
     public function company()
     {
