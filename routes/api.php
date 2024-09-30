@@ -96,7 +96,7 @@ Route::prefix('researcher')->group(function () {
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
         
         Route::get('/show', [ResearcherController::class, 'editresearsher']);
-        Route::post('/update/', [ResearcherController::class, 'updateprofile']);
+        Route::post('/update', [ResearcherController::class, 'updateprofile']);
         Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
     });
 });
