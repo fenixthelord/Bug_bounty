@@ -17,10 +17,7 @@ class ForgetPasswordController extends Controller
 
     use GeneralTrait;
 
-    public function __construct()
-    {
-        $this->middleware('guest:researcher');
-    }
+    
 
     public function GenerateOTP(Request $request)
     {

@@ -12,11 +12,7 @@ class ChangePasswordController extends Controller
 {
     use GeneralTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth:company');
-    }
-
+    
     public function ChangePassword(Request $request)
     {
         $validation = Validator::make($request->all(), [
