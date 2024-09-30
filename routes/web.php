@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmailController;
 
 
-
+use App\Http\Controllers\AdminCompanyController;
 
 
 
