@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ResearcherResource;
@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Researcher;
 use App\Models\Report;
 use App\Models\Product;
+use Exception;
 
 class CompanyController extends Controller
 {
@@ -101,41 +102,46 @@ public function update($id , Request $request){
 
     public function index()
     {
-       
-        $resercher=Researcher::all();
-        $company_id=auth('company')->user();
-       //  $products=product::where('company_id',$company_id)->get();
-       $p_id = Product::where('id' , $company_id)->pluck('id')->toArray();
 
-        
-        $pending=Report::whereIn('product_id',$p_id)->where('status','pendeing')->get();
-        $accept=Report::whereIn('product_id',$p_id)->where('status','Accept')->get();
-        
-       if(empty($pending)){$countpend=0;}
-       if(empty($accept)){$countaccept=0;}
-        $countpend=count($pending);
-        $countaccept=count( $accept);
-        $percentpending=$countpend*100/100;
-        $percentaccept=$countaccept*100/100;
+        $resercher = Researcher::all();
+        $company_id = auth('company')->user();
+        //  $products=product::where('company_id',$company_id)->get();
+        $p_id = Product::where('id', $company_id)->pluck('id')->toArray();
 
-        $data['users'] = ResearcherResource::collection($resercher);
+
+        $pending = Report::whereIn('product_id', $p_id)->where('status', 'pendeing')->get();
+        $accept = Report::whereIn('product_id', $p_id)->where('status', 'Accept')->get();
+        if (empty($pending)) {
+            $countpend = 0;
+        }
+        if (empty($accept)) {
+            $countaccept = 0;
+        }
+        $countpend = count($pending);
+        $countaccept = count($accept);
+        $x = $countaccept + $countpend;
+        $x = $x == 0 ? 1 : $x;
+        $percentpending = $countpend / $x * 100;
+        $percentaccept = $countaccept / $x * 100;
+
+        $data['researcher'] = ResearcherResource::collection($resercher);
         $data['count_pending'] = $countpend;
         $data['count_accept'] = $countaccept;
         $data['count_pending_percent'] = $percentpending;
         $data['count_accept_percent'] = $percentaccept;
 
-       return $this->apiResponse($data, true, null, 200);
-
+        return $this->apiResponse($data, true, null, 200);
     }
 
     public function show(Request $request)
     {
-        $companies = Company::where('uuid', $request->uuid)->first();
-
-        if (!$companies) {
-            return $this->notFoundResponse('هذه الشركة غير موجودة ',);
+        try {
+        $companies = auth('company')->user();
+        $data['company'] = new CompanyResource($companies);
+        return $this->apiResponse($data, true, null, 200);
+        } catch (Exception $e) {
+            return $this->handleException($e);
         }
-        return $this->apiResponse(new CompanyResource($companies), true, null, 200);
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\researcher;
+namespace App\Http\Controllers\Api\Researcher\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
@@ -113,6 +113,7 @@ class ResearcherLoginController extends Controller
             return $this->notFoundResponse('الحساب غير مفعل عليك إدخال الكود لتفعيله');
         }
 
+<<<<<<< HEAD:app/Http/Controllers/api/researcher/ResearcherLoginController.php
         if ($researcher->tokens()->exists()) {
 <<<<<<< HEAD
 
@@ -120,6 +121,11 @@ class ResearcherLoginController extends Controller
 >>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
             return $this->unAuthorizeResponse();
         }
+=======
+        // if ($researcher->tokens()->exists()) {
+        //     return $this->unAuthorizeResponse();
+        // }
+>>>>>>> 8a87b85bf42072bad5b090fc7fe62e83fd14d2a5:app/Http/Controllers/Api/Researcher/Auth/ResearcherLoginController.php
 
         $token = $researcher->createToken('auth_token')->plainTextToken;
 
@@ -146,14 +152,17 @@ class ResearcherLoginController extends Controller
 
         if ($researcher && $researcher->currentAccessToken()) {
             $researcher->currentAccessToken()->delete();
-            return $this->SuccessResponse('تم تسجيل الخروج بنجاح');
         }
+<<<<<<< HEAD:app/Http/Controllers/api/researcher/ResearcherLoginController.php
 <<<<<<< HEAD
 >>>>>>> 817db03745428b42a476cb69a119115db25638d1
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
 =======
 >>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
         return $this->unAuthorizeResponse();
+=======
+        return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
+>>>>>>> 8a87b85bf42072bad5b090fc7fe62e83fd14d2a5:app/Http/Controllers/Api/Researcher/Auth/ResearcherLoginController.php
     }
     /**
      * Store a newly created resource in storage.

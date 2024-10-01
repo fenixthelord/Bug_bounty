@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\api\product;
+namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Exception;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -51,8 +53,8 @@ class ProductController extends Controller
 >>>>>>> f19ece9370eda508944c995b9c038e6beaa4e328
     public function index()
     {
-        $id = Auth::user()->id;
-        $product = product::where('id', $id)->get();
+        $id = auth('company')->user()->id;
+        $product = product::where('company_id', $id)->get();
         if (!$product) {
             return $this->apiResponse(null, false, 'not found', 404);
         }
@@ -122,9 +124,9 @@ class ProductController extends Controller
         );
 
         if ($validator->fails()) {
-            return $this->ValidationError($request->all() , $validator);
+            return $this->ValidationError($request->all(), $validator);
         }
-        $id = Auth::user()->id;
+        $id = auth("company")->user()->id;
         try {
             $product = Product::create([
                 'title' => $request->title,
@@ -190,11 +192,16 @@ public function deletepackage(Request $request)
 >>>>>>> 51cb7950806842786bee4e73d80ddb22ff0599c9
     public function deletepackage(Request $request)
     {
-
-        $Product = Product::where('uuid', $request->uuid);
-
-        $Product->delete();
-        return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
+        try {
+            $Product = Product::where('uuid', $request->uuid)->first();
+            if ($Product) {
+                $Product->delete();
+                return response()->json(['message' => 'تم الحذف بنجاح']);
+            }
+            return response()->json(['message' => 'حدث خطا اثناء الحذف'] , 400);
+        } catch (Exception $e) {
+            return $this->handleException($e);
+        }
     }
 }
 >>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7

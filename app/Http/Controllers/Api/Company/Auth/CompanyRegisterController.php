@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\api\company;
+namespace App\Http\Controllers\Api\Company\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CompanyResource\CompanyResource as CompanyResourceCompanyResource;
 use App\Http\Traits\Uuid;
 use Illuminate\Http\Request;

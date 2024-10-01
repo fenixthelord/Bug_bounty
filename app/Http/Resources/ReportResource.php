@@ -15,11 +15,11 @@ class ReportResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->uuid,
-            'title'=>$this->title,
+            'id' => $this->uuid,
+            'title' => $this->title,
             'researcher' => ResearcherResource::make($this->researcher),
-            'created_at' =>$this->created_at,
-            'file' => $this->file ,
+            'created_at' => $this->created_at,
+            'file' => $this->file,
             'status' => $this->status
         ];
     }

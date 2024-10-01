@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Researcher\Auth;
+namespace App\Http\Controllers\Api\Researcher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
