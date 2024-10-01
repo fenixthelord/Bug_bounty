@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\company;
+namespace App\Http\Controllers\Api\Company\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;

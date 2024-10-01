@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Company\Auth;
+namespace App\Http\Controllers\Api\Researcher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
@@ -12,7 +12,11 @@ class ChangePasswordController extends Controller
 {
     use GeneralTrait;
 
-    
+    public function __construct()
+    {
+        $this->middleware('auth:researcher');
+    }
+
     public function ChangePassword(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -25,7 +29,7 @@ class ChangePasswordController extends Controller
             return $this->ValidationError($request->all(), $validation);
         }
 
-        $user = auth('company')->user();
+        $user = auth()->user();
         if (!$user) {
             # status code 401-UnAuthorize  
             return $this->unAuthorizeResponse();
