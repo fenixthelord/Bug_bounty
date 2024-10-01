@@ -52,3 +52,5 @@ Route::get('/researcher/delete/{uuid}', [App\Http\Controllers\ResearcherControll
 Route::get('/researcher/restore/{uuid}', [App\Http\Controllers\ResearcherController::class, 'restore'])->name('restore.researcher');
 Route::get('/researcher/trashed', [App\Http\Controllers\ResearcherController::class, 'trashed'])->name('trashed.researcher');
 
+Route::get('/homepage', [HomepageController::class, 'index'])->name('homepage');
+Route::post('/homepagefunc', [HomepageController::class, 'filter'])->name('homepage-validate');

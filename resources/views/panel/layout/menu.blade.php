@@ -35,6 +35,12 @@
                     @endauth 
                                </a>
                                 </ul>
+                  <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">لوحة التحكم</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2"></span></a>
+                <ul class="menu-content">
+                    <li class="active"><a href="{{ route('homepage') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">الصفحة الرئيسية</span></a>
+                    </li>
+                    
+                </ul>
 
 <li class="nav-item">
  <a href="#"><i class="bx bx-book"></i><span class="menu-title">الاختصاصات</span></a>
@@ -65,7 +71,7 @@
       <a href="{{ route('show.researcher') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">show</span></a></li>
 
 
-        </ul
+</ul>
 
 
  </div>
