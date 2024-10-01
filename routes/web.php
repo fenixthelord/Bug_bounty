@@ -85,3 +85,6 @@ Route::get('/trashed', function () {
 })->name('trashed.index');
 
 Route::get('/researcher', [FilterController::class, 'index']);
+
+Route::get('/homepage', [HomepageController::class, 'index'])->name('homepage');
+Route::post('/homepagefunc', [HomepageController::class, 'filter'])->name('homepage-validate');
