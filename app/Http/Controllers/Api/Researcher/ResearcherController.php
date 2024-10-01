@@ -57,7 +57,7 @@ class ResearcherController extends Controller
 
     public function updateprofile(Request $request)
     {
-        $researcher = auth()->user();
+        $researcher = auth('researcher')->user();
 
         $validateData = $request->validate([
             'name' => 'required|string|max:255',
@@ -72,6 +72,9 @@ class ResearcherController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'code' => 'nullable|string',
             'phone' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'linkedin' => 'nullable|string',
+            'github' => 'nullable|string',
 
         ]);
 
@@ -89,15 +92,17 @@ class ResearcherController extends Controller
             'image' => $validateData['image'] ?? $researcher->image,
             'code' => $validateData['code'] ?? $researcher->code,
             'phone' => $validateData['phone'] ?? $researcher->phone,
-
-
+            'facebook' => $validateData['facebook'] ?? $researcher->facebook,
+            'linkedin' => $validateData['linkedin'] ?? $researcher->linkedin,
+            'github' => $validateData['github'] ?? $researcher->github,
         ]);
         $data['researcher'] = new ResearcherResource($researcher);
-        return $this->apiResponse( $data , true, 'تم تحديث معلومات الباحث بنجاح', 200);
+        return $this->apiResponse($data, true, 'تم تحديث معلومات الباحث بنجاح', 200);
     }
 
 
-    public function company ($uuid) {
+    public function company($uuid)
+    {
         $company = Company::where('uuid', $uuid)->first();
         if ($company) {
             $data['company-data'] = new CompanyResource($company);
