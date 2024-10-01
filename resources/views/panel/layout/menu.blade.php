@@ -36,6 +36,14 @@
                                </a>
                                 </ul>
 
+<!-- الشركات -->
+
+<li class=" nav-item">
+                <a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">الشركات</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2">1</span></a>
+                    <ul class="menu-content">
+                        <li class="active"><a href="{{route('admin.company')}}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">عرض الشركات</span></a></li>
+                    </ul>
+            </li>
 <li class="nav-item">
  <a href="#"><i class="bx bx-book"></i><span class="menu-title">الاختصاصات</span></a>
   <ul class="menu-content">
