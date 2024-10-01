@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Researcher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CompanyResource\CompanyResource;
 use App\Http\Resources\ResearcherResource;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Company;
@@ -20,9 +21,6 @@ class ResearcherController extends Controller
     public function searchCompany(Request $request)
     {
         try {
-            if ($request->name == null and $request->avaibility == null && $request->new == null) {
-                return $this->apiResponse(Company::all(), 1, null, 200);
-            }
 
             $query = Company::query();
 
@@ -31,7 +29,7 @@ class ResearcherController extends Controller
             }
 
             if ($request->has('unavailability')) {
-                $query->withTrashed();
+                $query->onlyTrashed();
             }
 
             if ($request->has('old')) {
@@ -41,8 +39,9 @@ class ResearcherController extends Controller
                 $query->orderBy('created_at', 'desc');
             }
 
-            $companies = $query->get();
-            return $this->apiResponse($companies, true, null, 200);
+            $companies = CompanyResource::collection($query->get());
+            $data['companies'] = $companies;
+            return $this->SuccessResponse($data);
         } catch (\Exception $e) {
             $this->handleException($e);
             // Handle the exception and return an error response
@@ -50,14 +49,15 @@ class ResearcherController extends Controller
     }
     public function editresearsher()
     {
-        $user = auth()->user();
+        $user = auth('researcher')->user();
 
-        return $this->apiResponse(ResearcherResource::make($user), 1, null, 200);
+        $data['researcher'] = new ResearcherResource($user);
+        return $this->apiResponse($data, 1, null, 200);
     }
 
     public function updateprofile(Request $request)
     {
-        $researcher = auth()->user();
+        $researcher = auth('researcher')->user();
 
         $validateData = $request->validate([
             'name' => 'required|string|max:255',
@@ -72,6 +72,9 @@ class ResearcherController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'code' => 'nullable|string',
             'phone' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'linkedin' => 'nullable|string',
+            'github' => 'nullable|string',
 
         ]);
 
@@ -89,9 +92,25 @@ class ResearcherController extends Controller
             'image' => $validateData['image'] ?? $researcher->image,
             'code' => $validateData['code'] ?? $researcher->code,
             'phone' => $validateData['phone'] ?? $researcher->phone,
-
-
+            'facebook' => $validateData['facebook'] ?? $researcher->facebook,
+            'linkedin' => $validateData['linkedin'] ?? $researcher->linkedin,
+            'github' => $validateData['github'] ?? $researcher->github,
         ]);
-        return $this->apiResponse($researcher, true, 'تم تحديث معلومات الباحث بنجاح', 200);
+        $data['researcher'] = new ResearcherResource($researcher);
+        return $this->apiResponse($data, true, 'تم تحديث معلومات الباحث بنجاح', 200);
+    }
+
+
+    public function company($uuid)
+    {
+        $company = Company::where('uuid', $uuid)->first();
+        if ($company) {
+            $data['company-data'] = new CompanyResource($company);
+            $data['companies_suggest'] = CompanyResource::collection(Company::inRandomOrder()->limit(8)->get());
+
+            return $this->apiResponse($data, 1, null, 200);
+        } else {
+            return $this->apiResponse(null, 0, 'Company not found', 404);
+        }
     }
 }

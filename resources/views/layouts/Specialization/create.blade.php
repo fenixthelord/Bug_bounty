@@ -20,7 +20,11 @@
                     <h3 class="card-title">إضافة اختصاص جديد</h3>
                 </div>
                 <div class="card-body">
+<<<<<<< HEAD
+                    <form action="{{ route('specializations.store') }}" method="POST">
+=======
                     <form action="{{ route('specializations.storee') }}" method="POST">
+>>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
                         @csrf
                         <div class="form-group">
                             <label for="title">اسم الاختصاص</label>

@@ -66,7 +66,7 @@ trait GeneralTrait
 
     public function ValidationError($data = null, $validator)
     {
-        return $this->apiResponse($data, false, $validator->errors()->first(), 400);
+        return $this->apiResponse(null, false, $validator->errors()->first(), 400);
     }
 
 

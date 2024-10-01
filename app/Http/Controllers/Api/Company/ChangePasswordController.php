@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Company\Auth;
+namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
@@ -25,7 +25,7 @@ class ChangePasswordController extends Controller
             return $this->ValidationError($request->all(), $validation);
         }
 
-        $user = auth()->user();
+        $user = auth('company')->user();
         if (!$user) {
             # status code 401-UnAuthorize  
             return $this->unAuthorizeResponse();

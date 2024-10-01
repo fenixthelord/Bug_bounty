@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\api\company;
+namespace App\Http\Controllers\Api\Company\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Company;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resources\CompanyResource;
 use App\Http\Resources\CompanyResource\CompanyResource as CompanyResourceCompanyResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -97,8 +96,9 @@ class CompanyLoginController extends Controller
         if ($company && $company->currentAccessToken())
         {
             $company->currentAccessToken()->delete();
+            return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);    
         }
-        return $this->unAuthorizeResponse();
+
     }
 
 

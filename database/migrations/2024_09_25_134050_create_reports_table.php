@@ -20,7 +20,7 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->string('title');
             $table->string('file');
-            $table->enum('status',['pending','accept','reject','done']);
+            $table->enum('status',['pending','accept','reject','done'])->default('pending');
             $table->boolean('review_status');
             $table->foreignId('user_id')->nullable()->references('id')->on('users')
             ->onDelete('cascade');

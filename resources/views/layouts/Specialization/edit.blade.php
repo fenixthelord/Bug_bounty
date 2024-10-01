@@ -20,7 +20,11 @@
                     <h3 class="card-title">تعديل الاختصاص </h3>
                 </div>
                 <div class="card-body">
+<<<<<<< HEAD
+                    <form action="{{ route('specializations.update',$specialization->id) }}" method="POST">
+=======
                     <form action="{{ route('specializations.updatee',$specialization->id) }}" method="POST">
+>>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
                         @csrf
                         @method('PUT')
                         <div class="form-group">
