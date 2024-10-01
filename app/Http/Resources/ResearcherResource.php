@@ -22,7 +22,7 @@ class ResearcherResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'code' => $this->code,
-            'image' => $this->image,
+            'image' => $this->image ? env('PATH_IMG') . $this->image : null ,
             'points' => $this->points,
             'facebook' => $this->facebook,
             'linkedin' => $this->linkedin,

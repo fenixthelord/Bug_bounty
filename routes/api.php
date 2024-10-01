@@ -47,6 +47,7 @@ Route::post('/researcher/register/{uuid}', [ResearcherRegisterController::class,
     ****************************************
 */
 
+# Home
 Route::get('/home', [CompanyController::class, 'index']);
 Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function () {
     # Products
@@ -54,11 +55,9 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function
     Route::post('/add_product', [ProductController::class, 'store']);
     Route::post('/delete_product', [ProductController::class, 'deletepackage']);
 
-    # Home
-
     # Profile
-    Route::get('/show', [CompanyController::class, 'show']);
-    Route::post('/update', [CompanyController::class, 'update']);
+    Route::get('/profile', [CompanyController::class, 'show']);
+    Route::post('/profile', [CompanyController::class, 'update']);
 
     # Reports
     Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
@@ -100,8 +99,8 @@ Route::prefix('researcher')->group(function () {
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
         
         # Profile
-        Route::get('/show', [ResearcherController::class, 'editresearsher']);
-        Route::post('/update', [ResearcherController::class, 'updateprofile']);
+        Route::get('/profile', [ResearcherController::class, 'editresearsher']);
+        Route::post('profile', [ResearcherController::class, 'updateprofile']);
 
         Route::post('/researcher/logout', [ResearcherLoginController::class, 'logout']);
     });
