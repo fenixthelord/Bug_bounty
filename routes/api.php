@@ -88,6 +88,7 @@ Route::prefix('researcher')->group(function () {
 
     #Home 
     Route::get('/home', [ResearcherController::class, 'searchCompany']);
+    Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
 
 
     Route::middleware('auth_researcher')->group(function () {
@@ -97,9 +98,7 @@ Route::prefix('researcher')->group(function () {
         Route::get('/reports-researcher', [ReportController::class, 'ReportByResearcher']);
         // Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
-
-        Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
-
+        
         # Profile
         Route::get('/show', [ResearcherController::class, 'editresearsher']);
         Route::post('/update', [ResearcherController::class, 'updateprofile']);

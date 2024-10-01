@@ -8,7 +8,6 @@ use App\Http\Resources\ReportResource;
 use App\Http\Resources\ReportResourseResearch;
 use App\Models\Company;
 use App\Models\Report;
-use Auth;
 use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Product;
