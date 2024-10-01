@@ -66,8 +66,8 @@ class ResearcherRegisterController extends Controller
             'name.min' => 'اسم الباحث يجب أن يحتوي على حرفين على الأقل',
             'name.max' => 'اسم الباحث يجب ألا يزيد عن 255 حرفاً',
 
-            'phone.required' => 'رقم الموبايل يجب أن يحتوي على حرفين على الأقل',
-            'phone.regex' => 'رقم الموبايل يجب يحتوي 10 أرقام و يبدأ بالرقمين 09',
+            'phone.required' => 'رقم الموبايل مطلوب. يرجى إدخال رقم الموبايل',
+            'phone.regex' => 'رقم الموبايل يجب أن يحتوي على 10 أرقام و يبدأ بالرقمين 09',
             'phone.size' => 'رقم الموبايل يجب ألا يزيد عن 10 أرقام',
             'phone.unique' => 'رقم الموبايل يجب أن يكون فريد',
 
@@ -95,7 +95,7 @@ class ResearcherRegisterController extends Controller
             return $this->apiResponse(
                 null,
                 false,
-                'بيانات الباحث موجودة مسبقاً. اذهب للقيام بإدخال الرمز لتفعيل حسابك.',
+                'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.',
                 400
             );
             // return response()->json([
@@ -111,8 +111,7 @@ class ResearcherRegisterController extends Controller
             if (strpos($firstError, 'مطلوب') !== false) {
                 return $this->requiredField($firstError);
             }
-            return $this->requiredField($firstError);
-            // return $this->notFoundResponse($firstError);
+            return $this->apiResponse(null, false, $firstError, 400);
         }
 
         if (!Researcher::where('email', $request->email)
@@ -126,7 +125,7 @@ class ResearcherRegisterController extends Controller
             ]);
             return (new ResearcherResource($researcher))->successResponse();
         }
-        return $this->apiResponse(null,false,'الايميل أو رقم الموبايل موجود مسبقاً',401);
+        return $this->apiResponse(null,false,'الايميل أو رقم الموبايل موجود مسبقاً',400);
     }
 
     public function registerCode(Request $request, $uuid)
@@ -148,14 +147,20 @@ class ResearcherRegisterController extends Controller
         $messages = [
             'code.required' => 'رمز التحقق مطلوب.',
             'code.integer' => 'رمز التحقق يجب أن يكون رقماً صحيحاً.',
-            'code.size' => 'رمز التحقق يجب أن يكون 8 أرقام او اقل  ',
+            'code.size' => 'رمز التحقق يجب أن يكون 8 خانات  ',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return $this->ValidationError($request->all(), $validator);
+            $firstError = $validator->errors()->first();
+
+            if (strpos($firstError, 'مطلوب') !== false) {
+                return $this->requiredField($firstError);
+            }
+            return $this->apiResponse(null, false, $firstError, 400);
         }
+        
         if ($researcher) {
             $researcher->update([
                 'code' => $request->code,

@@ -110,7 +110,7 @@ class CompanyRegisterController extends Controller
             {
                 return $this->requiredField($firstError);  
             }
-            return $this->requiredField($firstError);
+            return $this->apiResponse(null, false, $firstError, 400);
         }
     
         $company = Company::create([

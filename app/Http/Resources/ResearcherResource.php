@@ -21,7 +21,7 @@ class ResearcherResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'code' => $this->code,
+            //'code' => $this->code,
             'image' => $this->image,
             'points' => $this->points,
             'facebook' => $this->facebook,

@@ -42,8 +42,7 @@ class ResearcherLoginController extends Controller
             if (strpos($firstError, 'مطلوب') !== false) {
                 return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة' , 400);
             }
-
-            return $this->notFoundResponse($firstError);
+            return $this->apiResponse(null, false, $firstError, 400);
         }
 
         $researcher = Researcher::where('email', $request->email)->first();
@@ -53,7 +52,7 @@ class ResearcherLoginController extends Controller
         }
 
         if (is_null($researcher->code)) {
-            return $this->notFoundResponse('الحساب غير مفعل عليك إدخال الكود لتفعيله');
+            return $this->forbiddenResponse();
         }
 
         // if ($researcher->tokens()->exists()) {
