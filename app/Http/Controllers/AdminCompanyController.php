@@ -49,6 +49,8 @@ class AdminCompanyController extends Controller
         }
     }
 
+
+
     public function search(Request $request)
     {
         $company=Company::where('name',$request->company)->first();
@@ -58,6 +60,8 @@ class AdminCompanyController extends Controller
             return view('error.404');
         }
     }
+
+
 
 
 

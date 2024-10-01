@@ -35,6 +35,12 @@
                     @endauth 
                                </a>
                                 </ul>
+                  <li class=" nav-item"><a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">لوحة التحكم</span><span class="badge badge-light-danger badge-pill badge-round float-right mr-2"></span></a>
+                <ul class="menu-content">
+                    <li class="active"><a href="{{ route('homepage') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">الصفحة الرئيسية</span></a>
+                    </li>
+                    
+                </ul>
 
 <!-- الشركات -->
 
@@ -63,6 +69,44 @@
    <a href="{{ route('trashed.index') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>  
  </ul>
 </li>
+</ul>
+<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+        <li class="nav-item">
+    
+    <a href="#"><i class="bx bx-user"></i><span class="menu-title">Researcher </span></a>
+    <ul class="menu-content">
+     <li>
+      <a href="{{ route('show.researcher') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">show</span></a></li>
+
+
+</ul>
+
+
+
+            <li class=" nav-item"> <a href="#"><i class="bx bx-trash"></i><span class="menu-title">الشركات</span></a>
+                <ul class="menu-content">
+                    <li>
+                    <a href="{{route('admin.company')}}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">عرض الشركات</span></a>
+                    </li>
+
+                </ul>
+               </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  </div>
