@@ -20,22 +20,23 @@ class ResearcherController extends Controller
 
     public function searchCompany(Request $request)
     {
+        dd($request->all());
         try {
 
             $query = Company::query();
 
-            if ($request->has('name')) {
+            if ($request->input('name')) {
                 $query->where('name',  'LIKE', '%' . $request->input('name') . '%');
             }
 
-            if ($request->has('unavailability')) {
+            elseif ($request->input('unavailability')) {
                 $query->onlyTrashed();
             }
 
-            if ($request->has('old')) {
+            elseif ($request->input('old')) {
                 $query->orderBy('created_at', 'asc');
             }
-            if ($request->has('new')) {
+            elseif ($request->input('new')) {
                 $query->orderBy('created_at', 'desc');
             }
 

@@ -57,9 +57,9 @@ class CompanyController extends Controller
     public function show(Request $request)
     {
         try {
-        $companies = auth('company')->user();
-        $data['company'] = new CompanyResource($companies);
-        return $this->apiResponse($data, true, null, 200);
+            $companies = auth('company')->user();
+            $data['company'] = new CompanyResource($companies);
+            return $this->apiResponse($data, true, null, 200);
         } catch (Exception $e) {
             return $this->handleException($e);
         }
@@ -71,41 +71,49 @@ class CompanyController extends Controller
     {
         # ***************
         // $companies = company::find($id);
-        $companies = company::where('uuid', $request->uuid)->first();
+        // $companies = company::where('uuid', $request->uuid)->first();
+        $companies = auth('company')->user();
         if (!$companies) {
             return $this->notFoundResponse('هذه الشركة غير موجودة ',);
         }
         # ***************
 
-        $validateData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('companies')->ignore($companies->id),
-            ],
-            'type' => 'required|string|max:255|in:خاصة,حكومية,مشتركة',
-            'description' => 'nullable|string',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'domain' => 'required|string|max:255',
-            'employess_count' => 'required|integer|min:1',
-        ]);
+        $validateData = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+                    Rule::unique('companies')->ignore($companies->id),
+                ],
+                'type' => 'required|string|max:255|in:خاصة,حكومية,مشتركة',
+                'description' => 'nullable|string',
+                'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'domain' => 'required|string|max:255',
+                'employess_count' => 'required|integer|min:1',
+            ]
+        );
+
+        if ($validateData->fails()) {
+            return $this->ValidationError(null, $validateData);
+        }
 
 
         if ($request->hasFile('logo')) {
             $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد 
-            $validateData['logo'] = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
+            $logo = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
         }
         //التحديث
         $companies->update([
-            'name' => $validateData['name'],
-            'email' => $validateData['email'],
-            'type' => $validateData['type'],
-            'description' => $validateData['description'] ?? $companies->description,
-            'logo' => $validateData['logo'] ?? $companies->logo,
-            'domain' => $validateData['domain'] ?? $companies->domain,
-            'employess_count' => $validateData['employess_count'],
+            'name' => $request->name,
+            'email' => $request->email,
+            'type' => $request->type,
+            'description' => $request->description ?? $companies->description,
+            'logo' => $logo ?? $companies->logo,
+            'domain' => $request->domain ?? $companies->domain,
+            'employess_count' => $request->employess_count,
 
         ]);
         return $this->SuccessResponse(new CompanyResource($companies));

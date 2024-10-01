@@ -31,13 +31,13 @@ use Illuminate\Support\Facades\Route;
     ****************************************
 */
 
-Route::post('/companylogin', [CompanyLoginController::class, 'login']);
-Route::post('/researcherlogin', [ResearcherLoginController::class, 'login']);
+Route::post('/company/login', [CompanyLoginController::class, 'login']);
+Route::post('/researcher/login', [ResearcherLoginController::class, 'login']);
 
 
-Route::post('/companyregister', [CompanyRegisterController::class, 'store']);
-Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
-Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class, 'registerCode']);
+Route::post('/company/register', [CompanyRegisterController::class, 'store']);
+Route::post('/researcher/register', [ResearcherRegisterController::class, 'store']);
+Route::post('/researcher/register/{uuid}', [ResearcherRegisterController::class, 'registerCode']);
 
 
 
@@ -47,6 +47,7 @@ Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class, 
     ****************************************
 */
 
+Route::get('/home', [CompanyController::class, 'index']);
 Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function () {
     # Products
     Route::get('/all_product', [ProductController::class, 'index']);
@@ -54,7 +55,6 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function
     Route::post('/delete_product', [ProductController::class, 'deletepackage']);
 
     # Home
-    Route::get('/home', [CompanyController::class, 'index']);
 
     # Profile
     Route::get('/show', [CompanyController::class, 'show']);
@@ -67,7 +67,7 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function
     Route::post('/changePassword', [CompanyChangePasswordController::class, 'ChangePassword']);
 
     # Logout
-    Route::post('/companylogout', [CompanyLoginController::class, 'logout']);
+    Route::post('/company/logout', [CompanyLoginController::class, 'logout']);
 });
 
 
@@ -100,6 +100,6 @@ Route::prefix('researcher')->group(function () {
         Route::post('/update', [ResearcherController::class, 'updateprofile']);
         Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
 
-        Route::post('/researcherlogout', [ResearcherLoginController::class, 'logout']);
+        Route::post('/researcher/logout', [ResearcherLoginController::class, 'logout']);
     });
 });
