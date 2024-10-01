@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ResearcherResource;
@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Researcher;
 use App\Models\Report;
 use App\Models\Product;
+use Exception;
 
 class CompanyController extends Controller
 {
@@ -55,13 +56,13 @@ class CompanyController extends Controller
 
     public function show(Request $request)
     {
-        $companies = Company::where('uuid', $request->uuid)->first();
-
-        if (!$companies) {
-            return $this->notFoundResponse('هذه الشركة غير موجودة ',);
-        }
-        $data['companies'] = new CompanyResource($companies);
+        try {
+        $companies = auth('company')->user();
+        $data['company'] = new CompanyResource($companies);
         return $this->apiResponse($data, true, null, 200);
+        } catch (Exception $e) {
+            return $this->handleException($e);
+        }
     }
 
 

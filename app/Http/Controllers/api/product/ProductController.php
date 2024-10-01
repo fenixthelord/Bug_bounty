@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\api\product;
+namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Exception;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -87,10 +89,15 @@ class ProductController extends Controller
 
     public function deletepackage(Request $request)
     {
-
-        $Product = Product::where('uuid', $request->uuid);
-
-        $Product->delete();
-        return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
+        try {
+            $Product = Product::where('uuid', $request->uuid)->first();
+            if ($Product) {
+                $Product->delete();
+                return response()->json(['message' => 'تم الحذف بنجاح']);
+            }
+            return response()->json(['message' => 'حدث خطا اثناء الحذف'] , 400);
+        } catch (Exception $e) {
+            return $this->handleException($e);
+        }
     }
 }
