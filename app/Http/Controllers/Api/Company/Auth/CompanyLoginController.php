@@ -45,36 +45,20 @@ class CompanyLoginController extends Controller
             ],
         ];
 
-        $messages = [
-            'email.required' => 'البريد الإلكتروني مطلوب',
-            'email.string' => 'البريد الإلكتروني يجب أن يكون نصاً صحيحاً',
-            'email.email' => 'البريد الإلكتروني يجب أن يكون نمطه بريد إلكتروني',
-            'email.exists' => 'البريد الإلكتروني غير مسجل في الشركات',
-            'password.required' => 'كلمة المرور مطلوبة',
-            'password.string' => 'كلمة المرور يجب أن تكون نصاً صحيحاً',
-            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل.',
-            'password.max' => 'كلمة المرور يجب ألا تزيد عن 255 حرفاً.',
-        ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) 
         {
-            $firstError = $validator->errors()->first();
-        
-            if (strpos($firstError, 'مطلوب') !== false) 
-            {
-                return $this->requiredField($firstError);  
-            }
-
-            return $this->notFoundResponse($firstError);
+            return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة',400);
         }
 
         $company = Company::where('email', $request->email)->first();
 
         if (!$company || !Hash::check($request->password, $company->password))
         {
-            return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
+            return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة' , 400);
         }
 
     
@@ -104,4 +88,3 @@ class CompanyLoginController extends Controller
 
    
 }
-

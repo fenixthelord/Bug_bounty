@@ -38,16 +38,7 @@ class ResearcherLoginController extends Controller
             ],
         ];
 
-        $messages = [
-            'email.required' => 'البريد الإلكتروني مطلوب',
-            'email.string' => 'البريد الإلكتروني يجب أن يكون نصاً صحيحاً',
-            'email.email' => 'البريد الإلكتروني يجب أن يكون نمطه بريد إلكتروني',
-            'email.exists' => 'البريد الإلكتروني غير مسجل في الشركات',
-            'password.required' => 'كلمة المرور مطلوبة',
-            'password.string' => 'كلمة المرور يجب أن تكون نصاً صحيحاً',
-            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل.',
-            'password.max' => 'كلمة المرور يجب ألا تزيد عن 255 حرفاً.',
-        ];
+    
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
