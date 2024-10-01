@@ -5,8 +5,8 @@ use App\Http\Controllers\Api\Company\Auth\CompanyRegisterController; //
 use App\Http\Controllers\Api\Company\ChangePasswordController as CompanyChangePasswordController; //
 use App\Http\Controllers\Api\Company\CompanyController; //
 use App\Http\Controllers\Api\Product\ProductController; //
-use App\Http\Controllers\Api\Report\ReportController;
-use App\Http\Controllers\Api\Researcher\Auth\ForgetPasswordController;
+use App\Http\Controllers\Api\Report\ReportController; //
+use App\Http\Controllers\Api\Researcher\Auth\ForgetPasswordController; //
 use App\Http\Controllers\Api\Researcher\Auth\ResearcherLoginController;
 use App\Http\Controllers\Api\Researcher\Auth\ResearcherRegisterController;
 use App\Http\Controllers\Api\Researcher\ChangePasswordController as ResearcherChangePasswordController;
