@@ -1,98 +1,96 @@
 <?php
 
-namespace App\Http\Controllers\Api\Report;
+namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
-use App\Http\Resources\ReportResource;
-use App\Http\Resources\ReportResourseResearch;
-use App\Models\Company;
-use App\Models\Report;
-use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
+use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class ReportController extends Controller
+class ProductController extends Controller
 {
     use GeneralTrait;
-    public function ReportByResearcher(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        try {
-            //code...
-            // $id = $request->researcher;
-            $idreseacher = auth('researcher')->user()->id;
-            $reports = Report::where('researcher_id', $idreseacher)->get();
-            if ($reports) {
-                $data['reports'] = ReportResourseResearch::collection($reports);
-                return $this->apiResponse($data, true, null, 200);
-            } else {
-                return $this->apiResponse(null, true, null, 200);
-            }
-        } catch (\Exception $ex) {
-            return $this->apiResponse(null, false, $ex->getMessage(), 500);
+        $id = Auth::user()->id;
+        $product = product::where('id', $id)->get();
+        if (!$product) {
+            return $this->apiResponse(null, false, 'not found', 400);
         }
+        $data['product'] = productResource::collection($product);
+        return $this->apiResponse($data, true, null, 200);
     }
 
-    public function showAll()
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $reports = Product::all();
-        if ($reports) {
-            $data['Product'] = ProductResource::collection($reports);
-            return $this->apiResponse($data, true, null, 200);
-        } else {
-            return $this->apiResponse(null, true, null, 200);
-        }
-    }
-
-    public function addreport(Request $request)
-    {
-        try {
-            //code...
-
-            $idreseacher = auth('researcher')->user()->id;
-            $validator = Validator::make($request->all(), [
-                'product_uuid' => 'required|exists:products,uuid',
+        $validator = Validator::make(
+            $request->all(),
+            [
                 'title' => 'required|string',
-                'report_file' => 'required|mimes:pdf,docx|max:2048'
-            ]);
-            if ($validator->fails()) {
-                $error = $validator->errors()->first();
-                return $this->apiResponse(null, false, $error, 400);
-            }
-            // dd($request->file('report-file'));
-            $d = $request->file('report_file')->store('files', 'public');
+                'description' => 'required|string',
+                // 'company_uuid' => 'required|integer|exists:companies,uuid',
+                'url' => 'required|string',
+            ]
+        );
 
-            $report = Report::create([
+        if ($validator->fails()) {
+            return $this->ValidationError($request->all(), $validator);
+        }
+        $id = Auth::user()->id;
+        try {
+            $product = Product::create([
                 'title' => $request->title,
-                'status' => 'pending',
-                'product_id' => Product::where('uuid', $request->product_uuid)->pluck('id')->first(),
-                'researcher_id' => $idreseacher,
-                'review_status' => 0,
-                'file' => env('PATH_IMG') . $d,
+                'description' => $request->description,
+                'company_id' => $id,
+                'terms' => '',
+                'url' => $request->url,
             ]);
-
-            if ($report) {
-                $data['report'] = ReportResourseResearch::make($report);
-                return $this->SuccessResponse($data);
-            } else {
-                return $this->apiResponse(null, false, 'حدث خطا حاول الاضافة مرة أخرى', 200);
-            }
+            $data['product'] = ProductResource::make($product);
+            return $this->apiResponse($data, true, null, 200);
         } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
-    //
-    public function ReportByCompany(Request $request)
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $company_id = auth('company')->user()->id;
-        $company = Company::find($company_id);
-        // $report = $company->reports()->get();
-        $report = Report::whereIn('product_id' , Product::where('company_id' , $company_id)->pluck('id')->toArray())->get();
-        if (!$report) {
-            return $this->apiResponse(null, false, 'not found', 404);
-        }
-        $data['report'] = ReportResource::collection($report);
-        return $this->SuccessResponse($data);
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function deletepackage(Request $request)
+    {
+
+        $Product = Product::where('uuid', $request->uuid);
+
+        $Product->delete();
+        return $this->apiResponse('تم الحذف بنجاح', true, null, 200);
     }
 }

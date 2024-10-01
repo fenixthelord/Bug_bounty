@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Researcher\Auth\ResearcherLoginController;
 use App\Http\Controllers\Api\Researcher\Auth\ResearcherRegisterController;
 use App\Http\Controllers\Api\Researcher\ChangePasswordController as ResearcherChangePasswordController;
 use App\Http\Controllers\Api\Researcher\ResearcherController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*

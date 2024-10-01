@@ -85,16 +85,25 @@ class ResearcherRegisterController extends Controller
 
         if ($existingResearcher) {
             if (Hash::check($request->password, $existingResearcher->password)) {
-                return response()->json([
-                    'message' => 'بيانات الباحث موجودة مسبقاً. اذهب للقيام بإدخال الرمز لتفعيل حسابك.'
-                ], 409);
+                return $this->apiResponse(
+                    null,
+                    false,
+                    'بيانات الباحث موجودة مسبقاً. اذهب للقيام بإدخال الرمز لتفعيل حسابك.',
+                    409
+                );
             }
-            return response()->json([
-                'message' => 'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.'
-            ], 400);
+            return $this->apiResponse(
+                null,
+                false,
+                'بيانات الباحث موجودة مسبقاً. اذهب للقيام بإدخال الرمز لتفعيل حسابك.',
+                400
+            );
+            // return response()->json([
+            //     'message' => 'هناك خطأ في بيانات الباحث لا يمكن إتمام العملية.'
+            // ], 400);
         }
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             $firstError = $validator->errors()->first();
@@ -102,7 +111,8 @@ class ResearcherRegisterController extends Controller
             if (strpos($firstError, 'مطلوب') !== false) {
                 return $this->requiredField($firstError);
             }
-            return $this->notFoundResponse($firstError);
+            return $this->requiredField($firstError);
+            // return $this->notFoundResponse($firstError);
         }
 
         if (!Researcher::where('email', $request->email)
@@ -116,7 +126,7 @@ class ResearcherRegisterController extends Controller
             ]);
             return (new ResearcherResource($researcher))->successResponse();
         }
-        return $this->notFoundResponse('الايميل أو رقم الموبايل موجود مسبقاً');
+        return $this->apiResponse(null,false,'الايميل أو رقم الموبايل موجود مسبقاً',401);
     }
 
     public function registerCode(Request $request, $uuid)
@@ -132,18 +142,19 @@ class ResearcherRegisterController extends Controller
             'code' => [
                 'required',
                 'string',
-                'size:8',
+                'max:8',
             ],
         ];
         $messages = [
             'code.required' => 'رمز التحقق مطلوب.',
             'code.integer' => 'رمز التحقق يجب أن يكون رقماً صحيحاً.',
-            'code.size' => 'رمز التحقق يجب أن يكون متكون من 8 أرقام بالضبط',        ];
+            'code.size' => 'رمز التحقق يجب أن يكون 8 أرقام او اقل  ',
+        ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return $this->ValidationError($request->all(),$validator);
+            return $this->ValidationError($request->all(), $validator);
         }
         if ($researcher) {
             $researcher->update([

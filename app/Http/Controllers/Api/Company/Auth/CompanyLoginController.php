@@ -16,14 +16,7 @@ class CompanyLoginController extends Controller
 
     use GeneralTrait;
 
-    /**
-     * Display a listing of the resource.
-     */
 
-    public function index()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +28,7 @@ class CompanyLoginController extends Controller
                 'required',
                 'string',
                 'email',
-                'exists:companies,email',  
+                'exists:companies,email',
             ],
             'password' => [
                 'required',
@@ -49,20 +42,18 @@ class CompanyLoginController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()) 
-        {
-            return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة',400);
+        if ($validator->fails()) {
+            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
         }
 
         $company = Company::where('email', $request->email)->first();
 
-        if (!$company || !Hash::check($request->password, $company->password))
-        {
-            return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة' , 400);
+        if (!$company || !Hash::check($request->password, $company->password)) {
+            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
         }
 
-    
-        
+
+
         // if ($company->tokens()->exists()) 
         // {
         //     return $this->unAuthorizeResponse();
@@ -72,19 +63,14 @@ class CompanyLoginController extends Controller
 
         return (new CompanyResourceCompanyResource($company))->successResponseWithToken($token);
     }
-    
+
     public function logout()
     {
         $company = auth()->guard('company')->user();
-    
-        if ($company && $company->currentAccessToken())
-        {
+
+        if ($company && $company->currentAccessToken()) {
             $company->currentAccessToken()->delete();
-            return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);    
+            return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
         }
-
     }
-
-
-   
 }
