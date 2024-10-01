@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Researcher extends Model
 {
+    
 
     use HasApiTokens,HasFactory,SoftDeletes,Uuid;
 
@@ -28,6 +29,11 @@ class Researcher extends Model
         'linkedin',
         'github'
     ];
+ 
+    protected $dates = ['deleted_at'] ;
+  
+
+ 
     public function reports()
     {
         return $this->hasMany(Report::class);

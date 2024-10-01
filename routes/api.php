@@ -23,6 +23,21 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::prefix('')->middleware('auth::company')->
+group(function(){
+    Route::get('/all_product', [ProductController::class, 'index']);
+    Route::post('/add_product', [ProductController::class, 'store']);
+    Route::get('/delete_product', [ProductController::class, 'deletepackage']);
+});
+
+
+
+
+Route::group(['prefix' => 'company' ,'middleware'=>['auth:company']], function (){
+    Route::get('/show' , [CompanyController::class , 'index']);
+    Route::get('/show/{id}', [CompanyController::class , 'show']);
+    Route::post('/update/{id}' ,[CompanyController::class , 'update']);
+});
 
 
 /*
@@ -103,3 +118,12 @@ Route::prefix('researcher')->group(function () {
         Route::post('/researcherlogout', [ResearcherLoginController::class, 'logout']);
     });
 });
+
+Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
+Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class,'registerCode']);
+Route::post('/researcherlogin',[ResearcherLoginController::class,'login']);
+Route::post('/researcherlogout',[ResearcherLoginController::class,'logout'])->middleware('auth:sanctum');
+
+Route::post('/companyregister', [CompanyRegisterController::class, 'store']);
+Route::post('/companylogin',[CompanyLoginController::class,'login']);
+Route::post('/companylogout',[CompanyLoginController::class,'logout'])->middleware('auth:sanctum');
