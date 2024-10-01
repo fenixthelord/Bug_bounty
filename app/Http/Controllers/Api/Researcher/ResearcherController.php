@@ -20,11 +20,8 @@ class ResearcherController extends Controller
 
     public function searchCompany(Request $request)
     {
-        dd($request->all());
-        try {
-
+        try {            
             $query = Company::query();
-
             if ($request->input('name')) {
                 $query->where('name',  'LIKE', '%' . $request->input('name') . '%');
             }

@@ -81,10 +81,14 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function
 
 Route::prefix('researcher')->group(function () {
 
-    # forget Password
+    # forget Password  
     Route::post('/forgetPassword', [ForgetPasswordController::class, 'GenerateOTP']);
     Route::post('/validateOtp', [ForgetPasswordController::class, 'ValidateOtp']);
     Route::post('/resetPassword', [ForgetPasswordController::class, 'ResetPassword']);
+
+    #Home 
+    Route::get('/home', [ResearcherController::class, 'searchCompany']);
+
 
     Route::middleware('auth_researcher')->group(function () {
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
@@ -96,9 +100,9 @@ Route::prefix('researcher')->group(function () {
 
         Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
 
+        # Profile
         Route::get('/show', [ResearcherController::class, 'editresearsher']);
         Route::post('/update', [ResearcherController::class, 'updateprofile']);
-        Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
 
         Route::post('/researcher/logout', [ResearcherLoginController::class, 'logout']);
     });
