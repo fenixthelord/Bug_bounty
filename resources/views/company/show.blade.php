@@ -75,12 +75,14 @@
                                     <td>{{ $report->product->title }}</td>
                                     <td>{{ $report->title }}</td>
                                     <td>
-                                        @if($report->status == 'pending' || $report->status == 'accept')
+                                        @if($report->status == 'pending')
                                             <span class="badge bg-primary">قيد الإنتظار
                                         @elseif($report->status == 'done')
                                             <span class="badge bg-warning">تم الإصلاح
                                         @elseif($report->status == 'reject')
                                             <span class="badge bg-danger">تم الرفض
+                                        @elseif($report->status == 'accept')
+                                            <span class="badge bg-success">تم القبول
                                         @endif
                                     </td>
                                 </tr>
