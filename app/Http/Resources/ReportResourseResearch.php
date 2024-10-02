@@ -19,7 +19,7 @@ class ReportResourseResearch extends JsonResource
             'title' => $this->title,
             'company_name' => $this->product->company->name,
             'created_at' => $this->created_at,
-            'file' => $this->file,
+            'file' => env('PATH_IMG') .$this->file,
             'status' => $this->status
         ];
     }
