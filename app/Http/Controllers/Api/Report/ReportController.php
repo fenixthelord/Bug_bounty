@@ -70,7 +70,7 @@ class ReportController extends Controller
                 'product_id' => Product::where('uuid', $request->product_uuid)->pluck('id')->first(),
                 'researcher_id' => $idreseacher,
                 'review_status' => 0,
-                'file' => env('PATH_IMG') . $d,
+                'file' =>$d,
             ]);
 
             if ($report) {

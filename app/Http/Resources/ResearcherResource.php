@@ -21,7 +21,6 @@ class ResearcherResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'code' => true,
             'image' => $this->image ? env('PATH_IMG') . $this->image : null,
             'points' => $this->points,
             'facebook' => $this->facebook,
