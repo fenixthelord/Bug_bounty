@@ -25,13 +25,14 @@ class CompanyController extends Controller
     {
 
         $resercher = Researcher::all();
-        $company_id = auth('company')->user();
+        $company_id = auth('company')->user()->id;
         //  $products=product::where('company_id',$company_id)->get();
-        $p_id = Product::where('id', $company_id)->pluck('id')->toArray();
+        $p_id = Product::where('company_id', $company_id)->pluck('id')->toArray();
 
 
-        $pending = Report::whereIn('product_id', $p_id)->where('status', 'pendeing')->get();
-        $accept = Report::whereIn('product_id', $p_id)->where('status', 'Accept')->get();
+        $pending = Report::where('status', 'pending')->whereIn('product_id', $p_id)->get();
+        // dd($pending);
+        $accept = Report::whereIn('product_id', $p_id)->where('status', 'accept')->get();
         if (empty($pending)) {
             $countpend = 0;
         }

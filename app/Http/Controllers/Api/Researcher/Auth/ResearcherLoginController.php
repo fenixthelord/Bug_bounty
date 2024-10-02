@@ -32,7 +32,7 @@ class ResearcherLoginController extends Controller
             ],
         ];
 
-    
+
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -40,19 +40,23 @@ class ResearcherLoginController extends Controller
             $firstError = $validator->errors()->first();
 
             if (strpos($firstError, 'مطلوب') !== false) {
-                return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة' , 400);
+                return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
             }
-            return $this->apiResponse(null, false, $firstError, 400);
+            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
         }
 
         $researcher = Researcher::where('email', $request->email)->first();
 
         if (!$researcher || !Hash::check($request->password, $researcher->password)) {
-            return $this->apiResponse(null,false,'الايميل او كلمة السر خاطئة' , 400);
+            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
         }
 
         if (is_null($researcher->code)) {
-            return $this->forbiddenResponse();
+            $data['researcher'] = [
+                'code' => false,
+                'uuid' => $researcher->uuid,
+            ];
+            return $this->SuccessResponse($data);
         }
 
         // if ($researcher->tokens()->exists()) {
@@ -73,5 +77,4 @@ class ResearcherLoginController extends Controller
         }
         return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
     }
-    
 }

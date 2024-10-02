@@ -18,12 +18,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $id = Auth::user()->id;
-        $product = Product::where('id', $id)->get();
+        $id = auth('company')->user()->id;
+        $product = Product::where('company_id', $id)->get();
         if (!$product) {
             return $this->apiResponse(null, false, 'not found', 400);
         }
-        $data['product'] = ProductResource::collection($product);
+        $data['products'] = ProductResource::collection($product);
         return $this->apiResponse($data, true, null, 200);
     }
 
@@ -45,7 +45,7 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return $this->ValidationError($request->all(), $validator);
         }
-        $id = Auth::user()->id;
+        $id = auth('company')->user()->id;
         try {
             $product = Product::create([
                 'title' => $request->title,

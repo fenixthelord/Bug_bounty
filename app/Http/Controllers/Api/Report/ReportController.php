@@ -86,10 +86,10 @@ class ReportController extends Controller
     //
     public function ReportByCompany(Request $request)
     {
-        $company_id = auth('company')->user()->id;
-        $company = Company::find($company_id);
+        $company = auth('company')->user();
+        // $company = Company::find($company_id);
         // $report = $company->reports()->get();
-        $report = Report::whereIn('product_id' , Product::where('company_id' , $company_id)->pluck('id')->toArray())->get();
+        $report = Report::whereNotIn('status' , ['pending','reject'])->whereIn('product_id' , Product::where('company_id' , $company->id)->pluck('id')->toArray())->get();
         if (!$report) {
             return $this->apiResponse(null, false, 'not found', 404);
         }
