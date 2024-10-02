@@ -1,0 +1,100 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container mt-4" dir="rtl">
+      <div class="card">
+        <div class="card-header text-white" style="background-color: #0a0a0a;">
+          <h1 class="mb-0">{{ $company->name }}</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+            <div class="col-md-6">
+              <h3 class="mb-3">معلومات الشركة</h3>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <strong>البريد الإلكتروني:</strong> {{ $company->email }}
+                </li>
+                <li class="mb-2">
+                  <strong>الهاتف:</strong> {{ $company->phone }}
+                </li>
+                <li>
+                  <strong>التخصصات:</strong>
+                  <ul class="list-inline d-inline mb-0">
+                  @foreach($company->specializations as $spe)
+                    <li class="list-inline-item">
+                        <i class="fas fa-check-circle text-success me-1"></i>
+                        <span class="fs-6">{{ $spe->title }}
+                        @if(!$loop->last)
+                            <span class="mx-1">-
+                        @endif
+                    </li>
+                  @endforeach
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            @if($company->products->count() > 0)
+            <div class="col-md-6">
+                    <h3 class="mb-3">المنتجات</h3>
+                    <ul class="list-group">
+                        @foreach($company->products as $product)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ $product->title }}
+                                @if($product->status == 0)
+                                    <span class="badge bg-danger">غير مسموح به
+                                @elseif($product->status == 1)
+                                    <span class="badge bg-success">مسموح به
+                                @endif
+                            </li>
+                            @if($product->status == 1 && $product->trems)
+                                <li class="list-group-item">
+                                    <small>{{ $product->trems }}</small>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            </div>
+            @endif
+            @if($company->products->count() > 0)
+            <h3 class="mt-4 mb-3">الثغرات</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>المنتج</th>
+                            <th>الثغرة</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($company->products as $pr)
+                            @foreach($pr->reports as $report)
+                                <tr>
+                                    <td>{{ $report->product->title }}</td>
+                                    <td>{{ $report->title }}</td>
+                                    <td>
+                                        @if($report->status == 'pending')
+                                            <span class="badge bg-primary">قيد الإنتظار
+                                        @elseif($report->status == 'done')
+                                            <span class="badge bg-warning">تم الإصلاح
+                                        @elseif($report->status == 'reject')
+                                            <span class="badge bg-danger">تم الرفض
+                                        @elseif($report->status == 'accept')
+                                            <span class="badge bg-success">تم القبول
+                                        @endif
+                                    </td>
+                                </tr>@endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
+            <div class="mt-4" style="margin: 1rem;">
+              <a href="{{ route('admin.company') }}" class="btn btn-secondary"style="background-color: #0a0a0a;">عودة</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

@@ -15,11 +15,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmailController;
 
 
+use App\Http\Controllers\HomePageController;
 
+use App\Http\Controllers\CompanyController;
 
+use App\Http\Controllers\ResearcherController;
 
-
-
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +78,7 @@ Route::put('/home/specializations/{specialization}', [SpecializationController::
 Route::resource('specializations', SpecializationController::class);
 Route::post('/specializations/restore/{id}', [SpecializationController::class, 'restore'])->name('specializations.restore');
 
+//-------------------------------------------------------------------------------
 Route::get('/trashed', function () {
     $companies = Company::onlyTrashed()->get();
     $specializations = Specialization::onlyTrashed()->get();
@@ -84,4 +87,42 @@ Route::get('/trashed', function () {
     return view('layouts.trashed', compact('companies', 'specializations', 'researchers'));
 })->name('trashed.index');
 
+
 Route::get('/researcher', [FilterController::class, 'index']);
+
+
+
+//-------------------------------------------------------------------------------
+Route::get('/homepage', [HomepageController::class, 'index'])->name('homepage');
+Route::post('/homepagefunc', [HomepageController::class, 'filter'])->name('homepage-validate');
+//-------------------------------------------------------------------------------
+
+
+Route::prefix('/admin')->middleware('auth')->group(function() {
+Route::get('/company',[CompanyController::class,'index'])->name('admin.company');
+Route::get('/company/show/{company}',[CompanyController::class,'show'])
+->name('admin.company.show');
+Route::get('/company/search',[CompanyController::class,'search'])
+->name('admin.company.search');
+});
+
+//-------------------------------------------------------------------------------------------
+Route::get('/researcher/show', [App\Http\Controllers\ResearcherController::class, 'index'])->name('show.researcher');
+Route::get('/researcher/edit/{uuid}', [App\Http\Controllers\ResearcherController::class, 'edit'])->name('edit.researcher');
+Route::post('/researcher/update/{uuid}', [App\Http\Controllers\ResearcherController::class, 'update'])->name('update.researcher');
+Route::get('/researcher/delete/{uuid}', [App\Http\Controllers\ResearcherController::class, 'destroy'])->name('delete.researcher');
+Route::get('/researcher/restore/{uuid}', [App\Http\Controllers\ResearcherController::class, 'restore'])->name('restore.researcher');
+Route::get('/researcher/trashed', [App\Http\Controllers\ResearcherController::class, 'trashed'])->name('trashed.researcher');
+//-------------------------------------------------------------------------------------------
+
+
+Route::get('/reports', [ReportController::class, 'index'])
+->name('reports.index');  
+Route::get('/researcher/{researcherUuid}/reports', [ReportController::class, 'showResearcherReports'])
+->name('researcher.reports');  
+Route::get('/reports/pending', [ReportController::class, 'showPendingReports'])
+->name('reports.pending');  
+Route::post('/reports/{reportUuid}/update-status', [ReportController::class, 'updateStatus'])
+->name('reports.update-status');  
+//-----------------
+Route::get('/researchers', [ResearcherController::class, 'researcherReport'])->name('reports.researcherreport');
