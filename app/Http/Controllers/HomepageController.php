@@ -8,18 +8,15 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\CompanySpecialization;
 use App\Models\Specialization;
 
-class HomepageController extends Controller
-{
-    public function index()
-    {
+class HomePageController extends Controller {
+    public function index() {
         $types = ['خاصة','حكومية','مشتركة'];
         //$type_reports = ['pending','accept','reject','done'];
         $specializations = Specialization::pluck('title');
         return view('home.homepage',compact('types','specializations'));
     }
 
-    public function filter( Request $request )
-    {
+    public function filter( Request $request ) {
        
    $query = Company::query(); 
  
@@ -49,9 +46,4 @@ class HomepageController extends Controller
         
     }
 }
-        
-    }
-    
-    
-   
-    
+}
