@@ -25,6 +25,7 @@
  background-color: #bbbb;
  background-image: url("tt.jpg");
  background-size: cover;
+
          }
         .edit-form {
             width: 800px;
@@ -37,6 +38,7 @@
 
         .edit-form label {
             font-weight: bold;
+
         }
 
         
@@ -48,10 +50,10 @@
 </head>
 <body>
 <div class="edit-form">
-        <form method="POST" action="{{ route('homepage-validate') }}">
+        <form method="POST" action="{{ route('homepage-validate') }}" >
             @csrf
             <div class="form-group">
-            <h2>الصفحة الرئيسية</h2>
+            <h2>ابحث عن شركة</h2>
             <hr>
             </div>
             
@@ -66,9 +68,9 @@
             </div>
     <hr>
             <div>
-            <label for="type">نوع الشركة:<label>
+            <label for="type">تصنيف الشركة<label>
             <select name="type" id="type">
-                <option selected>Select One</option>
+                <option selected>تحديد</option>
                 @foreach ( $types as $type)
                 <option value="{{ $type }}"  >{{ $type }}</option>
                 @endforeach
@@ -81,9 +83,9 @@
 
     
             <div>
-            <label for="specialization">اختصاص الشركة:<label>
+            <label for="specialization">إختصاص الشركة<label>
             <select name="specialization" id="specialization">
-                <option selected>Select One</option>
+                <option selected>تحديد</option>
                 @foreach ( $specializations as $specialization)
                 <option value="{{ $specialization }}"  >{{ $specialization }}</option>
                 @endforeach
