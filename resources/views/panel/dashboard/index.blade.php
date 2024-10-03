@@ -37,14 +37,9 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2>Chart Title</h2>
-                </div>
-                <div class="card-body text-center">
-                    <div style="width: 25%; margin: auto;">
-                        <canvas id="myChart"></canvas>
-                    </div>
+            <div class="card-body">
+                <div style="width: 25%; margin: auto;">
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
 

@@ -9,12 +9,18 @@ use  App\Models\Researcher;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\ResearcherResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class ResearcherLoginController extends Controller
 {
     use GeneralTrait;
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
     public function login(Request $request)
     {
         $rules = [
@@ -32,31 +38,37 @@ class ResearcherLoginController extends Controller
             ],
         ];
 
+        $messages = [
+            'email.required' => 'البريد الإلكتروني مطلوب',
+            'email.string' => 'البريد الإلكتروني يجب أن يكون نصاً صحيحاً',
+            'email.email' => 'البريد الإلكتروني يجب أن يكون نمطه بريد إلكتروني',
+            'email.exists' => 'البريد الإلكتروني غير مسجل في الشركات',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.string' => 'كلمة المرور يجب أن تكون نصاً صحيحاً',
+            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل.',
+            'password.max' => 'كلمة المرور يجب ألا تزيد عن 255 حرفاً.',
+        ];
 
-
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             $firstError = $validator->errors()->first();
 
             if (strpos($firstError, 'مطلوب') !== false) {
-                return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
+                return $this->requiredField($firstError);
             }
-            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
+
+            return $this->notFoundResponse($firstError);
         }
 
         $researcher = Researcher::where('email', $request->email)->first();
 
-        if (!$researcher || !Hash::check($request->password, $researcher->password)) {
-            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
+        if (!$researcher || !\Hash::check($request->password, $researcher->password)) {
+            return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
         if (is_null($researcher->code)) {
-            $data['researcher'] = [
-                'code' => false,
-                'uuid' => $researcher->uuid,
-            ];
-            return $this->SuccessResponse($data);
+            return $this->notFoundResponse('الحساب غير مفعل عليك إدخال الكود لتفعيله');
         }
 
         // if ($researcher->tokens()->exists()) {
@@ -65,13 +77,7 @@ class ResearcherLoginController extends Controller
 
         $token = $researcher->createToken('auth_token')->plainTextToken;
 
-        $data['researcher'] =
-            [
-                'code' => true,
-                ResearcherResource::make($researcher)
-            ];
-
-        // return ()->successResponseWithToken($token);
+        return (new ResearcherResource($researcher))->successResponseWithToken($token);
     }
 
     public function logout()
@@ -82,5 +88,36 @@ class ResearcherLoginController extends Controller
             $researcher->currentAccessToken()->delete();
         }
         return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
+    }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

@@ -70,7 +70,7 @@ class ReportController extends Controller
                 'product_id' => Product::where('uuid', $request->product_uuid)->pluck('id')->first(),
                 'researcher_id' => $idreseacher,
                 'review_status' => 0,
-                'file' =>$d,
+                'file' => env('PATH_IMG') . $d,
             ]);
 
             if ($report) {
@@ -86,10 +86,10 @@ class ReportController extends Controller
     //
     public function ReportByCompany(Request $request)
     {
-        $company = auth('company')->user();
-        // $company = Company::find($company_id);
+        $company_id = auth('company')->user()->id;
+        $company = Company::find($company_id);
         // $report = $company->reports()->get();
-        $report = Report::whereNotIn('status' , ['pending','reject'])->whereIn('product_id' , Product::where('company_id' , $company->id)->pluck('id')->toArray())->get();
+        $report = Report::whereIn('product_id' , Product::where('company_id' , $company_id)->pluck('id')->toArray())->get();
         if (!$report) {
             return $this->apiResponse(null, false, 'not found', 404);
         }

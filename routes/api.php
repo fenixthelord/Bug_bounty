@@ -31,13 +31,13 @@ use Illuminate\Support\Facades\Route;
     ****************************************
 */
 
-Route::post('/company/login', [CompanyLoginController::class, 'login']);
-Route::post('/researcher/login', [ResearcherLoginController::class, 'login']);
+Route::post('/companylogin', [CompanyLoginController::class, 'login']);
+Route::post('/researcherlogin', [ResearcherLoginController::class, 'login']);
 
 
-Route::post('/company/register', [CompanyRegisterController::class, 'store']);
-Route::post('/researcher/register', [ResearcherRegisterController::class, 'store']);
-Route::post('/researcher/register/{uuid}', [ResearcherRegisterController::class, 'registerCode']);
+Route::post('/companyregister', [CompanyRegisterController::class, 'store']);
+Route::post('/researcherregister', [ResearcherRegisterController::class, 'store']);
+Route::post('/researcherregister/{uuid}', [ResearcherRegisterController::class, 'registerCode']);
 
 
 
@@ -47,33 +47,27 @@ Route::post('/researcher/register/{uuid}', [ResearcherRegisterController::class,
     ****************************************
 */
 
-Route::group(['prefix' => 'company'], function () {
+Route::group(['prefix' => 'company', 'middleware' => ['auth_company']], function () {
+    # Products
+    Route::get('/all_product', [ProductController::class, 'index']);
+    Route::post('/add_product', [ProductController::class, 'store']);
+    Route::post('/delete_product', [ProductController::class, 'deletepackage']);
+
     # Home
-    // Route::get('/home', [CompanyController::class, 'index']);
-    
-    # Authentication
-    Route::group(['middleware' => ['auth_company']], function () {
-        # Home
-        Route::get('/home', [CompanyController::class, 'index']);
+    Route::get('/home', [CompanyController::class, 'index']);
 
-        # Products
-        Route::get('/all_product', [ProductController::class, 'index']);
-        Route::post('/add_product', [ProductController::class, 'store']);
-        Route::post('/delete_product', [ProductController::class, 'deletepackage']);
+    # Profile
+    Route::get('/show', [CompanyController::class, 'show']);
+    Route::post('/update', [CompanyController::class, 'update']);
 
-        # Profile
-        Route::get('/profile', [CompanyController::class, 'show']);
-        Route::post('/profile', [CompanyController::class, 'update']);
+    # Reports
+    Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
 
-        # Reports
-        Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
+    # Change Password
+    Route::post('/changePassword', [CompanyChangePasswordController::class, 'ChangePassword']);
 
-        # Change Password
-        Route::post('/changePassword', [CompanyChangePasswordController::class, 'ChangePassword']);
-
-        # Logout
-        Route::post('/company/logout', [CompanyLoginController::class, 'logout']);
-    });
+    # Logout
+    Route::post('/companylogout', [CompanyLoginController::class, 'logout']);
 });
 
 
@@ -87,16 +81,11 @@ Route::group(['prefix' => 'company'], function () {
 
 Route::prefix('researcher')->group(function () {
 
-    # forget Password  
+    # forget Password
     Route::post('/forgetPassword', [ForgetPasswordController::class, 'GenerateOTP']);
     Route::post('/validateOtp', [ForgetPasswordController::class, 'ValidateOtp']);
     Route::post('/resetPassword', [ForgetPasswordController::class, 'ResetPassword']);
 
-    #Home 
-    Route::get('/home', [ResearcherController::class, 'searchCompany']);
-    Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
-
-    # Authentication
     Route::middleware('auth_researcher')->group(function () {
         Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
 
@@ -105,10 +94,12 @@ Route::prefix('researcher')->group(function () {
         // Route::get('/add-reports-researcher', [ReportController::class, 'showAll']);
         Route::post('/add-reports-researcher', [ReportController::class, 'addreport']);
 
-        # Profile
-        Route::get('/profile', [ResearcherController::class, 'editresearsher']);
-        Route::post('profile', [ResearcherController::class, 'updateprofile']);
+        Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
 
-        Route::post('/researcher/logout', [ResearcherLoginController::class, 'logout']);
+        Route::get('/show', [ResearcherController::class, 'editresearsher']);
+        Route::post('/update', [ResearcherController::class, 'updateprofile']);
+        Route::get('/searchCompany', [ResearcherController::class, 'searchCompany']);
+
+        Route::post('/researcherlogout', [ResearcherLoginController::class, 'logout']);
     });
 });

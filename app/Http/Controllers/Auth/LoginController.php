@@ -40,17 +40,6 @@ class LoginController extends Controller {
         }
         // dd($credentials);
         if (auth()->attempt($credentials)) {
-
-            $user = User::where('email',$request->UserMail)->first();
-            if($user){
-                $this->redirectTo = '/admin-panel';
-                return redirect()->route('Admin-Panel');
-            
-            }else{
-                return redirect()->back()->withErrors(['email', 'Invalid credentials'])->withInput()->with('message', 'خطأ في الصلاحية');
-            }
-
-    
           $user = auth()->user();
           if ($user) {
             return redirect()->route('home');
@@ -58,7 +47,6 @@ class LoginController extends Controller {
         } else {
           return redirect()->back()->withErrors(['UserMail' => 'خطأ في بيانات تسجيل الدخول'])->withInput();
           }
-
     }
 
     public function logout() {

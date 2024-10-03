@@ -18,9 +18,8 @@ class SuperAdminSeeder extends Seeder {
                 'email'=>'qusai@gmail.com',
                 'password'=>'12345678',
                 'phone'=>'0962457472',
-                'type'=>'super admin',
-                'profile_picture'=>'app-assets/images/portrait/small/qusia.jpg'
-           
+                'type' => 'super admin',
+                'profile_picture' => 'app-assets/images/portrait/small/qusai.jpg'
         ]);
     }
 }

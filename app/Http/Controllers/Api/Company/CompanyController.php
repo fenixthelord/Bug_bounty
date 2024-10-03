@@ -25,14 +25,13 @@ class CompanyController extends Controller
     {
 
         $resercher = Researcher::all();
-        $company_id = auth('company')->user()->id;
+        $company_id = auth('company')->user();
         //  $products=product::where('company_id',$company_id)->get();
-        $p_id = Product::where('company_id', $company_id)->pluck('id')->toArray();
+        $p_id = Product::where('id', $company_id)->pluck('id')->toArray();
 
 
-        $pending = Report::where('status', 'pending')->whereIn('product_id', $p_id)->get();
-        // dd($pending);
-        $accept = Report::whereIn('product_id', $p_id)->where('status', 'accept')->get();
+        $pending = Report::whereIn('product_id', $p_id)->where('status', 'pendeing')->get();
+        $accept = Report::whereIn('product_id', $p_id)->where('status', 'Accept')->get();
         if (empty($pending)) {
             $countpend = 0;
         }
@@ -58,9 +57,9 @@ class CompanyController extends Controller
     public function show(Request $request)
     {
         try {
-            $companies = auth('company')->user();
-            $data['company'] = new CompanyResource($companies);
-            return $this->apiResponse($data, true, null, 200);
+        $companies = auth('company')->user();
+        $data['company'] = new CompanyResource($companies);
+        return $this->apiResponse($data, true, null, 200);
         } catch (Exception $e) {
             return $this->handleException($e);
         }
@@ -72,49 +71,41 @@ class CompanyController extends Controller
     {
         # ***************
         // $companies = company::find($id);
-        // $companies = company::where('uuid', $request->uuid)->first();
-        $companies = auth('company')->user();
+        $companies = company::where('uuid', $request->uuid)->first();
         if (!$companies) {
             return $this->notFoundResponse('هذه الشركة غير موجودة ',);
         }
         # ***************
 
-        $validateData = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|string|max:255',
-                'email' => [
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('companies')->ignore($companies->id),
-                ],
-                'type' => 'required|string|max:255|in:خاصة,حكومية,مشتركة',
-                'description' => 'nullable|string',
-                'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'domain' => 'required|string|max:255',
-                'employess_count' => 'required|integer|min:1',
-            ]
-        );
-
-        if ($validateData->fails()) {
-            return $this->ValidationError(null, $validateData);
-        }
+        $validateData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('companies')->ignore($companies->id),
+            ],
+            'type' => 'required|string|max:255|in:خاصة,حكومية,مشتركة',
+            'description' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'domain' => 'required|string|max:255',
+            'employess_count' => 'required|integer|min:1',
+        ]);
 
 
         if ($request->hasFile('logo')) {
             $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد 
-            $logo = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
+            $validateData['logo'] = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
         }
         //التحديث
         $companies->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'type' => $request->type,
-            'description' => $request->description ?? $companies->description,
-            'logo' => $logo ?? $companies->logo,
-            'domain' => $request->domain ?? $companies->domain,
-            'employess_count' => $request->employess_count,
+            'name' => $validateData['name'],
+            'email' => $validateData['email'],
+            'type' => $validateData['type'],
+            'description' => $validateData['description'] ?? $companies->description,
+            'logo' => $validateData['logo'] ?? $companies->logo,
+            'domain' => $validateData['domain'] ?? $companies->domain,
+            'employess_count' => $validateData['employess_count'],
 
         ]);
         return $this->SuccessResponse(new CompanyResource($companies));

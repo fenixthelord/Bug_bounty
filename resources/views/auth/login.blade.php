@@ -59,7 +59,8 @@
                                                     
 
                                                 </div>
-                                                <button type="submit" class="btn btn-danger glow w-100 position-relative"> تسجيل الدخول<i id="icon-arrow" class="bx bx-right-arrow-alt"></i></button>
+                                                <button type="submit" class="btn btn-danger glow w-100 position-relative" style="border-radius: 50px ;"> تسجيل الدخول<i id="icon-arrow" class="bx bx-right-arrow-alt"></i></button>
+
                                             </form>
                                             <hr>
 

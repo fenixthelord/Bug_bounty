@@ -1,24 +1,31 @@
 
-@include('panel.static.header')
-@include('panel.static.main')
-<center>
-<br><br><br>
-<h1> Trashed Researcher 
-</h1>
-</center>
+<div class="text-center">
+    @if(session('success')) 
+        <div class="alert alert-success">
+            <h4>{{ session('success') }}</h4>
+        </div>  
+    @endif 
+</div>
 
+<div class="text-center">
+    @if(session('failed')) 
+        <div class="alert alert-danger">
+            <h4>{{ session('failed') }}</h4>
+        </div>  
+    @endif 
+</div>
 
-<div class=text-center>@if(session('success')) <h4>{{session('success')}}</h4>  @endif </div>
+<div class="text-center">
+    @if(session('error')) 
+        <div class="alert alert-warning">
+            <h4>{{ session('error') }}</h4> 
+        </div> 
+    @endif 
+</div>
 
-<div class=text-center>@if(session('failed')) <h4>{{session('failed')}}</h4>  @endif </div>
-
-
-<div class=text-center>@if(session('error')) <h4>{{session('error')}}</h4> @endif </div>
-
-<div class="row">
-    <div class="col-md-12">
-    
-    @if ($errors->any())
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -27,56 +34,44 @@
                 </ul>
             </div>
         @endif
-        <center>
-        <div class="app-content content">
-        <div class="content-overly" ></div>
-        <div class="content-wrapper">
-            <div class="content-header row"></div>
-            <div class="content-body">
-        
-              
-                <table class="table" border = "1" >
-                    <thead>
-                        <tr>
-                        <th scope="col"><h3>name   </h3> </th>
-                            <th scope="col"><h3> email </h3></th>
-                            <th scope="col"><h3> phone </h3></th>
-                            <th scope="col"><h3> code </h3></th>
-                            <th scope="col"><h3> points </h3></th>
-                            <th scope="col"><h3> rate </h3></th>
-                            <th scope="col">  </th>
-                           
-                         
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($researchers as $researcher)
-                        <tr>
-                        <td>&nbsp;  &nbsp;{{$researcher->name}}</td>
-                        <td>&nbsp; &nbsp; {{$researcher->email}} </td>
-                        <td>&nbsp;  &nbsp;{{$researcher->phone}}</td>
-                        <td>&nbsp;  &nbsp;{{$researcher->code}}</td>
-                        <td>&nbsp;  &nbsp;{{$researcher->points}}</td>
 
-                        <td>{{ $researcher->reports_count > 0 ? intval($researcher->points/$researcher->reports_count):0 }}</td>
-                        
-                       <td>
-                            &nbsp;  &nbsp; &nbsp;  <a href="{{ route('restore.researcher',['uuid'=>$researcher->uuid]) }}" class="button">Restore </a> &nbsp;  &nbsp;  &nbsp; </td>
-                            
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-</center>
+        <div class="app-content content">
+            <div class="content-overlay"></div>
+            <div class="content-wrapper">
+                <div class="content-header row"></div>
+                <div class="content-body">
+                    <table class="table table-striped table-bordered" style="background-color: #f9f9f9;">
+                        <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col"><h4>الاسم</h4></th>
+                                <th scope="col"><h4>البريد الإلكتروني</h4></th>
+                                <th scope="col"><h4>الهاتف</h4></th>
+                                <th scope="col"><h4>الكود</h4></th>
+                                <th scope="col"><h4>النقاط</h4></th>
+                                <th scope="col"><h4>المعدل</h4></th>
+                                <th scope="col"><h4>الإجراء</h4></th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach($researchers as $researcher)
+                                <tr>
+                                    <td>{{ $researcher->name }}</td>
+                                    <td>{{ $researcher->email }}</td>
+                                    <td>{{ $researcher->phone }}</td>
+                                    <td>{{ $researcher->code }}</td>
+                                    <td>{{ $researcher->points }}</td>
+                                    <td>{{ $researcher->reports_count > 0 ? intval($researcher->points / $researcher->reports_count) : 0 }}</td>
+                                    <td>
+                                        <a href="{{ route('restore.researcher', ['uuid' => $researcher->uuid]) }}" class="btn btn-success btn-sm">استعادة</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-    </div>
-</div>
-
-
-</html>
 @include('panel.static.footer')

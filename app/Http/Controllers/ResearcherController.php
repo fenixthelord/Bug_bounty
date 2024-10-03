@@ -8,62 +8,32 @@ use App\Http\Traits\UploadImage ;
 use Illuminate\Support\Facades\Validator;
 
 
-class ResearcherController extends Controller
-{
-    use UploadImage ;
-    /**
-     * Display a listing of the resource.
-     */
+class ResearcherController extends Controller {
+    use UploadImage;
+    
+    public function researcherReport()   {  
+      
+      $researchers = Researcher::all();  
+        foreach ($researchers as $researcher) {  
+            $researcher->calculatePoints(); // Ensure points are calculated  
+            $researcher->rating = $researcher->calculateRating(); // Calculate the rating  
+        }      
+        return view('reports.researcherreport', compact('researchers'));  
+    }  
+    
 
-
-    public function index()
-    {
-        $researchers = Researcher::withCount('reports')->get() ;
-        
+    public function index() {
+        $researchers = Researcher::withCount('reports')->get() ; 
         return view('researcher.show',['researchers'=>$researchers ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $uuid)
-    {
-        $researcher =Researcher::where('uuid',$uuid)->first();
-      
+    public function edit(string $uuid) {
+        $researcher =Researcher::where('uuid',$uuid)->first();  
         return view('researcher.edit',['researcher'=> $researcher]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $uuid)
-    {
-        if($request->IsMethod("post"))
-        {  
+    public function update(Request $request, string $uuid) {
+        if($request->IsMethod("post")) {  
            
             $validator=validator::make($request->all(),[
                 'name'=>'required|string|regex:/[a-z]/' ,
@@ -75,9 +45,9 @@ class ResearcherController extends Controller
                 'linkedin'=>'required|string|unique:researchers,linkedin',
                 'github'=>'required|string|unique:researchers,github',
             ]);
-            if($validator->fails()){
+            if($validator->fails()) {
                 return $validator->errors()->first();
-                }   else{  
+                } else {  
                    
 
                     $exsistResearcher = Researcher::where([['name',$request->name],['email',$request->email],['phone',$request->phone],['facebook',$request->facebook],['github',$request->github]])->first() ;
@@ -108,31 +78,21 @@ class ResearcherController extends Controller
                 }}
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $uuid)
-    {
+    public function destroy(string $uuid) {
         $researcher = Researcher::where('uuid',$uuid)->first() ;
         $researcher->delete() ;
         $res =Researcher::all() ; 
         return view('researcher.show',['researchers'=>$res]) ;
-
     }
     
-    public function restore(string $uuid)
-    {
+    public function restore(string $uuid) {
        $researcher = Researcher::withTrashed()->where('uuid',$uuid)->restore() ;
       $researchers= Researcher::all() ;
-      return view('researcher.show',['researchers'=>$researchers]) ;
-       
+      return view('researcher.show',['researchers'=>$researchers]) ;    
     }
-    public function trashed()
-    {
 
+    public function trashed() {
         $trachedModels = Researcher::onlyTrashed()->get() ;  
-    
-       return view('researcher.index',['researchers'=>$trachedModels]);
-        
+       return view('researcher.index',['researchers'=>$trachedModels]);   
     }
 }
