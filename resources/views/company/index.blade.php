@@ -1,6 +1,8 @@
 @include('panel.static.header')
 @include('panel.static.main')
 
+
+
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-overlay"></div>
@@ -30,7 +32,7 @@
             <div class="row row-cols-1 row-cols-md-2 g-4 d-flex justify-content-center mt-4">
                 @foreach($companies as $company)
                     <div class="col">
-                        <div class="card border-light shadow-sm" style="background-color: #e0e0e0; border-radius: 12px;"> <!-- اللون الرمادي الأغمق -->
+                        <div class="card border-light shadow-sm" style="background-color: #e0e0e0; border-radius: 12px;">
                             <img src="{{ asset('storage/'.$company->logo) }}" class="card-img-top" alt="Logo of {{ $company->name }}">
                             <div class="card-body text-dark">
                                 <h5 class="card-title text-center">{{ $company->name }}</h5>

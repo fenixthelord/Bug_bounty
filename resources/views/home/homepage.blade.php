@@ -50,10 +50,11 @@
 </head>
 <body>
 <div class="edit-form">
-        <form method="POST" action="{{ route('homepage-validate') }}" >
+        
+        <form method="POST" action="{{ route('homepage-validate') }}">
             @csrf
             <div class="form-group">
-            <h2>ابحث عن شركة</h2>
+            <h2>الصفحة الرئيسية</h2>
             <hr>
             </div>
             
@@ -68,7 +69,8 @@
             </div>
     <hr>
             <div>
-            <label for="type">تصنيف الشركة<label>
+            
+            <label for="type">نوع الشركة:<label>
             <select name="type" id="type">
                 <option selected>تحديد</option>
                 @foreach ( $types as $type)
@@ -83,7 +85,8 @@
 
     
             <div>
-            <label for="specialization">إختصاص الشركة<label>
+            
+            <label for="specialization">اختصاص الشركة:<label>
             <select name="specialization" id="specialization">
                 <option selected>تحديد</option>
                 @foreach ( $specializations as $specialization)

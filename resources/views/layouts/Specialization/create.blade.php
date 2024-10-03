@@ -17,21 +17,23 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">تعديل الاختصاص </h3>
+                    <h3 class="card-title">إضافة اختصاص جديد</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('specializations.update',$specialization->id) }}" method="POST">
-
+<<<<<<< HEAD
+                    <form action="{{ route('specializations.store') }}" method="POST">
+=======
+                    <form action="{{ route('specializations.storee') }}" method="POST">
+>>>>>>> 9aa45d7731e2407b1e13439416ea16a81ee133b7
                         @csrf
-                        @method('PUT')
                         <div class="form-group">
                             <label for="title">اسم الاختصاص</label>
-                            <input type="text" name="title" class="form-control" id="title" required value="{{ $specialization->title }}">
+                            <input type="text" name="title" class="form-control" id="title" placeholder="أدخل اسم الاختصاص" required>
                         </div>
                         
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success">تحديث</button>
+                        <button type="submit" class="btn btn-success">إضافة</button>
                         <br>
                         <a href="{{ route('specializations') }}" class="btn btn-secondary">إلغاء</a>
                     </form>

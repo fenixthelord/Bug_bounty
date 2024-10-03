@@ -14,7 +14,7 @@
 
 
 <div class="shadow-bottom"></div>
- <div class="main-menu-content" style="background-color:  ;">
+ <div class="main-menu-content" style="background-color: ;" >
   <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
     <li class=" nav-item">
      <a href="../../../html/rtl/vertical-menu-template-semi-dark/index.html">
@@ -34,7 +34,13 @@
             @endauth 
                              </a>
                               </ul>
-
+                 <ul class="menu-content">
+                    <li class="active"><a href="{{ route('homepage') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">الصفحة الرئيسية</span></a>
+                    </li>
+                    
+                </ul>
+                  
+                
 
 <li class="nav-item">
  <a href="#"><i class="bx bx-list-ul"></i><span class="menu-title">الاختصاصات</span></a>
@@ -51,9 +57,7 @@
 <li class="nav-item">
  <a href="#"><i class="bx bx-buildings"></i><span class="menu-title">الشركات</span></a>
   <ul class="menu-content">
-   <li>
-   <a href="{{ route('homepage') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض وبحث</span></a>
-  </li>
+   
   <li>
             <a href="{{route('admin.company')}}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">عرض الشركات</span></a>
             </li>
@@ -90,6 +94,7 @@
 
 
 
+
 <li class="nav-item">
  <a href="#"><i class="bx bx-trash"></i><span class="menu-title">المحذوفات</span></a>
  <ul class="menu-content">
@@ -97,8 +102,7 @@
    <a href="{{ route('trashed.index') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item">استعراض</span></a></li>  
  </ul>
 </li>
-
-
+</ul>
 
 
 

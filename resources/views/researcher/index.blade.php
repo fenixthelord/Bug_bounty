@@ -1,30 +1,31 @@
+@include('panel.static.header')
+@include('panel.static.main')
+
+<center>
+    <br><br><br>
+    <h1 style="color: #333;">Trashed Researcher</h1>
+</center>
 
 <div class="text-center">
     @if(session('success')) 
-        <div class="alert alert-success">
-            <h4>{{ session('success') }}</h4>
-        </div>  
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif 
 </div>
 
 <div class="text-center">
     @if(session('failed')) 
-        <div class="alert alert-danger">
-            <h4>{{ session('failed') }}</h4>
-        </div>  
+        <div class="alert alert-danger">{{ session('failed') }}</div>
     @endif 
 </div>
 
 <div class="text-center">
     @if(session('error')) 
-        <div class="alert alert-warning">
-            <h4>{{ session('error') }}</h4> 
-        </div> 
+        <div class="alert alert-warning">{{ session('error') }}</div>
     @endif 
 </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-10">
+<div class="row">
+    <div class="col-md-12">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -40,16 +41,16 @@
             <div class="content-wrapper">
                 <div class="content-header row"></div>
                 <div class="content-body">
-                    <table class="table table-striped table-bordered" style="background-color: #f9f9f9;">
-                        <thead class="thead-dark text-center">
+                    <table class="table table-hover table-bordered" style="background-color: #f2f2f2;">
+                        <thead class="thead-light text-center" style="background-color: #666; color: white;">
                             <tr>
-                                <th scope="col"><h4>الاسم</h4></th>
-                                <th scope="col"><h4>البريد الإلكتروني</h4></th>
-                                <th scope="col"><h4>الهاتف</h4></th>
-                                <th scope="col"><h4>الكود</h4></th>
-                                <th scope="col"><h4>النقاط</h4></th>
-                                <th scope="col"><h4>المعدل</h4></th>
-                                <th scope="col"><h4>الإجراء</h4></th>
+                                <th scope="col"><h5>الاسم</h5></th>
+                                <th scope="col"><h5>البريد الإلكتروني</h5></th>
+                                <th scope="col"><h5>الهاتف</h5></th>
+                                <th scope="col"><h5>الكود</h5></th>
+                                <th scope="col"><h5>النقاط</h5></th>
+                                <th scope="col"><h5>المعدل</h5></th>
+                                <th scope="col"><h5>الإجراء</h5></th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -62,12 +63,12 @@
                                     <td>{{ $researcher->points }}</td>
                                     <td>{{ $researcher->reports_count > 0 ? intval($researcher->points / $researcher->reports_count) : 0 }}</td>
                                     <td>
-                                        <a href="{{ route('restore.researcher', ['uuid' => $researcher->uuid]) }}" class="btn btn-success btn-sm">استعادة</a>
+                                        <a href="{{ route('restore.researcher', ['uuid' => $researcher->uuid]) }}" class="btn btn-success btn-sm" style="background-color: #4CAF50; border-color: #4CAF50;">استعادة</a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table>        
                 </div>
             </div>
         </div>

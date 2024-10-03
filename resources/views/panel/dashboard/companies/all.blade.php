@@ -8,8 +8,8 @@
             <div class="card">
                 <img src="{{ $company->image_url ?? asset('path/to/default/image.jpg') }}" class="card-img-top" alt="{{ $company->name }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $company->name }}</h5>
-                    <p class="card-text">{{ $company->description }}</p>
+                    <h5 class="card-title">{{ $company->name ?? 'لا يوجد اسم للشركة' }}</h5>
+                    <p class="card-text">{{ $company->description ?? 'لا توجد معلومات' }}</p>
                     <p class="card-text">
                         <small class="text-body-secondary">
                             Last updated {{ $company->updated_at->diffForHumans() }}

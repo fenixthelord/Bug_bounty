@@ -1,4 +1,6 @@
 @include('panel.static.header')
+@include('panel.static.main')
+
 <br><br>
 <!DOCTYPE html>
 <html lang="ar">
@@ -7,80 +9,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Researchers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #e0e0e0; /* خلفية رمادي فاتح */
+            background-color: #f8f9fa;
         }
-
         .form-container {
-            max-width: 600px; /* جعل النموذج أوسع ليكون على شكل مستطيل */
-            margin: auto;
-            padding: 30px;
-            background-color: #ffffff; /* خلفية بيضاء داخل المستطيل */
+            max-width: 400px;
+            margin: auto; 
+            padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 15px; /* حواف مستديرة أكثر */
-            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2); /* ظل بسيط */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            background-color: #ffffff;
         }
-
         .form-container h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 25px;
         }
-
         .form-group {
-            margin-bottom: 20px; /* توسيع المسافات بين الحقول */
+            margin-bottom: 15px;
         }
-
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
+            margin-bottom: 5px;
+            color: #555;
         }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="file"] {
+        .form-group input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            font-size: 14px;
+            border-radius: 4px;
+            background-color: #f2f2f2;
         }
-
         .form-group input:focus {
-            border-color: #ff0000;
-            outline: none;
+            border-color: #007bff;
+            background-color: #ffffff;
         }
-
         .form-group button {
             width: 100%;
-            padding: 12px;
-            background-color: #ff0000;
+            padding: 10px;
+            background-color: #6c757d;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .form-group button:hover {
-            background-color: #cc0000;
+            background-color: #5a6268;
         }
-
         .success-message {
-            color: red;
+            color: green;
             text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group input,
-        .form-group label {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -127,10 +111,9 @@
             </div>
 
             <div class="form-group">
-                <label for="linkedin">رابط لينكد إن</label><input type="text" id="linkedin" name="linkedin" value="{{ $researcher->linkedin }}" required>
-            </div>
-
-            <div class="form-group">
+                <label for="linkedin">رابط لينكد إن</label>
+                <input type="text" id="linkedin" name="linkedin" value="{{ $researcher->linkedin }}" required>
+            </div><div class="form-group">
                 <label for="github">رابط Github</label>
                 <input type="text" id="github" name="github" value="{{ $researcher->github }}" required>
             </div>

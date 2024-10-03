@@ -4,7 +4,7 @@
 <div class="container mt-4" dir="rtl">
       <div class="card">
         <div class="card-header text-white" style="background-color: #0a0a0a;">
-          <h1 class="mb-0">{{ $company->name }}</h1>
+          <h1 class="mb-0">{{ $company->name ?? 'لا يوجد اسم شركة' }}</h1>
         </div>
         <div class="card-body">
             <div class="row">
@@ -12,10 +12,10 @@
               <h3 class="mb-3">معلومات الشركة</h3>
               <ul class="list-unstyled">
                 <li class="mb-2">
-                  <strong>البريد الإلكتروني:</strong> {{ $company->email }}
+                  <strong>البريد الإلكتروني:</strong> {{ $company->email ?? 'لا يوجد بريد الكتروني' }}
                 </li>
                 <li class="mb-2">
-                  <strong>الهاتف:</strong> {{ $company->phone }}
+                  <strong>الهاتف:</strong> {{ $company->phone ?? 'لا يوجد رقم ' }}
                 </li>
                 <li>
                   <strong>التخصصات:</strong>
@@ -39,7 +39,7 @@
                     <ul class="list-group">
                         @foreach($company->products as $product)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $product->title }}
+                                {{ $product?->title ?? 'لا يوجد منتج' }}
                                 @if($product->status == 0)
                                     <span class="badge bg-danger">غير مسموح به
                                 @elseif($product->status == 1)

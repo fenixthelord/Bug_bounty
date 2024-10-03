@@ -116,16 +116,11 @@
         </div>
     </div>
 </div>
-<!-- END: Content-->
 
-<!-- demo chat-->
 <div class="widget-chat-demo">
-    <!-- widget chat demo footer button start -->
     <button class="btn btn-primary chat-demo-button glow px-1"><i class="livicon-evo"
             data-options="name: comments.svg; style: lines; size: 24px; strokeColor: #fff; autoPlay: true; repeat: loop;"></i></button>
 
-    <!-- widget chat demo footer button ends -->
-    <!-- widget chat demo start -->
     <div class="widget-chat widget-chat-demo d-none">
         <div class="card mb-0">
             <div class="card-header border-bottom p-0">
@@ -182,7 +177,6 @@
             </div>
         </div>
     </div>
-    <!-- widget chat demo ends -->
 
 </div>
 <div class="sidenav-overlay"></div>

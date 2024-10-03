@@ -11,24 +11,23 @@ use Illuminate\Support\Facades\Validator;
 class ResearcherController extends Controller {
     use UploadImage;
     
-    public function researcherReport()   {  
+    public function researcherReport() {  
       
       $researchers = Researcher::all();  
         foreach ($researchers as $researcher) {  
-            $researcher->calculatePoints(); // Ensure points are calculated  
-            $researcher->rating = $researcher->calculateRating(); // Calculate the rating  
+            $researcher->calculatePoints();
+            $researcher->rating = $researcher->calculateRating();  
         }      
         return view('reports.researcherreport', compact('researchers'));  
     }  
     
-
     public function index() {
-        $researchers = Researcher::withCount('reports')->get() ; 
+        $researchers = Researcher::withCount('reports')->get() ;   
         return view('researcher.show',['researchers'=>$researchers ]);
     }
 
     public function edit(string $uuid) {
-        $researcher =Researcher::where('uuid',$uuid)->first();  
+        $researcher =Researcher::where('uuid',$uuid)->first();
         return view('researcher.edit',['researcher'=> $researcher]);
     }
 
@@ -45,16 +44,17 @@ class ResearcherController extends Controller {
                 'linkedin'=>'required|string|unique:researchers,linkedin',
                 'github'=>'required|string|unique:researchers,github',
             ]);
+
             if($validator->fails()) {
                 return $validator->errors()->first();
-                } else {  
+                }  else {  
                    
 
                     $exsistResearcher = Researcher::where([['name',$request->name],['email',$request->email],['phone',$request->phone],['facebook',$request->facebook],['github',$request->github]])->first() ;
 
-                    if($exsistResearcher){
+                    if($exsistResearcher) {
                         return response()->json(['message' => 'The researcher has been exsist already'], 409);
-                     } else{  
+                     } else {  
                       
                         $image = $this->uploadimage($request,'images') ;
                         $data = [
@@ -71,28 +71,30 @@ class ResearcherController extends Controller {
                         $researcher =Researcher::where('uuid',$uuid)->first();
                     
                         $updated = $researcher->update($data);  
-                 if($updated){
-                    return redirect()->back()->withInput() ;
+                 if($updated) {
+                    return redirect()->back()->withInput();
 
                 }}
-                }}
-    }
+            }    
+        }  
+    } 
 
     public function destroy(string $uuid) {
-        $researcher = Researcher::where('uuid',$uuid)->first() ;
-        $researcher->delete() ;
-        $res =Researcher::all() ; 
-        return view('researcher.show',['researchers'=>$res]) ;
+
+        $researcher = Researcher::where('uuid',$uuid)->first();
+        $researcher->delete();
+        return redirect()->route('trashed.researcher');
     }
     
     public function restore(string $uuid) {
-       $researcher = Researcher::withTrashed()->where('uuid',$uuid)->restore() ;
+       $researcher = Researcher::withTrashed()->where('uuid', $uuid)->restore();
       $researchers= Researcher::all() ;
-      return view('researcher.show',['researchers'=>$researchers]) ;    
+      return view('researcher.show', ['researchers'=> $researchers]);    
     }
 
     public function trashed() {
-        $trachedModels = Researcher::onlyTrashed()->get() ;  
-       return view('researcher.index',['researchers'=>$trachedModels]);   
+        $trachedModels = Researcher::onlyTrashed()->get();  
+       return view('researcher.index', ['researchers'=> $trachedModels]);   
+
     }
 }
