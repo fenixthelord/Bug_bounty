@@ -60,8 +60,6 @@ class SpecializationController extends Controller {
         $specialization = Specialization::withTrashed()->findOrFail($id);
         $specialization->restore();
 
-        return redirect()->route('specializations.index')->with('success', 'Specialization restored successfully.');
+        return redirect()->route('specializations')->with('success', 'Specialization restored successfully.');
     }
 }
-
-
