@@ -34,9 +34,9 @@
                     <td>
                         <a href="{{ route('specializations.edit', $specialization->id) }}" class="btn btn-warning">Edit</a>
 
-                        <form action="{{ route('specializations.destroy', $specialization->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('specializations.restore', $specialization->id) }}" method="POST" style="display:inline;">
                             @csrf
-                            @method('DELETE')
+                            {{-- @method('DELETE') --}}
                             <button type="submit" class="btn btn-danger" onclick="fireSweetAlert()">Delete</button>
                         </form>
                     </td>

@@ -43,8 +43,8 @@ class LoginController extends Controller {
 
             $user = User::where('email',$request->UserMail)->first();
             if($user){
-                $this->redirectTo = '/admin-panel';
-                return redirect()->route('home');
+                $this->redirectTo = 'homepage';
+                return redirect()->route('homepage');
             
             }else{
                 return redirect()->back()->withErrors(['email', 'Invalid credentials'])->withInput()->with('message', 'خطأ في الصلاحية');
