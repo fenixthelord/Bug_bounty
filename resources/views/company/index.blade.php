@@ -30,7 +30,8 @@
             @endif
 
             <div class="row row-cols-1 row-cols-md-2 g-4 d-flex justify-content-center mt-4">
-                @foreach($companies as $company)
+
+                @foreach($comapnies as $company)
                     <div class="col">
                         <div class="card border-light shadow-sm" style="background-color: #e0e0e0; border-radius: 12px;">
                             <img src="{{ asset('storage/'.$company->logo) }}" class="card-img-top" alt="Logo of {{ $company->name }}">

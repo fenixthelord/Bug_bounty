@@ -1,7 +1,14 @@
+@include('panel.static.header')
+@include('panel.static.main')
 
-@extends('layouts.app')
+<div class="app-content content">
 
-@section('content')
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+
+        <div class="content-body">
 @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -14,7 +21,7 @@
         <thead>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
             <tr>
-                <th>Title</th>     
+                <th>Title</th>
                 <th>companies</th>
             </tr>
         </thead>
@@ -22,7 +29,7 @@
             @foreach ($specializations as $specialization)
                 <tr>
                     <td>{{ $specialization->title }}</td>
-                    
+
                     <td> <a href="{{ route('specialization.companies', $specialization->id) }}" class="btn btn-primary">show </a>
                     <td>
                         <a href="{{ route('specializations.edit', $specialization->id) }}" class="btn btn-warning">Edit</a>
@@ -58,5 +65,9 @@
                 </script>
         </tbody>
     </table>
-    
-@endsection
+
+</div>
+</div>
+@include('panel.static.footer')
+
+

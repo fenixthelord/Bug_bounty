@@ -52,6 +52,7 @@ class ResearcherLoginController extends Controller
         }
 
         if (is_null($researcher->code)) {
+
             $data['researcher'] = [
                 'code' => false,
                 'uuid' => $researcher->uuid,
@@ -70,7 +71,7 @@ class ResearcherLoginController extends Controller
                 'code' => true,
                 ResearcherResource::make($researcher)
             ];
-
+        dd($token);
         // return ()->successResponseWithToken($token);
     }
 

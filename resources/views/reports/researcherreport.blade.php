@@ -6,7 +6,7 @@
     <div class="content-wrapper">
         <div class="content-header row"></div>
         <div class="content-body">
-            
+
             <!DOCTYPE html>
             <html lang="ar">
             <head>
@@ -126,7 +126,7 @@
                                         <ul class="list-group mt-2">
                                             @foreach($researcher->reports as $report)
                                             <li class="list-group-item">
-                                                {{ $report->user->name }} شاهد التقرير
+                                                {{ $report->user?->name }} شاهد التقرير
                                                 <a href="{{ $report->file }}" target="_blank">{{ $report->title }}</a>
                                                 - {{ $report->status }} ({{ $report->created_at }})
                                             </li>
