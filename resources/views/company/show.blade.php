@@ -48,7 +48,7 @@
                             </li>
                             @if($product->status == 1 && $product->trems)
                                 <li class="list-group-item">
-                                    <small>{{ $product->trems }}</small>
+                                    <small>{{ $product->trems ?? 'لا توجد بيانات' }}</small>
                                 </li>
                             @endif
                         @endforeach

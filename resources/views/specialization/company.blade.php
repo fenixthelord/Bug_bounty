@@ -12,12 +12,12 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>Logo</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Type</th>
-                    <th>Count of Employees</th>
+                    <th>لوغو</th>
+                    <th>اسم</th>
+                    <th>ايميل</th>
+                    <th>موبايل</th>
+                    <th>نوع</th>
+                    <th>عدد الموظفين</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,11 +30,11 @@
                                 <span>No logo</span>
                             @endif
                         </td>
-                        <td>{{ $company->name }}</td>
-                        <td>{{ $company->email }}</td>
-                        <td>{{ $company->phone }}</td>
-                        <td>{{ $company->type }}</td>
-                        <td>{{ $company->employees_count }}</td>
+                        <td>{{ $company->name ?? 'لا توجد بيانات'  }}</td>
+                        <td>{{ $company->email ?? 'لا توجد بيانات'  }}</td>
+                        <td>{{ $company->phone ?? 'لا توجد بيانات'  }}</td>
+                        <td>{{ $company->type ?? 'لا توجد بيانات'  }}</td>
+                        <td>{{ $company->employees_count ?? 'لا توجد بيانات'  }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -114,9 +114,9 @@
                         <tbody>
                             @foreach($researchers as $researcher)
                             <tr>
-                                <td>{{ $researcher->name }}</td>
-                                <td>{{ $researcher->email }}</td>
-                                <td>{{ $researcher->points }}</td>
+                                <td>{{ $researcher->name ?? 'لا توجد بيانات'  }}</td>
+                                <td>{{ $researcher->email ?? 'لا توجد بيانات'  }}</td>
+                                <td>{{ $researcher->points ?? 'لا توجد بيانات'  }}</td>
                                 <td>{{ number_format($researcher->rating, 2) }}</td>
                                 <td>
                                     <button class="btn btn-danger" data-toggle="collapse" data-target="#reports-{{ $researcher->id }}">

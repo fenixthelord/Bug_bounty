@@ -56,10 +56,10 @@
                     <tbody>
                         @foreach($researchers as $researcher)
                             <tr>
-                                <td>{{ $researcher->name }}</td>
-                                <td>{{ $researcher->email }}</td>
-                                <td>{{ $researcher->phone }}</td>
-                                <td>{{ $researcher->points }}</td>
+                                <td>{{ $researcher->name ?? 'لا توجد بيانات' }}</td>
+                                <td>{{ $researcher->email ?? 'لا توجد بيانات' }}</td>
+                                <td>{{ $researcher->phone ?? 'لا توجد بيانات' }}</td>
+                                <td>{{ $researcher->points ?? 'لا توجد بيانات' }}</td>
                                 <td>{{ $researcher->reports_count > 0 ? intval($researcher->points / $researcher->reports_count) : 0 }}</td>
                                 <td>
                                     <a href="{{ route('edit.researcher', $researcher->uuid) }}" class="btn btn-sm btn-primary">تعديل</a>

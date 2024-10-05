@@ -13,7 +13,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title">{{ __('Number of Companies') }}</h5>
-                            <p class="card-text display-4">{{ $companies }}</p>
+                            <p class="card-text display-4">{{ $companies ?? 'لا توجد بيانات' }}</p>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h5 class="card-title">{{ __('Number of Products') }}</h5>
-                            <p class="card-text display-4">{{ $products }}</p>
+                            <p class="card-text display-4">{{ $products ?? 'لا توجد بيانات' }}</p>
                         </div>
                     </div>
                 </div>

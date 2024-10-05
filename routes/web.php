@@ -46,12 +46,15 @@ Route::get('/500', [DashboardController::class, 'serverError'])->name('500');
 // });
 
 // Researcher Routes
+Route::middleware('auth')->group(function () {
+
 Route::get('/researcher/show', [ResearcherController::class, 'index'])->name('show.researcher');
 Route::get('/researcher/edit/{uuid}', [ResearcherController::class, 'edit'])->name('edit.researcher');
 Route::post('/researcher/update/{uuid}', [ResearcherController::class, 'update'])->name('update.researcher');
 Route::get('/researcher/delete/{uuid}', [ResearcherController::class, 'destroy'])->name('delete.researcher');
 Route::get('/researcher/restore/{uuid}', [ResearcherController::class, 'restore'])->name('restore.researcher');
 Route::get('/researcher/trashed', [ResearcherController::class, 'trashed'])->name('trashed.researcher');
+});
 
 // Admin Routes auth
 Route::middleware('auth')->group(function () {
@@ -61,22 +64,25 @@ Route::middleware('auth')->group(function () {
 });
 
 // Email Routes
+Route::middleware('auth')->group(function () {
+
 Route::get('/send-email', [EmailController::class, 'showEmailForm'])->name('email.form');
 Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('send.email');
+});
 
 // Specializations Routes auth
 Route::middleware('auth')->group(function () {
-    Route::get('/home/specializations', [SpecializationController::class, 'index'])
-    ->name('specializations');
-    Route::get('/home/specializations/create', [SpecializationController::class, 'create'])
-    ->name('specializations.create');
-    Route::post('/home/specializations/store', [SpecializationController::class, 'store'])
-    ->name('specializations.store');
-    Route::get('/home/specializations/{id}/companies', [SpecializationController::class, 'show'])->name('specialization.companies');
+    Route::get('/home/specializations', [SpecializationController::class, 'index'])->name('specializations');
+    Route::get('/home/specializations/create', [SpecializationController::class, 'create'])->name('specializations.create');
+    Route::post('/home/specializations/store', [SpecializationController::class, 'store'])->name('specializations.store');
+    Route::get('/home/specializations/{specialization}/companies', [SpecializationController::class, 'show'])->name('specialization.companies');
     Route::get('/home/specializations/{specialization}/edit', [SpecializationController::class, 'edit'])->name('specializations.edit');
     Route::put('/home/specializations/{specialization}', [SpecializationController::class, 'update'])->name('specializations.update');
-    Route::post('/specializations/restore/{id}', [SpecializationController::class, 'restore'])
-    ->name('specializations.restore');
+    
+    Route::delete('/home/specializations/{specialization}', [SpecializationController::class, 'destroy'])->name('specializations.destroy');
+    Route::get('/home/specializations/trashed', [SpecializationController::class, 'trashed'])->name('specializations.trashed');
+    Route::patch('/home/specializations/{specialization}/restore', [SpecializationController::class, 'restore'])->name('specializations.restore');
+    Route::delete('/home/specializations/{specialization}/force-delete', [SpecializationController::class, 'forceDelete'])->name('specializations.forceDelete');
 });
 
 // Trashed Items Route
@@ -89,9 +95,12 @@ Route::get('/trashed', function () {
 })->name('trashed.index');
 
 // HomePage Routes
+Route::middleware('auth')->group(function () {
+
 Route::get('/', [HomePageController::class, 'index']);
 Route::get('/home', [HomePageController::class, 'index'])->name('homepage');
 Route::post('/homepagefunc', [HomePageController::class, 'filter'])->name('homepage-validate');
+});
 
 // Admin Company Routes auth
 Route::prefix('/admin')->middleware('auth')->group(function() {
@@ -101,10 +110,14 @@ Route::prefix('/admin')->middleware('auth')->group(function() {
 });
 
 // Report Routes
-Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');  
+Route::get('/reports', [ReportController::class, 'index'])
+->name('reports.index');  
 Route::get('/researcher/{researcherUuid}/reports', [ReportController::class, 'showResearcherReports'])->name('researcher.reports');  
-Route::get('/reports/pending', [ReportController::class, 'showPendingReports'])->name('reports.pending');  
-Route::post('/reports/{reportUuid}/update-status', [ReportController::class, 'updateStatus'])->name('reports.update-status');  
+Route::get('/reports/pending', [ReportController::class, 'showPendingReports'])
+->name('reports.pending');  
+Route::post('/reports/{reportUuid}/update-status', [ReportController::class, 'updateStatus'])
+->name('reports.update-status');  
 
 // Researcher Report Route
-Route::get('/researchers', [ResearcherController::class, 'researcherReport'])->name('reports.researcherreport');
+Route::get('/researchers', [ResearcherController::class, 'researcherReport'])
+->name('reports.researcherreport');

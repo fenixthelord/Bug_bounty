@@ -102,7 +102,7 @@
 
             <div class="form-group">
                 <label for="image">الصورة</label>
-                <input type="file" id="image" name="image" required>
+                <input type="file" id="image" name="image">
             </div>
 
             <div class="form-group">

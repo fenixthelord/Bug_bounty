@@ -43,7 +43,7 @@ class LoginController extends Controller {
 
             $user = User::where('email',$request->UserMail)->first();
             if($user){
-                $this->redirectTo = 'homepage';
+                $this->redirectTo = 'homepage   ';
                 return redirect()->route('homepage');
             
             }else{

@@ -1,8 +1,10 @@
+
+
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Trashed Items</h1>
+    <h1>العناصر المحذوفة</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -11,13 +13,13 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <h2>Deleted Companies</h2>
+    <h2>الشركات المحذوفة</h2>
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Deleted At</th>
-                <th>Actions</th>
+                <th>الاسم</th>
+                <th>وقت الحذف</th>
+                <th>الإجرائات</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +30,7 @@
                     <td>
                         <form action="" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-success">Restore</button>
+                            <button type="submit" class="btn btn-success">إستعادة</button>
                         </form>
                     </td>
                 </tr>
@@ -36,13 +38,13 @@
         </tbody>
     </table>
 
-    <h2>Deleted Specializations</h2>
+    <h2>التخصصات المحذوفة</h2>
     <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Deleted At</th>
-                <th>Actions</th>
+                <th>عنوان</th>
+                <th>وقت الحذف</th>
+                <th>الإجرائات</th>
             </tr>
         </thead>
         <tbody>
@@ -53,7 +55,8 @@
                     <td>
                         <form action="{{ route('specializations.restore', $specialization->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-success">Restore</button>
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-success">إستعادة</button>
                         </form>
                     </td>
                 </tr>
@@ -61,13 +64,13 @@
         </tbody>
     </table>
 
-    <h2>Deleted Researchers</h2>
+    <h2>الباحثين المحذوفين</h2>
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Deleted At</th>
-                <th>Actions</th>
+                <th>اسم</th>
+                <th>وقت الحذف</th>
+                <th>الإجرائات</th>
             </tr>
         </thead>
         <tbody>
@@ -78,7 +81,7 @@
                     <td>
                         <form action="" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-success">Restore</button>
+                            <button type="submit" class="btn btn-success">إستعادة</button>
                         </form>
                     </td>
                 </tr>

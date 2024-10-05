@@ -56,11 +56,11 @@
                         <tbody class="text-center">
                             @foreach($researchers as $researcher)
                                 <tr>
-                                    <td>{{ $researcher->name }}</td>
-                                    <td>{{ $researcher->email }}</td>
-                                    <td>{{ $researcher->phone }}</td>
-                                    <td>{{ $researcher->code }}</td>
-                                    <td>{{ $researcher->points }}</td>
+                                    <td>{{ $researcher->name ?? 'لا توجد بيانات' }}</td>
+                                    <td>{{ $researcher->email ?? 'لا توجد بيانات' }}</td>
+                                    <td>{{ $researcher->phone ?? 'لا توجد بيانات' }}</td>
+                                    <td>{{ $researcher->code ?? 'لا توجد بيانات' }}</td>
+                                    <td>{{ $researcher->points ?? 'لا توجد بيانات' }}</td>
                                     <td>{{ $researcher->reports_count > 0 ? intval($researcher->points / $researcher->reports_count) : 0 }}</td>
                                     <td>
                                         <a href="{{ route('restore.researcher', ['uuid' => $researcher->uuid]) }}" class="btn btn-success btn-sm" style="background-color: #4CAF50; border-color: #4CAF50;">استعادة</a>

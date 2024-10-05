@@ -74,7 +74,7 @@
             <select name="type" id="type">
                 <option selected>تحديد</option>
                 @foreach ( $types as $type)
-                <option value="{{ $type }}"  >{{ $type }}</option>
+                <option value="{{ $type }}"  >{{ $type ?? 'لا توجد بيانات'  }}</option>
                 @endforeach
             </select>
         
@@ -90,7 +90,7 @@
             <select name="specialization" id="specialization">
                 <option selected>تحديد</option>
                 @foreach ( $specializations as $specialization)
-                <option value="{{ $specialization }}"  >{{ $specialization }}</option>
+                <option value="{{ $specialization }}"  >{{ $specialization ?? 'لا توجد بيانات' }}</option>
                 @endforeach
             </select>
             </div>

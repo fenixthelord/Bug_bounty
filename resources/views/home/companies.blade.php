@@ -62,12 +62,12 @@
    <tbody>
             @foreach($companies as $company)
               <tr>
-              <td>{{ $company->name }}</td>
-               <td>{{ $company->phone }}</td>
-               <td>{{ $company->email }}</td>
-               <td>{{ $company->type }}</td>
-               <td>{{ $company->domain}}</td>
-               <td>{{ $company->employess_count }}</td>
+              <td>{{ $company->name ?? 'لا توجد بيانات' }}</td>
+               <td>{{ $company->phone ?? 'لا توجد بيانات' }}</td>
+               <td>{{ $company->email ?? 'لا توجد بيانات' }}</td>
+               <td>{{ $company->type ?? 'لا توجد بيانات' }}</td>
+               <td>{{ $company->domain ?? 'لا توجد بيانات'}}</td>
+               <td>{{ $company->employess_count ?? 'لا توجد بيانات' }}</td>
                 </tr> 
                @endforeach
    </tbody>

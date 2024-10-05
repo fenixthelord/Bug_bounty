@@ -19,9 +19,9 @@
                         <tbody>
                             @foreach ($admins as $admin)
                             <tr>
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td>{{ $admin->phone }}</td>
+                                <td>{{ $admin->name ?? 'لا توجد بيانات' }}</td>
+                                <td>{{ $admin->email ?? 'لا توجد بيانات' }}</td>
+                                <td>{{ $admin->phone ?? 'لا توجد بيانات' }}</td>
                             </tr>
                             @endforeach
                         </tbody>

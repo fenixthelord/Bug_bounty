@@ -99,10 +99,10 @@
                     <tbody>
                         @foreach($reports as $report)
                         <tr>
-                            <td>{{ $report->title }}</td>
+                            <td>{{ $report->title ?? 'لا توجد بيانات'  }}</td>
                             <td>{{ $report->researcher?->name ?? 'لا يوجد باحث'}}</td>
                             <td>{{ $report->product?->title ?? 'لا يجد منتج'}}</td>
-                            <td>{{ $report->status }}</td>
+                            <td>{{ $report->status ?? 'لا توجد بيانات'  }}</td>
                             <td>
                                 <form action="{{ route('reports.update-status', $report->uuid) }}" method="POST">
                                     @csrf
