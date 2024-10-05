@@ -66,13 +66,9 @@ class ResearcherLoginController extends Controller
 
         $token = $researcher->createToken('auth_token')->plainTextToken;
 
-        $data['researcher'] =
-            [
-                'code' => true,
-                ResearcherResource::make($researcher)
-            ];
-        dd($token);
-        // return ()->successResponseWithToken($token);
+        $data['researcher'] = ResearcherResource::make($researcher);
+        $data['token'] = $token;
+        return $this->SuccessResponse($data);
     }
 
     public function logout()
