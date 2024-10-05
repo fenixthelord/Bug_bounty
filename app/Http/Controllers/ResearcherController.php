@@ -98,7 +98,7 @@ class ResearcherController extends Controller
         }
 
         return redirect()->back()->with('error', 'فشل تحديث الباحث')->withInput();
-    }
+    }   
 
     public function destroy(string $uuid)
     {

@@ -19,7 +19,7 @@ class ReportResource extends JsonResource
             'title' => $this->title,
             'researcher' => ResearcherResource::make($this->researcher),
             'created_at' => $this->created_at,
-            'file' => $this->file,
+            'file' => env('PATH_IMG') . $this->file,
             'status' => $this->status
         ];
     }
