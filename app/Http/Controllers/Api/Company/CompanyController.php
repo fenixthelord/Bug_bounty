@@ -117,6 +117,7 @@ class CompanyController extends Controller
             'employess_count' => $request->employess_count,
 
         ]);
-        return $this->SuccessResponse(new CompanyResource($companies));
+        $data['company'] = new CompanyResource($companies);
+        return $this->SuccessResponse($data);
     }
 }

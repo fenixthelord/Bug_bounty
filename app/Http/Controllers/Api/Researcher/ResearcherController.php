@@ -106,7 +106,7 @@ class ResearcherController extends Controller
         $company = Company::where('uuid', $uuid)->first();
         if ($company) {
             $data['company-data'] = new CompanyResource($company);
-            $data['companies_suggest'] = CompanyResource::collection(Company::inRandomOrder()->limit(8)->get());
+            // $data['companies_suggest'] = CompanyResource::collection(Company::inRandomOrder()->limit(8)->get());
 
             return $this->apiResponse($data, 1, null, 200);
         } else {
