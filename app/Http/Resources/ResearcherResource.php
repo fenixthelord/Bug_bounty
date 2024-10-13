@@ -9,10 +9,6 @@ use App\Http\Traits\GeneralTrait;
 class ResearcherResource extends JsonResource
 {
     use GeneralTrait;
-
-    public function code() {
-        return  $this->code ? true : false ;
-    }
     /**
      * Transform the resource into an array.
      *
@@ -21,17 +17,17 @@ class ResearcherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            
-            'code' => $this->code(),
             'uuid' => $this->uuid,
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'image' => $this->image ? env('PATH_IMG') . $this->image : null,
+            'code' => $this->code,
+            'image' => $this->image? env('PATH_IMG') . $this->image : null,
             'points' => $this->points,
             'facebook' => $this->facebook,
             'linkedin' => $this->linkedin,
             'github' => $this->github,
+          	'description' =>$this->description,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }

@@ -16,7 +16,14 @@ class CompanyLoginController extends Controller
 
     use GeneralTrait;
 
+    /**
+     * Display a listing of the resource.
+     */
 
+    public function index()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,7 +35,7 @@ class CompanyLoginController extends Controller
                 'required',
                 'string',
                 'email',
-                'exists:companies,email',
+                'exists:companies,email',  
             ],
             'password' => [
                 'required',
@@ -38,22 +45,40 @@ class CompanyLoginController extends Controller
             ],
         ];
 
+        $messages = [
+            'email.required' => 'البريد الإلكتروني مطلوب',
+            'email.string' => 'البريد الإلكتروني يجب أن يكون نصاً صحيحاً',
+            'email.email' => 'البريد الإلكتروني يجب أن يكون نمطه بريد إلكتروني',
+            'email.exists' => 'البريد الإلكتروني غير مسجل في الشركات',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.string' => 'كلمة المرور يجب أن تكون نصاً صحيحاً',
+            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل.',
+            'password.max' => 'كلمة المرور يجب ألا تزيد عن 255 حرفاً.',
+        ];
 
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) 
+        {
+            $firstError = $validator->errors()->first();
+        
+            if (strpos($firstError, 'مطلوب') !== false) 
+            {
+                return $this->requiredField($firstError);  
+            }
 
-        if ($validator->fails()) {
-            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
+            return $this->notFoundResponse($firstError);
         }
 
         $company = Company::where('email', $request->email)->first();
 
-        if (!$company || !Hash::check($request->password, $company->password)) {
-            return $this->apiResponse(null, false, 'الايميل او كلمة السر خاطئة', 400);
+        if (!$company || !Hash::check($request->password, $company->password))
+        {
+            return $this->unAuthorizeResponse(); // بيانات الاعتماد غير صحيحة
         }
 
-
-
+    
+        
         // if ($company->tokens()->exists()) 
         // {
         //     return $this->unAuthorizeResponse();
@@ -63,14 +88,20 @@ class CompanyLoginController extends Controller
 
         return (new CompanyResourceCompanyResource($company))->successResponseWithToken($token);
     }
-
+    
     public function logout()
     {
         $company = auth()->guard('company')->user();
-
-        if ($company && $company->currentAccessToken()) {
+    
+        if ($company && $company->currentAccessToken())
+        {
             $company->currentAccessToken()->delete();
-            return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);
+            return response()->json(['message' => 'تم تسجيل الخروج بنجاح']);    
         }
+
     }
+
+
+   
 }
+

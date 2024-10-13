@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Specialization extends Model {
-    use HasFactory, Uuid;
-    use SoftDeletes;
-    
+class Specialization extends Model
+{
+    use HasFactory, SoftDeletes, Uuid;
     protected $fillable = [
         'uuid',
         'title'
