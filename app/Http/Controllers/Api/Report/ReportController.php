@@ -20,16 +20,11 @@ class ReportController extends Controller
     public function ReportByResearcher(Request $request)
     {
         try {
-            //code...
-            // $id = $request->researcher;
             $idreseacher = auth('researcher')->user()->id;
             $reports = Report::where('researcher_id', $idreseacher)->get();
-            if ($reports) {
-                $data['reports'] = ReportResourseResearch::collection($reports);
-                return $this->apiResponse($data, true, null, 200);
-            } else {
-                return $this->apiResponse(null, true, null, 200);
-            }
+            $data['reports'] = $reports->count() > 0 ? ReportResourseResearch::collection($reports) : null;
+            return $this->apiResponse($data, true, null, 200);
+
         } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
@@ -70,7 +65,7 @@ class ReportController extends Controller
                 'product_id' => Product::where('uuid', $request->product_uuid)->pluck('id')->first(),
                 'researcher_id' => $idreseacher,
                 'review_status' => 0,
-                'file' =>$d,
+                'file' => $d,
             ]);
 
             if ($report) {
@@ -89,7 +84,7 @@ class ReportController extends Controller
         $company = auth('company')->user();
         // $company = Company::find($company_id);
         // $report = $company->reports()->get();
-        $report = Report::whereNotIn('status' , ['pending','reject'])->whereIn('product_id' , Product::where('company_id' , $company->id)->pluck('id')->toArray())->get();
+        $report = Report::whereNotIn('status', ['pending', 'reject'])->whereIn('product_id', Product::where('company_id', $company->id)->pluck('id')->toArray())->get();
         if (!$report) {
             return $this->apiResponse(null, false, 'not found', 404);
         }
