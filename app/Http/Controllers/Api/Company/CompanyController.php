@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ReportResource;
 use App\Http\Resources\ResearcherResource;
 use Illuminate\Http\Request;
 use App\Models\Company;
@@ -75,7 +76,7 @@ class CompanyController extends Controller
         // $companies = company::where('uuid', $request->uuid)->first();
         $companies = auth('company')->user();
         if (!$companies) {
-            return $this->notFoundResponse('هذه الشركة غير موجودة ',);
+            return $this->notFoundResponse('هذه الشركة غير موجودة ', );
         }
         # ***************
 
@@ -103,7 +104,7 @@ class CompanyController extends Controller
 
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد 
+            $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد
             $logo = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
         }
         //التحديث
@@ -117,6 +118,25 @@ class CompanyController extends Controller
             'employess_count' => $request->employess_count,
 
         ]);
-        return $this->SuccessResponse(new CompanyResource($companies));
+        $data['company'] = new CompanyResource($companies);
+        return $this->SuccessResponse($data);
+    }
+
+    public function researcherdetailes($uuid)
+    {
+        $researcher = Researcher::where('uuid', $uuid)->first();
+        $reports = Report::where('researcher_id', $researcher->id)->where('status', 'accept')->get();
+        // dd($reports);
+        if ($researcher) {
+
+            $data['researcher-data'] = new ResearcherResource($researcher);
+            $data['accepted_reports'] =ReportResource::collection($reports);
+            return $this->apiResponse($data, 1, null, 200);
+        } else {
+            return $this->apiResponse(null, 0, 'researcher not found', 404);
+        }
+
+
+
     }
 }
