@@ -21,21 +21,14 @@ class ResearcherController extends Controller
     public function searchCompany(Request $request)
     {
         try {
-
             $query = Company::query();
-
-            if ($request->has('name')) {
+            if ($request->input('name')) {
                 $query->where('name',  'LIKE', '%' . $request->input('name') . '%');
-            }
-
-            if ($request->has('unavailability')) {
+            } elseif ($request->input('unavailability')) {
                 $query->onlyTrashed();
-            }
-
-            if ($request->has('old')) {
+            } elseif ($request->input('old')) {
                 $query->orderBy('created_at', 'asc');
-            }
-            if ($request->has('new')) {
+            } elseif ($request->input('new')) {
                 $query->orderBy('created_at', 'desc');
             }
 
@@ -59,42 +52,49 @@ class ResearcherController extends Controller
     {
         $researcher = auth('researcher')->user();
 
-        $validateData = $request->validate([
-            'name' => 'required|string|max:255',
-            //'uuid'=>'nullable',
-            'email' =>  [
-                'required',
-                'email',
-                Rule::unique('researchers', 'email')->ignore($researcher->id),
-            ],
+        $validateData = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                //'uuid'=>'nullable',
+                'email' =>  [
+                    'required',
+                    'email',
+                    Rule::unique('researchers', 'email')->ignore($researcher->id),
+                ],
 
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'code' => 'nullable|string',
-            'phone' => 'nullable|string',
-            'facebook' => 'nullable|string',
-            'linkedin' => 'nullable|string',
-            'github' => 'nullable|string',
+                'description' => 'nullable|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'code' => 'nullable|string',
+                'phone' => 'nullable|string',
+                'facebook' => 'nullable|string',
+                'linkedin' => 'nullable|string',
+                'github' => 'nullable|string',
 
-        ]);
+            ]
+        );
+
+        if ($validateData->fails()) {
+            return $this->apiResponse(null, false, $validateData->errors()->first(), 400);
+        }
 
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public'); //هون عم خزن الصور بالمجلد
-            $validateData['image'] = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
+            $request->image = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
         }
-        //return response(($validateData)) ; }}
+        //return response(($request)) ; }}
         //التحديث
         $researcher->update([
-            'name' => $validateData['name'],
-            'email' => $validateData['email'],
-            'description' => $validateData['description'] ?? $researcher->description,
-            'image' => $validateData['image'] ?? $researcher->image,
-            'code' => $validateData['code'] ?? $researcher->code,
-            'phone' => $validateData['phone'] ?? $researcher->phone,
-            'facebook' => $validateData['facebook'] ?? $researcher->facebook,
-            'linkedin' => $validateData['linkedin'] ?? $researcher->linkedin,
-            'github' => $validateData['github'] ?? $researcher->github,
+            'name' => $request->name,
+            'email' => $request->email,
+            'description' => $request->description ?? $researcher->description,
+            'image' => $request->image ?? $researcher->image,
+            'code' => $request->code ?? $researcher->code,
+            'phone' => $request->phone ?? $researcher->phone,
+            'facebook' => $request->facebook ?? $researcher->facebook,
+            'linkedin' => $request->linkedin ?? $researcher->linkedin,
+            'github' => $request->github ?? $researcher->github,
         ]);
         $data['researcher'] = new ResearcherResource($researcher);
         return $this->apiResponse($data, true, 'تم تحديث معلومات الباحث بنجاح', 200);

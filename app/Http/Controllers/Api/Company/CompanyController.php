@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ReportResource;
 use App\Http\Resources\ResearcherResource;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Resources\CompanyResource\CompanyResource;
-use App\Http\Resources\ReportResourseResearch;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -105,7 +103,7 @@ class CompanyController extends Controller
 
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد
+            $path = $request->file('logo')->store('logos', 'public'); //هون عم خزن الصور بالمجلد 
             $logo = $path; //هون عم اكتب مسار الصورة كامل مشان الفرونت يقدرو يشوفوها
         }
         //التحديث
@@ -119,22 +117,6 @@ class CompanyController extends Controller
             'employess_count' => $request->employess_count,
 
         ]);
-        $data['company'] = new CompanyResource($companies);
-        return $this->SuccessResponse($data);
-    }
-
-    public function researcherdetailes($uuid)
-    {
-        $researcher = Researcher::where('uuid', $uuid)->first();
-        if ($researcher) {
-            $reports = Report::where('researcher_id', $researcher->id)->where('status', 'accept')->get();
-            // dd($reports);
-
-            $data['researcher'] = new ResearcherResource($researcher);
-            $data['accepted_reports'] = ReportResourseResearch::collection($reports);
-            return $this->apiResponse($data, 1, null, 200);
-        } else {
-            return $this->apiResponse(null, 0, 'researcher not found', 400);
-        }
+        return $this->SuccessResponse(new CompanyResource($companies));
     }
 }

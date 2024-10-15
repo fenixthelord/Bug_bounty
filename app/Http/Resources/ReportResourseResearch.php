@@ -17,7 +17,7 @@ class ReportResourseResearch extends JsonResource
         return [
             'id' => $this->uuid,
             'title' => $this->title,
-            'company_name' => $this->product?->company?->name,
+            'company_name' => $this->product->company->name,
             'created_at' => $this->created_at,
             'file' => env('PATH_IMG') .$this->file,
             'status' => $this->status

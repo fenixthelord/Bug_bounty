@@ -2,8 +2,9 @@
 @include('panel.static.main')
 
 <center>
-    <br><br><br>
-    <h1 style="color: #333;">Trashed Researcher</h1>
+    <br><br>
+    <br><br>
+    <h1 style="">الباحثين المحذوفين</h1>
 </center>
 
 <div class="text-center">

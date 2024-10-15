@@ -21,13 +21,11 @@ class ResearcherResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'code' => $this->code,
-            'image' => $this->image? env('PATH_IMG') . $this->image : null,
+            'image' => $this->image ? env('PATH_IMG') . $this->image : null,
             'points' => $this->points,
             'facebook' => $this->facebook,
             'linkedin' => $this->linkedin,
             'github' => $this->github,
-          	'description' =>$this->description,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }

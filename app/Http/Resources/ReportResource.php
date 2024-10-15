@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\ResearcherResource;
 
 class ReportResource extends JsonResource
 {
@@ -13,14 +12,14 @@ class ReportResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request ): array
+    public function toArray(Request $request): array
     {
         return [
-            'id' => $this->uuid,
+            'uuid' => $this->uuid,
             'title' => $this->title,
             'researcher' => ResearcherResource::make($this->researcher),
             'created_at' => $this->created_at,
-            'file' => env('PATH_IMG') .$this->file,
+            'file' => $this->file,
             'status' => $this->status
         ];
     }

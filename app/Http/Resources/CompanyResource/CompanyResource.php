@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\CompanyResource;
 
-use App\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Traits\GeneralTrait;
@@ -22,11 +21,10 @@ class CompanyResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'type' => $this->type,
-            'description' => $this->description,
+            'description' => $this->discription,
             'logo' => $this->logo? env('PATH_IMG') . $this->logo : null ,
             'domain' => $this->domain,
             'employess_count' => $this->employess_count,
-            "products" => ProductResource::collection($this->products)
         ];
     }
     public function successResponse()

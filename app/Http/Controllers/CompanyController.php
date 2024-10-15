@@ -34,4 +34,28 @@ class CompanyController extends Controller {
             'notFound' => $companies->isEmpty()
         ]);
     }
+
+    public function destroy($id) {
+        $company = Company::findOrFail($id);
+        $company->delete();
+        return redirect()->route('admin.company')->with('success', 'تم حذف الشركة بنجاح');
+    }
+
+    public function trashed() {
+        $trachedCompany = Company::onlyTrashed()->get();
+        return view('company.trashed', ['companies' => $trachedCompany]);
+    }
+
+    public function restore($id) {
+        $company = Company::withTrashed()->findOrFail($id);
+        $company->restore();
+        return redirect()->route('admin.company')->with('success', 'تمت الاستعادة بنجاح');
+    }  
+
+    public function forceDelete($id) {
+        $company = Company::withTrashed()->findOrFail($id);
+        $company->forceDelete();
+
+        return redirect()->route('admin.company')->with('success', 'تم حذف الشركة نهائياً بنجاح');
+    }
 }

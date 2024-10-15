@@ -15,18 +15,20 @@
                         <li class="nav-item d-none d-lg-block"><a class="nav-link"
                          href="{{ route('send.email') }}"
                                                                   data-toggle="tooltip" data-placement="top"
-                                                                  title="Send Email"><i class="ficon bx bx-envelope"></i></a></li>
+                                                                  title="إرسال رسالة بريد إلكتروني"><i class="ficon bx bx-envelope"></i></a></li>
                         
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calendar.html"
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link" 
+                            href="{{ url('/calendar') }}"
                                                                   data-toggle="tooltip" data-placement="top"
-                                                                  title="Calendar"><i
+                                                                  title="التقويم"><i
                                     class="ficon bx bx-calendar-alt"></i></a></li>
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-language nav-item">
     <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span>
+        <i class="flag-icon flag-icon-sa"></i><span class="selected-language">العربية</span>
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdown-flag">
         <a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us mr-50"></i> English</a>
@@ -36,22 +38,7 @@
 
 
 
-            <li class="nav-item d-none d-lg-block">
-             <a class="nav-link nav-link-expand">
-              <i class="ficon bx bx-fullscreen">
-                  
-                </i></a></li>
-                 <li class="nav-item nav-search">
-                  <a class="nav-link nav-link-search">
-                   <i class="ficon bx bx-search"></i></a>
-                    <div class="search-input">
-                     <div class="search-input-icon"><i class="bx bx-search primary"></i></div>
-            <input class="input" type="text" placeholder="Explore Frest..." tabindex="-1"
-                data-search="template-search">
-              <div class="search-input-close"><i class="bx bx-x"></i></div>
-               <ul class="search-list"></ul>
-                </div>
-                 </li>
+            
 
 
 

@@ -62,8 +62,8 @@
                                 <td>{{ $researcher->points ?? 'لا توجد بيانات' }}</td>
                                 <td>{{ $researcher->reports_count > 0 ? intval($researcher->points / $researcher->reports_count) : 0 }}</td>
                                 <td>
-                                    <a href="{{ route('edit.researcher', $researcher->uuid) }}" class="btn btn-sm btn-primary">تعديل</a>
-                                    <a href="{{ route('delete.researcher', $researcher->uuid) }}" class="btn btn-sm btn-danger">حذف</a>
+                                    <a href="{{ route('edit.researcher', $researcher->uuid) }}" class="btn btn-sm btn-outline-dark btn-sm">تعديل</a>
+                                    <a href="{{ route('delete.researcher', $researcher->uuid) }}" class="btn btn-sm btn-outline-danger btn-sm">حذف</a>
                                 </td>
                             </tr>
                         @endforeach

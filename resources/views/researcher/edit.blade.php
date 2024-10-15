@@ -82,22 +82,22 @@
 
             <div class="form-group">
                 <label for="name">الاسم</label>
-                <input type="text" id="name" name="name" value="{{ $researcher->name }}" required>
+                <input type="text" id="name" name="name" value="{{ $researcher->name }}" >
             </div>
 
             <div class="form-group">
                 <label for="email">البريد الإلكتروني</label>
-                <input type="email" id="email" name="email" value="{{ $researcher->email }}" required>
+                <input type="email" id="email" name="email" value="{{ $researcher->email }}" >
             </div>
 
             <div class="form-group">
                 <label for="phone">الهاتف</label>
-                <input type="text" id="phone" name="phone" value="{{ $researcher->phone }}" required>
+                <input type="text" id="phone" name="phone" value="{{ $researcher->phone }}" >
             </div>
 
             <div class="form-group">
                 <label for="code">الرمز</label>
-                <input type="text" id="code" name="code" value="{{ $researcher->code }}" required>
+                <input type="text" id="code" name="code" value="{{ $researcher->code }}" >
             </div>
 
             <div class="form-group">
@@ -107,15 +107,15 @@
 
             <div class="form-group">
                 <label for="facebook">رابط الفيسبوك</label>
-                <input type="text" id="facebook" name="facebook" value="{{ $researcher->facebook }}" required>
+                <input type="text" id="facebook" name="facebook" value="{{ $researcher->facebook }}">
             </div>
 
             <div class="form-group">
                 <label for="linkedin">رابط لينكد إن</label>
-                <input type="text" id="linkedin" name="linkedin" value="{{ $researcher->linkedin }}" required>
+                <input type="text" id="linkedin" name="linkedin" value="{{ $researcher->linkedin }}">
             </div><div class="form-group">
                 <label for="github">رابط Github</label>
-                <input type="text" id="github" name="github" value="{{ $researcher->github }}" required>
+                <input type="text" id="github" name="github" value="{{ $researcher->github }}">
             </div>
 
             <div class="form-group">

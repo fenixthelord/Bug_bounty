@@ -113,3 +113,4 @@
         </div>
     </div>
 </div>
+@include('panel.static.footer')

@@ -1,3 +1,6 @@
+@include('panel.static.header')
+@include('panel.static.main')
+
 @extends('layouts.app')
 
 @section('content')
@@ -32,3 +35,4 @@
     </div>
 </div>
 @endsection
+@include('panel.static.footer')

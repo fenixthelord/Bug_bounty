@@ -2,13 +2,21 @@
 <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header" style="background-color: #101010;">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="#">
+            <li class="nav-item mr-auto">
+                <a class="navbar-brand" href="#">
                     <div class="brand-logo">
                      <img class="logo" src="{{ asset('app-assets/images/logo/bug.png') }}" />
                     </div>
                     <h2 class="brand-text mb-0" style="background-color:  ;">Bug Bounty</h2>
-                </a></li>
-            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="bx bx-x d-block d-xl-none font-medium-4 "></i><i class="toggle-icon bx bx-disc font-medium-4 d-none d-xl-block " data-ticon="bx-disc"></i></a></li>
+                </a>
+            </li>
+            <li class="nav-item nav-toggle">
+                <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+                    <i class="bx bx-x d-block d-xl-none font-medium-4 "></i>
+                    <i class="toggle-icon bx bx-disc font-medium-4 d-none d-xl-block " data-ticon="bx-disc">  
+                    </i>
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -34,11 +42,11 @@
             @endauth 
                              </a>
                               </ul>
-                 <ul class="menu-content">
-                    <li class="active"><a href="{{ route('homepage') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">الصفحة الرئيسية</span></a>
-                    </li>
-                    
-                </ul>
+
+            <ul class="menu-content">
+                <li class="active"><a href="{{ route('homepage') }}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="eCommerce">الصفحة الرئيسية</span></a>
+                </li>      
+            </ul>
                   
                 
 
@@ -108,4 +116,5 @@
 
  </div>
 </div>
+
 <!-- END: Main Menu-->

@@ -84,13 +84,13 @@ class ForgetPasswordController extends Controller
         }
         try {
             $otp = (new Otp())->validate($request->email, $request->otp);
-            //if ($otp->status == true) {
+            if ($otp->status == true) {
                 $user = Researcher::where('email', $request->email)->pluck("uuid")->first();
                 $data['uuid'] = $user;
                 return $this->SuccessResponse($data);
-           // } else {
-            //    return $this->requiredField('Invalid otp');
-           // }
+            } else {
+                return $this->requiredField('Invalid otp');
+            }
         } catch (\Exception $e) {
             return $this->handleException($e);
         }

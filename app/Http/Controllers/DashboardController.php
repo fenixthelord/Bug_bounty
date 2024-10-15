@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
 
         return view(
-            'panel.Dashboard.index',
+            'panel.dashboard.index',
             compact('companies', 'products',  'researchers', 'reports', 'pending', 'accept', 'reject', 'done')
         );
     }

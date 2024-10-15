@@ -4,91 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
-class AdminCompanyController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $comapnies=Company::all();
-
-        return view('company.index',['comapnies'=>$comapnies]); 
+class AdminCompanyController extends Controller {
+   
+    public function index() {
+        $companies=Company::all();
+        return view('company.index',['companies'=>$companies]); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($company)
-    {
-        $company=Company::where('name',$company)->first();
-        if($company){
+    public function show($company) {
+        $company=Company::where('name', $company)->first();
+        if ($company) {
         return view('company.show',['company'=>$company]);
-        }else{
+        }else {
             return view('error.404');
         }
     }
 
+    public function search(Request $request) {
+    $searchQuery = $request->input('company');
+    $companies = Company::where('name', 'LIKE', '%' . $searchQuery . '%')->get();
+    
+    $notFound = $companies->isEmpty();
 
-
-    public function search(Request $request)
-    {
-        $company=Company::where('name',$request->company)->first();
-        if($company){
-        return view('company.show',['company'=>$company]);
-        }else{
-            return view('error.404');
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    return view('company.index', compact('companies', 'notFound', 'searchQuery'));
     }
 }

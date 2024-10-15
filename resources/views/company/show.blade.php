@@ -1,6 +1,16 @@
+@include('panel.static.header')
+@include('panel.static.main')
+
 @extends('layouts.app')
 
 @section('content')
+
+<div class="text-center">
+    @if(session('success')) 
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif 
+</div>
+
 <div class="container mt-4" dir="rtl">
       <div class="card">
         <div class="card-header text-white" style="background-color: #0a0a0a;">
@@ -92,9 +102,32 @@
             </div>
             @endif
             <div class="mt-4" style="margin: 1rem;">
-              <a href="{{ route('admin.company') }}" class="btn btn-secondary"style="background-color: #0a0a0a;">عودة</a>
+              <a href="{{ route('admin.company') }}" class="btn btn-outline-secondary btn-sm"style="background-color: ;">عودة</a>
+
+            <form action="{{ route('company.destroy', $company->id) }}"method="POST" class="d-inline-block" onsubmit="return confirmDelete();">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger btn-sm">حذف الشركة</button>
+            </form>  
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+            <script>
+                function confirmDelete() {
+                    return Swal.fire({
+                        title: "هل أنت متأكد؟",
+                        text: "لن تتمكن من استعادة هذا!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "نعم، احذفه!"
+                    }).then((result) => {
+                        return result.isConfirmed;
+                    });
+                }
+            </script>
 @endsection
+@include('panel.static.footer')

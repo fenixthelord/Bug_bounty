@@ -11,7 +11,7 @@ class AdminController extends Controller {
         $this->middleware('auth');
     }
 
-    public function create(Request $request) {
+    public function create() {
         // dd($user);
         $user = auth()->user();
         if (!$user || !$user->isSuperAdmin()) {

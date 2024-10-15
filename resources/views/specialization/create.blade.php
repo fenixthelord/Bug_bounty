@@ -1,3 +1,5 @@
+@include('panel.static.header')
+@include('panel.static.main')
 
 @extends('layouts.app')
 
@@ -18,7 +20,7 @@
             @endif
 
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg- text-white">
                     <h3 class="card-title mb-0">إضافة اختصاص جديد</h3>
                 </div>
                 
@@ -36,8 +38,8 @@
                         </div>
 
                         <div class="form-group mt-4">
-                            <button type="submit" class="btn btn-success">إضافة</button>
-                            <a href="{{ route('specializations') }}" class="btn btn-secondary">إلغاء</a>
+                            <button type="submit" class="btn btn-outline-success btn-sm">إضافة</button>
+                            <a href="{{ route('specializations') }}" class="btn btn-outline-secondary btn-sm">إلغاء</a>
                         </div>
                     </form>
                 </div>
@@ -46,3 +48,4 @@
     </div>
 </div>
 @endsection
+@include('panel.static.footer')

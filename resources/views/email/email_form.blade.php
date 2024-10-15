@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head> <p>Designed by Qusai</p>
-                <a href="{{ route('home') }}" class="btn btn-danger">عودة</a>
+                <a href="{{ route('homepage') }}" class="btn btn-danger btn-sm">عودة</a>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,7 +59,6 @@
             </div>
         @endif
 
-        <!-- نموذج لإدخال الرسالة -->
         <form action="{{ route('send.email') }}" method="POST">
             @csrf
             <div class="mb-3">
@@ -77,7 +76,7 @@
                 <textarea id="messageContent" name="messageContent" class="form-control" rows="4" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-danger">إرسال البريد الإلكتروني</button>
+            <button type="submit" class="btn btn-outline-danger btn-sm">إرسال البريد الإلكتروني</button>
         </form>
     </div>
 </body>

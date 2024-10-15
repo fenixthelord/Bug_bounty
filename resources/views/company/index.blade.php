@@ -2,6 +2,13 @@
 @include('panel.static.main')
 
 <!-- BEGIN: Content-->
+
+<div class="text-center">
+    @if(session('success')) 
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif 
+</div>
+
 <div class="app-content content">
     <div class="content-overlay"></div>
     <div class="content-wrapper">
@@ -14,7 +21,7 @@
                         @csrf
                         <div class="input-group" style="max-width: 400px;">
                             <input class="form-control" type="search" placeholder="بحث عن شركة" aria-label="Search" name="company" value="{{ request('company') }}" style="border-radius: 20px; border: 1px solid #ced4da;" id="searchInput">
-                            <button class="btn btn-danger" type="submit" style="border-radius: 20px; padding: 8px 15px;">بحث</button>
+                            <button class="btn btn-outline-danger btn-sm" type="submit" style="border-radius: 20px; padding: 8px 15px;">بحث</button>
                         </div>
                     </form>
                 </div>
@@ -27,6 +34,7 @@
             @endif
 
             <div class="row row-cols-1 row-cols-md-2 g-4 d-flex justify-content-center mt-4">
+
                 @foreach($companies as $company)
                     <div class="col">
                         <div class="card border-light shadow-sm" style="background-color: #e0e0e0; border-radius: 12px;">
@@ -34,8 +42,9 @@
                             <div class="card-body text-dark">
                                 <h5 class="card-title text-center">{{ $company->name ?? 'لا توجد بيانات' }}</h5>
                                 <p class="card-text text-center">{{ $company->email ?? 'لا توجد بيانات' }}</p>
-                                <a href="{{ route('admin.company.show', $company->name) }}" class="btn btn-danger stretched-link text-center" style="padding: 10px 15px; border-radius: 20px;">اقرأ المزيد</a>
-                            </div>
+
+                                <a href="{{ route('admin.company.show', $company->name) }}" class="btn btn-outline-danger btn-sm stretched-link text-center" style="padding: 10px 15px; border-radius: 20px;">اقرأ المزيد</a>
+                            </div>  
                         </div>
                     </div>
                 @endforeach
