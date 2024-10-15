@@ -26,10 +26,10 @@ use Illuminate\Support\Facades\Route;
 
 
 /*
-    ****************************************
+ ****************************************
  ************* Authentication Routes *****************
-    ****************************************
-*/
+ ****************************************
+ */
 
 Route::post('/company/login', [CompanyLoginController::class, 'login']);
 Route::post('/researcher/login', [ResearcherLoginController::class, 'login']);
@@ -42,19 +42,23 @@ Route::post('/researcher/register/{uuid}', [ResearcherRegisterController::class,
 
 
 /*
-    ****************************************
+ ****************************************
  ************* Company Routes *****************
-    ****************************************
-*/
+ ****************************************
+ */
 
 Route::group(['prefix' => 'company'], function () {
     # Home
     // Route::get('/home', [CompanyController::class, 'index']);
-    
+    #researcher by uid
+
+
     # Authentication
     Route::group(['middleware' => ['auth_company']], function () {
         # Home
         Route::get('/home', [CompanyController::class, 'index']);
+        Route::get('/researcher/{uuid}', [CompanyController::class, 'researcherdetailes']);
+
 
         # Products
         Route::get('/all_product', [ProductController::class, 'index']);
@@ -70,7 +74,6 @@ Route::group(['prefix' => 'company'], function () {
 
         # Change Password
         Route::post('/changePassword', [CompanyChangePasswordController::class, 'ChangePassword']);
-
         # Logout
         Route::post('/company/logout', [CompanyLoginController::class, 'logout']);
     });
@@ -79,26 +82,25 @@ Route::group(['prefix' => 'company'], function () {
 
 
 /*
-    ****************************************
+ ****************************************
  ************* Researcher Routes *****************
-    ****************************************
+ ****************************************
  */
 
 
 Route::prefix('researcher')->group(function () {
 
-    # forget Password  
+    # forget Password
     Route::post('/forgetPassword', [ForgetPasswordController::class, 'GenerateOTP']);
     Route::post('/validateOtp', [ForgetPasswordController::class, 'ValidateOtp']);
     Route::post('/resetPassword', [ForgetPasswordController::class, 'ResetPassword']);
 
-    #Home 
-    Route::get('/home', [ResearcherController::class, 'searchCompany']);
-    Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
 
     # Authentication
     Route::middleware('auth_researcher')->group(function () {
-        Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
+        #Home
+        Route::get('/home', [ResearcherController::class, 'searchCompany']);
+        Route::get('/company/{uuid}', [ResearcherController::class, 'company']);
 
         # Reports
         Route::get('/reports-researcher', [ReportController::class, 'ReportByResearcher']);
@@ -108,6 +110,7 @@ Route::prefix('researcher')->group(function () {
         # Profile
         Route::get('/profile', [ResearcherController::class, 'editresearsher']);
         Route::post('profile', [ResearcherController::class, 'updateprofile']);
+        Route::post('/changePassword', [ResearcherChangePasswordController::class, 'ChangePassword']);
 
         Route::post('/researcher/logout', [ResearcherLoginController::class, 'logout']);
     });
