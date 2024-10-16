@@ -19,7 +19,7 @@ class ResearcherLoginController extends Controller
     {
         $rules = [
             'email' => [
-                'required',
+                'required', 
                 'string',
                 'email',
                 'exists:researchers,email',
