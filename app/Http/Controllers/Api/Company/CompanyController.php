@@ -25,8 +25,14 @@ class CompanyController extends Controller
 
     public function index()
     {
+        $pageNumber = request()->input('page');
+        $perPage = 10;
+        $researchers = Researcher::paginate($perPage, ['*'], 'page', $pageNumber);
+        if ($pageNumber > $researchers->lastPage() || $pageNumber < 1) {
+            return $this->apiResponse(null, false, 'Invalid page number', 400);
+        }
 
-        $resercher = Researcher::all();
+
         $company_id = auth('company')->user()->id;
         //  $products=product::where('company_id',$company_id)->get();
         $p_id = Product::where('company_id', $company_id)->pluck('id')->toArray();
@@ -48,11 +54,17 @@ class CompanyController extends Controller
         $percentpending = $countpend / $x * 100;
         $percentaccept = $countaccept / $x * 100;
 
-        $data['researcher'] = ResearcherResource::collection($resercher);
-        $data['count_pending'] = $countpend;
-        $data['count_accept'] = $countaccept;
-        $data['count_pending_percent'] = $percentpending;
-        $data['count_accept_percent'] = $percentaccept;
+        $data = [
+            'researchers' => ResearcherResource::collection($researchers),
+            'current_page' => $researchers->currentPage(),
+            'next_page' => $researchers->nextPageUrl(),
+            'previous_page' => $researchers->previousPageUrl(),
+            'total_pages' => $researchers->lastPage(),
+            'count_pending' => $countpend,
+            'count_accept' => $countaccept,
+            'count_pending_percent' => $percentpending,
+            'count_accept_percent' => $percentaccept,
+        ];
 
         return $this->apiResponse($data, true, null, 200);
     }
