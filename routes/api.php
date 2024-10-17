@@ -71,6 +71,7 @@ Route::group(['prefix' => 'company'], function () {
 
         # Reports
         Route::get('/all_report', [ReportController::class, 'ReportByCompany']);
+        Route::post("/all_report/rate/{uuid}", [ReportController::class, "Rate"]);
 
         # Change Password
         Route::post('/changePassword', [CompanyChangePasswordController::class, 'ChangePassword']);

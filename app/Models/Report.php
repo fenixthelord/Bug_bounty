@@ -19,7 +19,8 @@ class Report extends Model
         'status',
         'review_status',
         'user_id',
-        'canceled_note'
+        'canceled_note',
+        'rate',
     ];
     
     public function product()

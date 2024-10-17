@@ -10,7 +10,9 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Traits\GeneralTrait;
 use App\Models\Product;
+use Exception;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ReportController extends Controller
 {
@@ -22,7 +24,6 @@ class ReportController extends Controller
             $reports = Report::where('researcher_id', $idreseacher)->get();
             $data['reports'] = $reports->count() > 0 ? ReportResourseResearch::collection($reports) : null;
             return $this->apiResponse($data, true, null, 200);
-
         } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
@@ -88,5 +89,45 @@ class ReportController extends Controller
         }
         $data['report'] = ReportResource::collection($report);
         return $this->SuccessResponse($data);
+    }
+
+    public function Rate($uuid, Request $request)
+    {
+        $validator = Validator::make(
+            [
+                'uuid' => $uuid,
+                "rate" => request('rate'),
+            ],
+            [
+
+                'uuid' => [
+                    'required',
+                    Rule::exists("reports")->where('uuid', $uuid),
+                ],
+
+                'rate' => 'required|integer|between:0,5',
+            ]
+        );
+        if ($validator->fails()) {
+            /**
+             * data = null 
+             * error = $validator->errors()->first()
+             * status code = 400 
+             */
+            return $this->ValidationError($request->all(), $validator);
+        }
+        try {
+            $report = Report::where('uuid', $uuid)->first();
+
+            if ($report->update(['rate' => $request->rate])) {
+                $data = [
+                    'message' => "تمت اضافة التقييم",
+                ];
+                return $this->SuccessResponse($data);
+            }
+            return $this->requiredField("حدث خطا , حاول مرة اخرى");
+        } catch (Exception $e) {
+            return $this->handleException($e);
+        }
     }
 }

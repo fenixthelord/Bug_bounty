@@ -20,7 +20,9 @@ class ReportResourseResearch extends JsonResource
             'company_name' => $this->product?->company?->name,
             'created_at' => $this->created_at,
             'file' => $this->file,
-            'status' => $this->status
+            'status' => $this->status,
+            'rate' => $this->rate,
+
         ];
     }
 }

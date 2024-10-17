@@ -20,7 +20,8 @@ class ReportResource extends JsonResource
             'researcher' => ResearcherResource::make($this->researcher),
             'created_at' => $this->created_at,
             'file' => $this->file,
-            'status' => $this->status
+            'status' => $this->status,
+            'rate' => $this->rate,
         ];
     }
 }
