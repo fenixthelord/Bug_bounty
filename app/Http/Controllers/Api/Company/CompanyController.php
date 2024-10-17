@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Http\Traits\GeneralTrait;
 use App\Http\Resources\CompanyResource\CompanyResource;
+use App\Http\Resources\ReportResourseResearch;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -76,7 +77,7 @@ class CompanyController extends Controller
         // $companies = company::where('uuid', $request->uuid)->first();
         $companies = auth('company')->user();
         if (!$companies) {
-            return $this->notFoundResponse('هذه الشركة غير موجودة ', );
+            return $this->notFoundResponse('هذه الشركة غير موجودة ',);
         }
         # ***************
 
@@ -129,14 +130,11 @@ class CompanyController extends Controller
         // dd($reports);
         if ($researcher) {
 
-            $data['researcher-data'] = new ResearcherResource($researcher);
-            $data['accepted_reports'] =ReportResource::collection($reports);
+            $data['researcher'] = new ResearcherResource($researcher);
+            $data['accepted_reports'] = ReportResourseResearch::collection($reports);
             return $this->apiResponse($data, 1, null, 200);
         } else {
             return $this->apiResponse(null, 0, 'researcher not found', 404);
         }
-
-
-
     }
 }

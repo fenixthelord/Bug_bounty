@@ -32,8 +32,20 @@ class ResearcherController extends Controller
                 $query->orderBy('created_at', 'desc');
             }
 
-            $companies = CompanyResource::collection($query->get());
-            $data['companies'] = $companies;
+            $pageNumber = $request->input('page');
+            $perPage = 10;
+            $companies = $query->paginate($perPage, ['*'], 'page', $pageNumber);
+            if ($pageNumber > $companies->lastPage() || $pageNumber < 1) {
+                return $this->apiResponse(null, false, 'Invalid page number', 400);
+            }
+            $data = [
+                'companies' => CompanyResource::collection($companies),
+                'current_page' => $companies->currentPage(),
+                'next_page' => $companies->nextPageUrl(),
+                'previous_page' => $companies->previousPageUrl(),
+                'total_pages' => $companies->lastPage(),
+            ];
+
             return $this->SuccessResponse($data);
         } catch (\Exception $e) {
             $this->handleException($e);
@@ -97,7 +109,7 @@ class ResearcherController extends Controller
             'github' => $request->github ?? $researcher->github,
         ]);
         $data['researcher'] = new ResearcherResource($researcher);
-        return $this->apiResponse($data, true, 'تم تحديث معلومات الباحث بنجاح', 200);
+        return $this->apiResponse($data, true, null, 200);
     }
 
 
