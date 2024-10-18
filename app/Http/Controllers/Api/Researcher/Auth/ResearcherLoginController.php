@@ -71,8 +71,9 @@ class ResearcherLoginController extends Controller
                 'code' => true,
                 ResearcherResource::make($researcher)
             ];
-        dd($token);
+        // dd($token);
         // return ()->successResponseWithToken($token);
+        return $this->SuccessResponse($data);
     }
 
     public function logout()

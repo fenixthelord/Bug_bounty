@@ -18,12 +18,26 @@ class ProductController extends Controller
      */
     public function index()
     {
+
+        $pageNumber = request()->input('page' , 1);
+        $perPage = 10;
+
+
         $id = auth('company')->user()->id;
-        $product = Product::where('company_id', $id)->get();
-        if (!$product) {
-            return $this->apiResponse(null, false, 'not found', 400);
+        $products = Product::where('company_id', $id)->paginate($perPage, ['*'], 'page', $pageNumber);
+
+        if ($pageNumber > $products->lastPage() || $pageNumber < 1) {
+            return $this->apiResponse(null, false, 'Invalid page number', 400);
         }
-        $data['products'] = ProductResource::collection($product);
+        $data = [
+            'products' =>  ProductResource::collection($products),
+            'current_page' => $products->currentPage(),
+            'next_page' => $products->nextPageUrl(),
+            'previous_page' => $products->previousPageUrl(),
+            'total_pages' => $products->lastPage(),
+        ];
+
+
         return $this->apiResponse($data, true, null, 200);
     }
 

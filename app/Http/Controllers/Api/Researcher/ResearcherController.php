@@ -32,20 +32,8 @@ class ResearcherController extends Controller
                 $query->orderBy('created_at', 'desc');
             }
 
-            $pageNumber = $request->input('page');
-            $perPage = 10;
-            $companies = $query->paginate($perPage, ['*'], 'page', $pageNumber);
-            if ($pageNumber > $companies->lastPage() || $pageNumber < 1) {
-                return $this->apiResponse(null, false, 'Invalid page number', 400);
-            }
-            $data = [
-                'companies' => CompanyResource::collection($companies),
-                'current_page' => $companies->currentPage(),
-                'next_page' => $companies->nextPageUrl(),
-                'previous_page' => $companies->previousPageUrl(),
-                'total_pages' => $companies->lastPage(),
-            ];
-
+            $companies = CompanyResource::collection($query->get());
+            $data['companies'] = $companies;
             return $this->SuccessResponse($data);
         } catch (\Exception $e) {
             $this->handleException($e);
@@ -97,10 +85,11 @@ class ResearcherController extends Controller
         }
         //return response(($request)) ; }}
         //التحديث
+        // dd($researcher);
         $researcher->update([
             'name' => $request->name,
             'email' => $request->email,
-            'description' => $request->description ?? $researcher->description,
+            'description' => $request->description,
             'image' => $request->image ?? $researcher->image,
             'code' => $request->code ?? $researcher->code,
             'phone' => $request->phone ?? $researcher->phone,

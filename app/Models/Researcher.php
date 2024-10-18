@@ -23,6 +23,7 @@ class Researcher extends Model
         'phone',
         'code',
         'image',
+        'description',
         'points',
         'facebook',
         'linkedin',

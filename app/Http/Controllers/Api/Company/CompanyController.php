@@ -25,7 +25,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $pageNumber = request()->input('page' , 1 );
+        $pageNumber = request()->input('page', 1);
         $perPage = 10;
         $researchers = Researcher::paginate($perPage, ['*'], 'page', $pageNumber);
         if ($pageNumber > $researchers->lastPage() || $pageNumber < 1) {
@@ -125,8 +125,8 @@ class CompanyController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'type' => $request->type,
-            'description' => $request->description ?? $companies->description,
-            'logo' => $logo ?? $companies->logo,
+            'description' => $request->description,
+            'logo' => $logo,
             'domain' => $request->domain ?? $companies->domain,
             'employess_count' => $request->employess_count,
 
