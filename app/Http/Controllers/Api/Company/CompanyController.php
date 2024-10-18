@@ -25,7 +25,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $pageNumber = request()->input('page');
+        $pageNumber = request()->input('page' , 1 );
         $perPage = 10;
         $researchers = Researcher::paginate($perPage, ['*'], 'page', $pageNumber);
         if ($pageNumber > $researchers->lastPage() || $pageNumber < 1) {

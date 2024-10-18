@@ -20,9 +20,24 @@ class ReportController extends Controller
     public function ReportByResearcher(Request $request)
     {
         try {
+
             $idreseacher = auth('researcher')->user()->id;
-            $reports = Report::where('researcher_id', $idreseacher)->get();
-            $data['reports'] = $reports->count() > 0 ? ReportResourseResearch::collection($reports) : null;
+
+
+            $pageNumber = request()->input('page', 1);
+            $perPage = 10;
+            $reports = Report::where('researcher_id', $idreseacher)->paginate($perPage, ['*'], 'page', $pageNumber);
+            if ($pageNumber > $reports->lastPage() || $pageNumber < 1) {
+                return $this->apiResponse(null, false, 'Invalid page number', 400);
+            }
+            $data = [
+                'researchers' => $reports->count() > 0 ? ReportResourseResearch::collection($reports) : null,
+                'current_page' => $reports->currentPage(),
+                'next_page' => $reports->nextPageUrl(),
+                'previous_page' => $reports->previousPageUrl(),
+                'total_pages' => $reports->lastPage(),
+
+            ];
             return $this->apiResponse($data, true, null, 200);
         } catch (\Exception $ex) {
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
@@ -83,11 +98,29 @@ class ReportController extends Controller
         $company = auth('company')->user();
         // $company = Company::find($company_id);
         // $report = $company->reports()->get();
-        $report = Report::whereNotIn('status', ['pending', 'reject'])->whereIn('product_id', Product::where('company_id', $company->id)->pluck('id')->toArray())->get();
-        if (!$report) {
-            return $this->apiResponse(null, false, 'not found', 404);
+
+
+        $pageNumber = request()->input('page');
+        $perPage = 10;
+
+        $reports = Report::whereNotIn('status', ['pending', 'reject'])
+            ->whereIn(
+                'product_id',
+                Product::where('company_id', $company->id)->pluck('id')->toArray()
+            )
+            ->paginate($perPage, ['*'], 'page', $pageNumber);
+
+        if ($pageNumber > $reports->lastPage() || $pageNumber < 1) {
+            return $this->apiResponse(null, false, 'Invalid page number', 400);
         }
-        $data['report'] = ReportResource::collection($report);
+        $data = [
+            'reports' => ReportResource::collection($reports),
+            'current_page' => $reports->currentPage(),
+            'next_page' => $reports->nextPageUrl(),
+            'previous_page' => $reports->previousPageUrl(),
+            'total_pages' => $reports->lastPage(),
+        ];
+
         return $this->SuccessResponse($data);
     }
 
