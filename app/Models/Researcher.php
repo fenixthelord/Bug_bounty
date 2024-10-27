@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
@@ -14,6 +15,11 @@ class Researcher extends Model
 {
 
     use HasApiTokens,HasFactory,SoftDeletes,Uuid;
+
+
+    protected $append = [
+        "rate",
+    ] ;
 
     protected $fillable = [
         'uuid',
@@ -35,6 +41,15 @@ class Researcher extends Model
 
     public function Products() {
         return $this->belongsToMany(Product::class,Report::class);
+    }
+
+    public function Rates () : HasMany {
+        return $this->hasMany(RateResearcher::class);
+    }
+
+    # Append Methods : 
+    public function getRateAttribute () {
+        return $this->Rates()->average("rate");
     }
 
 
@@ -67,4 +82,5 @@ class Researcher extends Model
 
         return $rating;  
     }  
+    
 }
